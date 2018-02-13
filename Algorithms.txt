@@ -1,0 +1,19 @@
+QRENTCRM
+VELA
+VTRACK
+APPLICATION LETTER MUNASHE
+
+
+Algorithm When you click button Processproforma
+------------------------------------------------
+$cont=Select PnNo from AccTable where PnNo!='0'
+$count=$cont+1;
+$concatenated="PF".$count;
+Insert (DocNO,Sales) values($concatenated,$_SESSION["Name"])into InvSerialsHeader;
+Update Acctable set PnNo=$count;
+
+<form action="process.php?action=start-proforma"
+
+Algorithm When you add Line to proforma
+---------------------------------------
+Insert into InvSerialsLines()
