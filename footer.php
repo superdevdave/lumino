@@ -20,13 +20,13 @@
 	<script type="text/javascript" src="js/easypiechart-data.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="js/custom.js"></script>
-	
-	
-	
-	
+
+
+
+
 	<script type="text/javascript">
 	var currentRowId;
-	
+
 	//Load Datatables
 $(window).load(function() {
  $('#example').DataTable({
@@ -45,19 +45,19 @@ $(window).load(function() {
             selector: 'td:first-child'
         },
         order: [[ 1, 'asc' ]]
-		
+
 
 	});
-	
+
 } );
 
 $(document).ready(function (){
-	
+
 	//Get Id of Selected DataTable Row
  $('#example tbody').on('click', '.select-checkbox', function(e){
- 
+
       var $row = $(this).closest('tr');
-	  
+
 	  var table=$('#example').DataTable();
 
       // Get row data
@@ -65,12 +65,12 @@ $(document).ready(function (){
 
       // Get row ID
      var rowId = data[0];
-	  
+
 	  currentRowId=rowId;
 	  alert(currentRowId);
-	  
 
-      
+
+
       if(this.checked){
          $row.addClass('selected');
       } else {
@@ -83,14 +83,14 @@ $(document).ready(function (){
       // Prevent click event from propagating to parent
       e.stopPropagation();
    });
-   
+
    ///THIS IS FOR THE PROCESS PROFORMA ADD ITEMS SCRIPT
 			var vatTotal=0;
 			var grandTotal=0;
 			var grandvat=0;
     $(".add-row").click(function(){
             var store = $("#store").val();
-			
+
             var itemdescription = $("#itemdescription").val();
             var unitprice = $("#unitprice").val();
              var qty = $("#qty").val();
@@ -100,12 +100,12 @@ $(document).ready(function (){
 				  grandvat+=vat;
 			   grandTotal+=total;
             var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + store + "</td><td>" + itemdescription + "</td><td>" + unitprice + "</td><td>" + qty + "</td><td>" + total + "</td></tr>";
-         
+
 			$("table tbody").append(markup);
 		$("#grandtotal").html(grandTotal);
 		$("#grandvat").html(grandvat);
         });
-		
+
 		$('#button').click(function () {
     var ids = $.map(table.rows('.selected').data(), function (item) {
         return item[0]
@@ -114,17 +114,20 @@ $(document).ready(function (){
     alert(table.rows('.selected').data().length + ' row(s) selected');
 });
 
-        
+
         // Find and remove selected table rows
         $(".delete-row").click(function(){
             $("table tbody").find('input[name="record"]').each(function(){
             	if($(this).is(":checked")){
+
                     $(this).parents("tr").remove();
                 }
+
             });
         });
-   
-   
+
+
+
 });
 
 //Allow Multiple Modal Dialogs on same page
@@ -134,6 +137,6 @@ $(document).on('show.bs.modal', '.modal', function () {
     }
 });
 </script>
-		
+
 </body>
 </html>
