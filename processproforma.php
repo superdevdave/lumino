@@ -32,18 +32,18 @@ include("head.php");?>
 				<li class="active">Documents</li>- Process Proforma Invoice
 			</ol>
 		</div><!--/.row-->
-		
+
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Documents</h1> 			<a href="documents.php"><button data-toggle="modal" data-target="#addOppModal class="btn btn-default"><em class="fa fa-eye color-red"></em>View All Documents</button></a> 
-			
-			
+				<h1 class="page-header">Documents</h1><a href="documents.php"><button data-toggle="modal" data-target="#addOppModal class="btn btn-default"><em class="fa fa-eye color-red"></em>View All Documents</button></a>
+
+
 			</div>
 		</div><!--/.row-->
-		
+
 			<div class="row">
 			<br>
-<?php 
+<?php
 
 
 
@@ -64,7 +64,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 /*
 $sql = "SELECT * from InvSerialsHeader";
 $result = odbc_exec($connection, $sql);
@@ -98,25 +98,42 @@ $result = odbc_exec($connection, $query);
 //echo odbc_error($connection);
 ?>
 
+<div>
+<form method="post" action="?action=addopp">
+  <div class="form-group">
+  
+    <label  for="OpportunityName">Customer </label>
+    <input  required type="text" class="form-control" id="CustomerName" placeholder="Customer" >
 
-        <form action="">
-  <div class="form-group">
-    <label for="OpportunityName">Customer </label>
-    <input required type="text" class="form-control" id="CustomerName" placeholder="Customer" >
   </div>
-    
+
   <div class="form-group">
-    <label for="SalesType">Sales Type</label>
- <select required class="form-control" id="SalesType">
+   
+    <label  for="SalesType">Sales Type</label>
+ <select  required class="form-control" id="SalesType">
       <option>Schools</option>
       <option>Corporates</option>
 	   <option>Other</option>
-    </select> </div>
-
-     <div class="form-group">
-    <label for="Laptops">Contact Name</label>
-    <input required type="text" class="form-control" id="Laptops" placeholder="0">
+    </select> 
   </div>
+
+    <div class="form-group">
+     
+   <label class="" for="Rental">Rental Term</label>
+   <input  required type="text" class="form-control" id="RentalTerm" placeholder="0">
+   <select  required class="form-control" id="RentalDescription">
+        <option>Days</option>
+        <option>Weeks</option>
+  	   <option>Months</option>
+      <option>Years</option>
+      </select>
+ </div>
+     <div class="form-group">
+         
+    <label   for="ContactName">Contact Name</label>
+    <input  required type="text" class="form-control" id="Laptops" placeholder="0">
+  
+</div>
    <div class="form-group">
     <label for="PhoneNumber">Phone Number</label>
     <input required type="text" class="form-control" id="PhoneNumber" placeholder="e.g 0772907676">
@@ -130,7 +147,7 @@ $result = odbc_exec($connection, $query);
     <input required type="text" class="form-control" id="Address2" placeholder="Harare">
   </div>
 
-   
+
    <h4><strong>Invoice Line Items</strong></h4>
 
       <div class="form-group">
@@ -147,14 +164,14 @@ $result = odbc_exec($connection, $query);
 				<option value="020">Other</option>
         </select>
 		  </div>
-       
+
            <input type="text" id="itemdescription" placeholder="Description">
         <input type="text" id="unitprice" placeholder="Unit Price">
          <input type="text" id="qty" placeholder="Qty">
-         <input typ
-    	<input type="button" class="add-row" value="Add Item">
-		 <button type="button" class="delete-row">Delete Selected Item</button>
     
+    	<input type="button" class="add-row" value="Add Item">
+		<button type="button" class="delete-row">Delete Selected Item</button>
+
     <table>
         <thead>
             <tr>
@@ -168,7 +185,7 @@ $result = odbc_exec($connection, $query);
         </thead>
         <tbody>
             <tr>
-             
+
             </tr>
         </tbody>
 		<tfoot>
@@ -176,25 +193,25 @@ $result = odbc_exec($connection, $query);
 			<td></td>
 			<td></td>
 			<td></td>
-			
+
 			<td><strong>VAT</strong></td>
 			<td id="grandvat"></td>
-         </tr>       
-		
+         </tr>
+
 		<tr><td></td>
 			<td></td>
 			<td></td>
 			<td></td>
-			
+
 			<td><strong>Grand Total(Incl VAT)</strong></td>
 			<td id="grandtotal"></td>
-           </tr>     
+           </tr>
 		</tfoot>
     </table>
-   
- 
+
+
  <div class="form-group">
-    <label for="Details">Invoice Summary Details</label>
+   <h4><strong> <label for="Details">Invoice Summary Details</label></strong></h4>
     <input required type="text" class="form-control" id="Details" placeholder="eg. 10x Dell E6420 laptops,10 desktops,Delivery Charge">
   </div>
      <div class="form-group">
@@ -202,21 +219,14 @@ $result = odbc_exec($connection, $query);
     <input required type="text" class="form-control" id="Remarks" placeholder="Remarks">
   </div>
   </form>
- </div>
       </div>
-      
- 
-</div>
 
 
 
 
-  </div>
-</div>
-</div>
 
-</div>
-</div>
+
+
 
 
 
@@ -225,8 +235,5 @@ $result = odbc_exec($connection, $query);
 
 <?php
 include("footer.php");
-
-
-
 
 ?>

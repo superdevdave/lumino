@@ -15,7 +15,7 @@ include("head.php");?>
 			<div class="col-lg-12">
 				<h1 class="page-header">Documents</h1> <button class="btn btn-default"><span class="fa fa-add"></span><em class="fa fa-eye color-red"> </em> View Selected Document</button> 
 			
-				<a href="processproforma.php"><button data-toggle="modal" data-target="#addOppModal class="btn btn-default"><em class="fa fa-file color-red"></em> Process Proforma Invoice</button></a> 	
+				<button data-toggle="modal" data-target="#processProfModal" class="btn btn-default"><em class="fa fa-file color-red"></em>  Generate Proforma Invoice</button>
 	
 			</div>
 		</div><!--/.row-->
@@ -107,7 +107,7 @@ echo $query;
 echo odbc_error($connection);
 ?>
 
-<!-- Add Opportunity Modal -->
+<!-- View Document Modal -->
 <div id="addOppModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -192,165 +192,172 @@ echo odbc_error($connection);
   </div>
 </div>
 
-<!-- Edit Opportunity Modal -->
-<div id="editOppModal" class="modal fade" role="dialog">
+
+
+
+    <!-- Process Proforma Modal-->
+<div id="processProfModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
+
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Opportunity Details</h4>
+        <h4 class="modal-title">Generate Proforma Invoice</h4>
       </div>
       <div class="modal-body">
-        <form action="">
+      <form method="post" action="?action=addopp">
   <div class="form-group">
-    <label for="OpportunityName">Opportunity Title</label>
-    <input required type="text" class="form-control" id="OpportunityName" placeholder="Name of Opportunity">
-  </div>
   
-    <div class="form-group">
-    <label for="OpportunityName">Organisation/Company Name</label>
-    <input required type="text" class="form-control" id="Organisation" placeholder="Organisation/Company Name">
+    <label  for="OpportunityName">Customer </label>
+    <input  required type="text" class="form-control" id="CustomerName" placeholder="Customer" >
+
   </div>
-  
+
   <div class="form-group">
-    <label for="SalesType">Sales Type</label>
- <select required class="form-control" id="SalesType">
-      <option>Daily Rental</option>
-      <option>Weekly Rental</option>
-	   <option>Monthly Rental</option>
-	   <option>Quartely Rental</option>
-	   <option>Termly Rental</option>
-	      <option>Yearly Rental</option>
-      <option>HirePurchase</option>
-      <option>OutrightSales</option>
-      <option>Donation</option>
+   
+    <label  for="SalesType">Sales Type</label>
+ <select  required class="form-control" id="SalesType">
+      <option>Schools</option>
+      <option>Corporates</option>
 	   <option>Other</option>
-    </select> </div>
-  </form>
-     <div class="form-group">
-    <label for="Laptops">No of Laptops</label>
-    <input required type="text" class="form-control" id="Laptops" placeholder="0">
+    </select> 
   </div>
-   <div class="form-group">
-    <label for="Desktops">No of Desktops</label>
-    <input required type="text" class="form-control" id="Desktops" placeholder="0">
-  </div>
-   <div class="form-group">
-    <label for="Desktops">No of Servers</label>
-    <input required type="text" class="form-control" id="Desktops" placeholder="0">
-  </div>
-   <div class="form-group">
-    <label for="Monitors">No of Monitors</label>
-    <input required type="text" class="form-control" id="Monitorss" placeholder="0">
-  </div>
-   <div class="form-group">
-    <label for="Projectors">No of Projectors</label>
-    <input required type="text" class="form-control" id="Projectors" placeholder="0">
-  </div>
-   <div class="form-group">
-    <label for="Projectors">Networking Equipment</label>
-    <input required type="text" class="form-control" id="Networking" placeholder="0">
-  </div>
-      <div class="form-group">
-    <label for="RentalAmount">RentalAmount</label>
-    <input required type="text" class="form-control" id="RentalAmount" placeholder="$ Potential Revenue">
-  </div>
-   <div class="form-group">
-    <label for="MaturityDate">Expected Maturity Date</label>
-    <input required type="date" class="form-control" id="MaturityDate" placeholder="Expected Date of Oppoturnity Maturity">
-  </div>
-     <div class="form-group">
-    <label for="ContactPerson">Contact Person</label>
-    <input type="text" class="form-control" id="ContactPerson" placeholder="Full Name of Contact">
-  </div>
-       <div class="form-group">
-    <label for="ContactPhone">Contact Phone</label>
-    <input type="text" class="form-control" id="ContactPhone" placeholder="Phone...Optional">
-  </div>
-     <div class="form-group">
-    <label for="ContactEmail">Contact Email</label>
-    <input type="text" class="form-control" id="ContactEmail" placeholder="Email...Optional">
-  </div>
-   <div class="form-group">
-    <label for="Description">Description & Notes</label>
-<textarea class="form-control" rows="3" id="Description">
- </textarea>
- </div>
 
-      </div>
-      <div class="modal-footer">
-           <input type="submit" class="btn btn-default" value="Save"> 
+    <div class="form-group">
      
-		<button type="button" class="btn btn-default" data-dismiss="modal"> <em class="fa fa-close color-red"></em> Close</button>
-      </div>
-    </div>
-  </form>
+   <label class="" for="Rental">Rental Term</label>
+   <input  required type="text" class="form-control" name="RentalTerm" id="RentalTerm" placeholder="0">
+   <select  required class="form-control" id="RentalDescription">
+        <option>Days</option>
+        <option>Weeks</option>
+  	   <option>Months</option>
+      <option>Years</option>
+      </select>
+ </div>
+     <div class="form-group">
+         
+    <label   for="ContactName">Contact Name</label>
+    <input  required type="text" class="form-control" id="Laptops" placeholder="0">
+  
+</div>
+   <div class="form-group">
+    <label for="PhoneNumber">Phone Number</label>
+    <input required type="text" class="form-control" id="PhoneNumber" placeholder="e.g 0772907676">
   </div>
-</div>
-
-
-
-
-<!-- Close Opportunity Modal -->
-<div id="closeOppModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Close Deal-Successful Opportunity</h4>
-      </div>
-      <div class="modal-body">
-       <form>
-	   <div class="form-group">
-	   <div class="form-control">
-	   <form>
-	   <label for="contractsigned">MRA Contract signed</label>
-	   <input type="checkbox" id="contractsigned" value="Yes" name="contractsigned">
-	   
-	      </div>
-		  	   <div class="form-control">
-	   	   <label for="goodsdelivered">Goods Delivered</label>
-		   	   <input type="checkbox" id="goodsdelivered" value="Yes" name="goodsdelivered">
-		   </div>
-	   </div>
-	     </div>
-		  	   <div class="form-control">
-
-		      <button type="submit" class="btn btn-default" ><em class="fa fa-save color-red"></em>Save</button>
-		   </div>
-	   </div>
-	   </div>
-	   </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
+   <div class="form-group">
+    <label for="Address1">Address1</label>
+    <input required type="text" class="form-control" id="Address1" placeholder="e.g 8 George Avenue Msasa">
   </div>
-</div>
-</div>
+   <div class="form-group">
+    <label for="Address2">Address2</label>
+    <input required type="text" class="form-control" id="Address2" placeholder="Harare">
+  </div>
 
-<div id="cancelOppModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<div class="form-group">
+   <h4><strong> <label for="Details">Invoice Summary Details</label></strong></h4>
+    <input required type="text" class="form-control" id="Details" placeholder="eg. 10x Dell E6420 laptops,10 desktops,Delivery Charge">
+  </div>
+     <div class="form-group">
+    <label for="Projectors">Remarks</label>
+    <input required type="text" class="form-control" id="Remarks" placeholder="Remarks">
+  </div>
+    <div class="form-group">
+    <label for="Deposit">Deposit Period(in months)</label>
+    <input required type="number"  class="form-control" id="DepositPeriod" placeholder="0">
+  </div>
+  <div class="form-group">
+    <label for="Deposit">Deposit Amount</label>
+    <input  type="number"  class="form-control" id="DepositAmount" placeholder="0">
+  </div>
+    <div class="form-group">
+    <label for="Deposit">Discount Amount</label>
+    <input  type="number"  class="form-control" id="DiscountAmount" placeholder="0">
+  </div
+  <div class="form-group">
+   <h4><strong>Invoice Line Items</strong></h4>
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Cancel Unsuccessful Deal\Opportunity</h4>
-      </div>
-      <div class="modal-body">
-       <form>
-	   <div class=""
-	   </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      <div class="form-group">
+	   <label for="store">Store Code</label>
+        <select required class="form-control" id="store">
+      <option value="001 Desktops">Desktops</option>
+      <option value="002 LCDs">LCDs</option>
+     	<option value="003 Laptops">Laptops</option>
+             	<option value="004 Servers">Servers</option>
+            	<option value="005 MFDs">Multi Function Devices</option>
+            	<option value="006 Printers">Printers</option>
+            	 	<option value="007 Projectors">Projectors</option>
+             	<option value="012 Accessories">Accessories</option>
+				<option value="020 Others">Other</option>
+        </select>
+		  </div>
+
+           <input type="text" id="itemdescription" placeholder="Description">
+        <input type="number" min="1" id="unitprice" placeholder="Unit Price">
+         <input type="number" min="1" id="qty" placeholder="Qty">
+      </form>
+    	<button class="add-row">Add Item</button>
+		<button type="button" class="delete-row">Delete Selected Item</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Store</th>
+                         <th>Item Description</th>
+                <th>Unit Price</th>
+                <th>Qty</th>
+                 <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+            </tr>
+        </tbody>
+		<tfoot>
+		<tr><td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+
+			<td><strong>VAT</strong></td>
+			<td id="grandvat"></td>
+         </tr>
+			<tr><td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+
+			<td><strong>Deposit</strong></td>
+			<td id="granddeposit"></td>
+         </tr>
+		 	<tr><td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+
+			<td><strong>Discount</strong></td>
+			<td id="granddiscount"></td>
+         </tr>
+		<tr><td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+
+			<td><strong>Grand Total(Incl VAT)</strong></td>
+			<td id="grandtotal"></td>
+           </tr>
+		</tfoot>
+    </table>
+
+
+ 
+    
+    <input type="submit" class="btn btn-default" id="closeProfAdd" value="Save">
+	<button id="closeBtn" data-toggle="modal" data-target="processProfModal" class="btn btn-default"><em class="fa fa-close color-red"></em>Close</button>
+  </div>
+
     </div>
 
   </div>

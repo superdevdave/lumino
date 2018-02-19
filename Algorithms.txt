@@ -12,7 +12,11 @@ $concatenated="PF".$count;
 Insert (DocNO,Sales) values($concatenated,$_SESSION["Name"])into InvSerialsHeader;
 Update Acctable set PnNo=$count;
 
-<form action="process.php?action=start-proforma"
+<form action="process.php?action=start-proforma">
+<input type="hidden" value="yes" id="initiate">
+
+
+</form>
 
 Algorithm When you add Line to proforma
 ---------------------------------------
