@@ -146,9 +146,9 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 			
     $(".add-row").click(function(event){
 		
-		event.preventDefault();
+	
 		  granddiscount=$("#DiscountAmount").val();
-			   granddeposit=("#DepositAmount").val();
+			   granddeposit=$("#DepositAmount").val();
 			   
             var store = $("#store").val();
 			
@@ -158,10 +158,10 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
                var total = 1.15*($("#qty").val()*$("#unitprice").val());
 			     var normaltotal =($("#qty").val()*$("#unitprice").val())-granddiscount+granddeposit;
 				  vat=(total-normaltotal);
-				  $("#granddiscount").val(granddiscount);
-				  $("#granddeposit").val(granddiscount);
+				  $("#granddiscount").html(granddiscount);
+				  $("#granddeposit").html(granddeposit);
 				  grandvat+=vat;
-			   grandTotal+=total;
+			   grandTotal+=total-granddiscount+granddeposit;
             var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + store + "</td><td>" + itemdescription + "</td><td>" + unitprice + "</td><td>" + qty + "</td><td>" + total + "</td></tr>";
 
 		

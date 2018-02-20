@@ -1,7 +1,6 @@
 <?php
 
-include("head.php");
-include("dashboard.php");
-include("footer.php");
+include 'dbconn.php';
+include 'login.php';
 
 ?>

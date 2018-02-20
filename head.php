@@ -66,7 +66,7 @@ include("dbconn.php");
 			<li class="color-red"><a href="contacts.php"><em class="fa fa-address-book color-red">&nbsp;</em> Contacts</a></li>
 					<li class="color-red"><a href="reports.php"><em class="fa fa-file color-red">&nbsp;</em> Reports</a></li>
 			<li class="color-red"><a href="calls.php"><em class="fa fa-phone color-red">&nbsp;</em> Call Log</a></li>
-			<li class="color-red"><a href="users.php"><em class="fa fa-user color-red">&nbsp;</em>User(s) Settings </a></li>
+			<li class="color-red"><a href="user_management.php"><em class="fa fa-user color-red">&nbsp;</em>User(s) Settings </a></li>
 						<li class="color-red"><a href="help.php"><em class="fa fa-question color-red">&nbsp;</em>Help </a></li>
 			<li class="color-red" ><a href="logout.php"><em class="fa fa-power-off color-red">&nbsp;</em> Logout</a></li>
 		</ul>
