@@ -120,7 +120,7 @@ $result = odbc_exec($connection, $query);
     <div class="form-group">
      
    <label class="" for="Rental">Rental Term</label>
-   <input  required type="text" class="form-control" id="RentalTerm" placeholder="0">
+   <input  required type="text" class="form-control" name="RentalTerm" id="RentalTerm" placeholder="0">
    <select  required class="form-control" id="RentalDescription">
         <option>Days</option>
         <option>Weeks</option>

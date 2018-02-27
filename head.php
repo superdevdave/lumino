@@ -1,6 +1,13 @@
 <?php
+session_start();
+
 include("dbconn.php");
 //include("dbconn2.php");
+
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+  header("location: login.php");
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +58,9 @@ include("dbconn.php");
 				
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Username</div>
+				<div class="profile-usertitle-name"><?php
+echo $_SESSION['username'];
+?></div>
 				<div class="profile-usertitle-status" style="color:red;"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>

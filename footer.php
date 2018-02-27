@@ -54,7 +54,7 @@ $(window).load(function() {
 $(document).ready(function (){
 
 
- 
+ /*
 // Select your input element.
 var number = document.getElementById('qty');
 var number2 = document.getElementById('unitprice');
@@ -77,7 +77,7 @@ number2.onkeydown = function(e) {
     }
 }
 
-
+*/
 var rowracho;
 $('#CloseOppForm input[type="checkbox"]').change(function() {
     alert("You just clicked checkbox with the name " + this.name)
@@ -115,10 +115,7 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 	  $("#edServers").val(data[17]);
 	   $("#edProjectors").val(data[18]);
 	    $("#edNetworking").val(data[15]);
-		  $("#edMonitors").val(data[19]);
-	 
-
- 
+		  $("#edMonitors").val(data[19]); 
 
 
       if(this.checked){
