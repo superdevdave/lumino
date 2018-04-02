@@ -74,7 +74,6 @@ echo $docno="PF".$_REQUEST['docno'];
 echo $vat=$_REQUEST['vat'];
 echo $description=$_REQUEST['itemdesc'];
 echo $updatestate=$_REQUEST['updatestate'];
-
 echo $store=$_REQUEST['store'];
 echo $item=$_REQUEST['item'];
 echo $qty=$_REQUEST['qty'];
@@ -96,7 +95,7 @@ if ($updatestate="update")
 $newdocno=$docno+1;
 $sql2="update acctable set PnNo='".$newdocno."'";
 mysql_query($sql2);
-
+}
 }
 
 function addOpportunities(){

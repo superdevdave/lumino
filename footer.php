@@ -223,14 +223,16 @@ $.ajax({
 
 
 		
-           }
+           },
+		   
+		   async:false
          });
   		   
     event.preventDefault(); 
 
-	
+
 if (chektable='update')
-{
+{ 
  var datafill=Number(theData)+1;
 			  var theData1=pad(datafill,4);
 			  	currentProformaDoc=theData1;
@@ -241,7 +243,7 @@ else
  var datafill=Number(theData)-1;
 			  var theData2=pad(datafill,4);
 			  	currentProformaDoc=theData2;
-
+alert (currentProformaDoc);
 	
 }
 	
@@ -257,22 +259,20 @@ var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddisco
 
     //var url = "path/to/your/script.php"; // the script where you handle the form input.
 
-    $.ajax({
+$.ajax({
            type: "POST",
-		   url: url,
-           data: $("#additemform").serialize(),		   // serializes the form's elements.
-           success: function(data)
-           {
-			   
-              alert(data); // show response from the php script.
-			  // alert("Stage Two");
-			  
-			  chektable='dontupdate';//Do not increment proforma no when first document update is successful
-			
-           },
-		   async:false
-
-	}
+	       url: url,
+           data: $("#additemform").serialize(), // serializes the form's elements.
+           success: function(data,response)
+           { //window.location.href=actionstring;
+              //alert(data); // show response from the php script.
+		
+			 // var datafill=Number(data)+1;
+			//  var theData=pad(datafill,4);
+		alert(data);
+		alert(response);
+		
+           }
 
          });
   e.preventDefault(); 
@@ -311,16 +311,16 @@ var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddisco
 		 $("#qty").val("Qty");
 
 
-  //var ids = $.map(table.rows('.selected').data(), function (item) {
-     //  return item[0];
-   // });
+ //var ids = $.map(table.rows('.selected').data(), function (item) {
+   //   return item[0]
+//  });
 	
 
    // alert(table.rows('.selected').data().length + ' row(s) selected');
 	
 
  
-   e.preventDefault(); // avoid to execute the actual submit of the form.
+   //e.preventDefault(); // avoid to execute the actual submit of the form.
 
 });
  
