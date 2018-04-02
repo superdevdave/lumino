@@ -204,9 +204,10 @@ $.ajax({
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
+
  var theData;
 
-		var actionstring="process.php?action=getProformaNo";
+var actionstring="process.php?action=getProformaNo";
 $.ajax({
            type: "GET",
 	       url: actionstring,
@@ -233,7 +234,7 @@ if (chektable='update')
  var datafill=Number(theData)+1;
 			  var theData1=pad(datafill,4);
 			  	currentProformaDoc=theData1;
-//alert (currentProformaDoc);
+alert (currentProformaDoc);
 }
 else
 {
@@ -250,7 +251,7 @@ alert(chektable);
    
    var total = 1.15*($("#qty").val()*$("#unitprice").val());
    
-			     var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount)+Number(granddeposit);
+var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount)+Number(granddeposit);
 				 var vat=Number(total-normaltotal);
     var url="process.php?action=addProformaItem&itemdesc="+$("#itemdescription").val()+"&unitprice="+$("#unitprice").val()+"&qty="+$("#qty").val()+"&store="+$("#store").val()+"&total="+total+"&vat="+vat+"&docno="+currentProformaDoc+"&updatestate="+chektable;
 
@@ -269,12 +270,9 @@ alert(chektable);
 			  chektable='dontupdate';//Do not increment proforma no when first document update is successful
 			
            },
-		    error: function(errorThrown){
-        alert(errorThrown);
-        alert("There is an error with AJAX!");
-    }               
+		   async:false
 
-		   
+	}
 
          });
   e.preventDefault(); 
