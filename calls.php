@@ -14,13 +14,13 @@ include("dbconn3.php");
 				<li><a href="#">
 					<em class="fa fa-home color-red"></em>
 				</a></li>
-				<li class="active">Opportunities</li>
+				<li class="active">Call Log</li>
 			</ol>
 		</div><!--/.row-->
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Opportunities</h1> <button class="btn btn-default" data-toggle="modal"  data-target="#addOppModal"><span class="fa fa-add"></span><em class="fa fa-plus color-red"> </em> Add New Opportunity</button> <button class="btn btn-default" data-toggle="modal" data-target="#editOppModal"><em class="fa fa-edit color-red"> </em> Edit Opportunity</button> <button class="btn btn-default" data-toggle="modal" data-target="#closeOppModal"><em class="fa fa-check color-red"> </em> Close Opportunity</button> <button class="btn btn-default" data-toggle="modal" data-target="#cancelOppModal"><em class="fa fa-ban color-red"> </em> Cancel Opportunity</button>
+				<h1 class="page-header">Calls</h1> <button class="btn btn-default" data-toggle="modal"  data-target="#addOppModal"><span class="fa fa-add"></span><em class="fa fa-plus color-red"> </em> Schedule A Call</button> <button class="btn btn-default" data-toggle="modal" data-target="#editOppModal"><em class="fa fa-edit color-red"> </em> Edit Call Details</button> <button class="btn btn-default" data-toggle="modal" data-target="#closeOppModal"><em class="fa fa-check color-red"> </em> Close Call</button> <button class="btn btn-default" data-toggle="modal" data-target="#cancelOppModal"><em class="fa fa-ban color-red"> </em> Cancel Scheduled Call</button>
 				
 			</div>
 		</div><!--/.row-->

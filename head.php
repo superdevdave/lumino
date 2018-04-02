@@ -68,7 +68,7 @@ echo $_SESSION['username'];
 		<div class="divider"></div>
 	
 		<ul class="nav menu">
-			<li class="color-red"><a href="index.php"><em class="fa fa-dashboard color-red">&nbsp;</em> Dashboard</a></li>
+			<li class="color-red"><a href="dashboard.php"><em class="fa fa-dashboard color-red">&nbsp;</em> Dashboard</a></li>
 			<li class="color-red"><a href="opportunities.php"><em class="fa fa-link color-red">&nbsp;</em> Opportunities</a></li>
 						<li class="color-red"><a href="meetings.php"><em class="fa fa-calendar color-red">&nbsp;</em> Meetings</a></li>
 			<li class="color-red"><a href="documents.php"><em class="fa fa-file color-red">&nbsp;</em> Documents</a></li>

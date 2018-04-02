@@ -66,9 +66,9 @@ $query = "SELECT * FROM users"; //You don't need a ; like you do in SQL
 $result = mysql_query($query);
 
 echo "<table id=\"example\" class=\"display\" cellspacing=\"0\" width=\"100%\">"; // start a table tag in the HTML
-echo "<thead><tr><th>ID</th><th>Opportunity Name</th><th>ID</th><th>UserName</th><th>FullName</th><th>Title</th><th>Role</th></th><th>Email</th></tr></thead><tbody>";
+echo "<thead><tr><th>ID</th><th>UserName</th><th>FullName</th><th>Title</th><th>Role</th></th><th>Status</th><th>Email</th></tr></thead><tbody>";
 while($row = mysql_fetch_array($result)){   //Creates a loop to loop through results
-echo "<tr><td>". $row['id']."</td><td>".$row['username']."</td><td>".$row['FullName']."</td><td>".$row['Title']."</td><td>".$row['Role']."</td><td>".$row['Email']."</td></tr>"; 
+echo "<tr><td>". $row['id']."</td><td>".$row['username']."</td><td>".$row['FullName']."</td><td>".$row['Title']."</td><td>".$row['Role']."</td><td>".$row['Status']."</td><td>".$row['Email']."</td></tr>"; 
 }
 echo "</tbody></table>"; //Close the table in HTML
 echo mysql_error($conenction);

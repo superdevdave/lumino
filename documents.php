@@ -13,10 +13,11 @@ include("head.php");?>
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Documents</h1> <button class="btn btn-default"><span class="fa fa-add"></span><em class="fa fa-eye color-red"> </em> View Selected Document</button> 
+			<form id="generateProformaForm"
+				<h1 class="page-header">Documents</h1> <button class="btn btn-default"><span class="fa fa-add"></span><em class="fa fa-eye color-red"> </em> View Selected Document</button>
 			
-				<button data-toggle="modal" data-target="#processProfModal" class="btn btn-default"><em class="fa fa-file color-red"></em>  Generate Proforma Invoice</button>
-	
+				<button data-toggle="modal" id="generateProforma" data-target="#processProfModal" class="btn btn-default"><em class="fa fa-file color-red"></em>  Generate Proforma Invoice</button>
+	</form>
 			</div>
 		</div><!--/.row-->
 		
@@ -68,7 +69,7 @@ $dbname = "TILL";
 
 //$connection = odbc_connect("Driver={Pervasive ODBC Client Interface};ServerName=$servername;dbq=dbname;");
 $connection=odbc_connect('till','','');
-$query = "SELECT * from CustDetails where IND='P'or IND='C' or IND='I' or IND='D' or IND='R'"; //You don't need a ; like you do in SQL
+$query = "SELECT * from CustDetails where IND='P' or IND='C' or IND='I' or IND='D' or IND='R'"; //You don't need a ; like you do in SQL
 
 $result = odbc_exec($connection, $query);
 
@@ -280,26 +281,29 @@ echo odbc_error($connection);
       <div class="form-group">
 	   <label for="store">Store Code</label>
         <select required class="form-control" id="store">
-      <option value="001 Desktops">Desktops</option>
-      <option value="002 LCDs">LCDs</option>
+      <option value="001">Desktops</option>
+      <option value="002">LCDs</option>
      	<option value="003 Laptops">Laptops</option>
-             	<option value="004 Servers">Servers</option>
-            	<option value="005 MFDs">Multi Function Devices</option>
-            	<option value="006 Printers">Printers</option>
-            	 	<option value="007 Projectors">Projectors</option>
-             	<option value="012 Accessories">Accessories</option>
-				<option value="020 Others">Other</option>
+             	<option value="004">Servers</option>
+            	<option value="005">Multi Function Devices</option>
+            	<option value="006">Printers</option>
+            	 	<option value="007">Projectors</option>
+             	<option value="012">Accessories</option>
+				<option value="020">Other</option>
         </select>
 		  </div>
 
            <input type="text" id="itemdescription" placeholder="Description">
-        <input type="number" min="1" id="unitprice" placeholder="Unit Price">
+        <input type="number" min="1" id="unitprice" name="unitprice" placeholder="Unit Price">
          <input type="number" min="1" id="qty" placeholder="Qty">
       </form>
-    	<button class="add-row">Add Item</button>
-		<button type="button" class="delete-row">Delete Selected Item</button>
+	  <form id="additemform">
+    	<input type="submit" value="Add Item" class="add-row">
+				<button type="button" class="delete-row">Reset Invoice</button>
+		</form>
 
-    <table>
+
+    <table id="proforma">
         <thead>
             <tr>
                 <th>Select</th>

@@ -52,8 +52,10 @@ $(window).load(function() {
 } );
 
 $(document).ready(function (){
+var chektable;
 
-
+	
+var pad='00000';
  /*
 // Select your input element.
 var number = document.getElementById('qty');
@@ -62,7 +64,7 @@ var number2 = document.getElementById('unitprice');
 // Listen for input event on numInput.
 number.onkeydown = function(e) {
     if(!((e.keyCode > 95 && e.keyCode < 106)
-      || (e.keyCode > 47 && e.keyCode < 58) 
+      || (e.keyCode > 47 && e.keyCode < 58)
       || e.keyCode == 8)) {
         return false;
     }
@@ -71,7 +73,7 @@ number.onkeydown = function(e) {
 
 number2.onkeydown = function(e) {
     if(!((e.keyCode > 95 && e.keyCode < 106)
-      || (e.keyCode > 47 && e.keyCode < 58) 
+      || (e.keyCode > 47 && e.keyCode < 58)
       || e.keyCode == 8)) {
         return false;
     }
@@ -99,7 +101,7 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 	 $("#edOpportunityID").val(data[0]);
 	 $("#CloseOppID").val(data[0]);
 	 $("#CancelOppID").val(data[0]);
-	 
+
 	 $("#edOpportunityName").val(data[1]);
 	 $("#edOrganisation").val(data[4]);
 	 $("#edSalesType").val(data[5]);
@@ -108,14 +110,15 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 	 $("#edContactPerson").val(data[9]);
 	$("#edContactEmail").val(data[10]);
 	 $("#edContactPhone").val(data[11]);
-	  $("#edLeadSource").val(data[12]);
+	  $("#edLeadSource").val(data[12]).change();
 	 $("#edMaturityDate").val(data[13]);
+
 	$("#edLaptops").val(data[15]);
      $("#edDesktops").val(data[16]);
 	  $("#edServers").val(data[17]);
 	   $("#edProjectors").val(data[18]);
 	    $("#edNetworking").val(data[15]);
-		  $("#edMonitors").val(data[19]); 
+		  $("#edMonitors").val(data[19]);
 
 
       if(this.checked){
@@ -129,66 +132,218 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 
       // Prevent click event from propagating to parent
       e.stopPropagation();
-	  
-	  
+
+
    });
-   
+
 
    ///THIS IS FOR THE PROCESS PROFORMA ADD ITEMS SCRIPT
 			var vatTotal=0;
-			var grandTotal=0;
+			var grandTotal=2;
 			var grandvat=0;
 			var granddiscount=0;
 			var granddeposit=0;
-			
-    $(".add-row").click(function(event){
+
 		
+
+
+		
+//GET THE CURRENT DOCNO ADD 1 THEN UPDATE THE TABLE
+    $("#generateProforma").click(function(event){
+		
+		chektable='update';
+		
+		//FUNCTION TO ADDING LEADING ZEROES TO PROFORMA NO
+ function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+ 
+		var actionstring="process.php?action=getProformaNo";
+		
+$.ajax({
+           type: "GET",
+           url: actionstring,
+           data: $("#generateProformaForm").serialize(), // serializes the form's elements.
+           success: function(data)
+           { //window.location.href=actionstring;
+              //alert(data); // show response from the php script.
+			  var datafill=Number(data)+1;
+			  var theData=pad(datafill,4);
+			  
+			//  alert(theData);
+		//var ctxt = '' + data;
+
 	
-		  granddiscount=$("#DiscountAmount").val();
-			   granddeposit=$("#DepositAmount").val();
+		//	  alert(theData);
+			 
+           }
+
+         });
+  		   
+    event.preventDefault(); 
+ 
+		 
+});
+
+
+////Adding Items to processphpproformaform
+
+ //var frm = $('#additemform');
+ //var actionstring="process.php?action=addProformaItem?itemdesc="+$("#itemdescription").val()+"?unitprice="+$("#unitprice").val()+"?qty="+$("#qty").val()+"?store="+$("#store").val()+"?total="+total;
+ 
+// alert(actionstring);
+ 
+ $("#additemform").submit(function(e) {
+
+
+//FUNCTION TO ADDING LEADING ZEROES TO PROFORMA NO
+ function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+ var theData;
+
+		var actionstring="process.php?action=getProformaNo";
+$.ajax({
+           type: "GET",
+	       url: actionstring,
+           data: $("#generateProformaForm").serialize(), // serializes the form's elements.
+           success: function(data)
+           { //window.location.href=actionstring;
+              //alert(data); // show response from the php script.
+		
+			 // var datafill=Number(data)+1;
+			//  var theData=pad(datafill,4);
+			theData=data;
+	
+
+
+		
+           }
+         });
+  		   
+    event.preventDefault(); 
+
+	
+if (chektable='update')
+{
+ var datafill=Number(theData)+1;
+			  var theData1=pad(datafill,4);
+			  	currentProformaDoc=theData1;
+//alert (currentProformaDoc);
+}
+else
+{
+ var datafill=Number(theData)-1;
+			  var theData2=pad(datafill,4);
+			  	currentProformaDoc=theData2;
+
+	
+}
+	
+alert(chektable);
+
+
+   
+   var total = 1.15*($("#qty").val()*$("#unitprice").val());
+   
+			     var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount)+Number(granddeposit);
+				 var vat=Number(total-normaltotal);
+    var url="process.php?action=addProformaItem&itemdesc="+$("#itemdescription").val()+"&unitprice="+$("#unitprice").val()+"&qty="+$("#qty").val()+"&store="+$("#store").val()+"&total="+total+"&vat="+vat+"&docno="+currentProformaDoc+"&updatestate="+chektable;
+
+    //var url = "path/to/your/script.php"; // the script where you handle the form input.
+
+    $.ajax({
+           type: "POST",
+		   url: url,
+           data: $("#additemform").serialize(),		   // serializes the form's elements.
+           success: function(data)
+           {
 			   
-            var store = $("#store").val();
+              alert(data); // show response from the php script.
+			  // alert("Stage Two");
+			  
+			  chektable='dontupdate';//Do not increment proforma no when first document update is successful
 			
+           },
+		    error: function(errorThrown){
+        alert(errorThrown);
+        alert("There is an error with AJAX!");
+    }               
+
+		   
+
+         });
+  e.preventDefault(); 
+	  
+    granddiscount=$("#DiscountAmount").val();
+			   granddeposit=$("#DepositAmount").val();
+
+            var store = $("#store").val();
+
             var itemdescription = $("#itemdescription").val();
             var unitprice = $("#unitprice").val();
              var qty = $("#qty").val();
-               var total = 1.15*($("#qty").val()*$("#unitprice").val());
-			     var normaltotal =($("#qty").val()*$("#unitprice").val())-granddiscount+granddeposit;
-				  vat=(total-normaltotal);
-				  $("#granddiscount").html(granddiscount);
-				  $("#granddeposit").html(granddeposit);
-				  grandvat+=vat;
-			   grandTotal+=total-granddiscount+granddeposit;
+
+			     var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount+granddeposit);
+				 var vat=Number(total-normaltotal);
+				  $("#granddiscount").html(Number(granddiscount));
+				  $("#granddeposit").html(Number(granddeposit));
+
+				  grandvat+=Number(vat);
+				var   grandTot1=Number(total-granddiscount);
+				var grandTot2=Number(grandTot1+granddeposit);
+			   grandTotal+=Number(total-granddiscount+granddeposit);
+			   //grandTotal+=grandTot2;
+			   //grandTot1=0;
+			 //  grandTot1=0;
+			   
             var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + store + "</td><td>" + itemdescription + "</td><td>" + unitprice + "</td><td>" + qty + "</td><td>" + total + "</td></tr>";
 
-		
-		
-			$("table tbody").append(markup);
+
+
+			$("#proforma tbody").append(markup);
 		$("#grandtotal").html(grandTotal);
 		$("#grandvat").html(grandvat);
-		
 		$("#unitprice").val("Unit Price");
 		 $("#itemdescription").val("Description");
 		 $("#qty").val("Qty");
-		
-        });
 
-		$('#button').click(function () {
-    var ids = $.map(table.rows('.selected').data(), function (item) {
-        return item[0]
-    });
-    console.log(ids)
-    alert(table.rows('.selected').data().length + ' row(s) selected');
+
+  //var ids = $.map(table.rows('.selected').data(), function (item) {
+     //  return item[0];
+   // });
+	
+
+   // alert(table.rows('.selected').data().length + ' row(s) selected');
+	
+
+ 
+   e.preventDefault(); // avoid to execute the actual submit of the form.
+
 });
+ 
+  
 
 
         // Find and remove selected table rows
         $(".delete-row").click(function(){
-            $("table tbody").find('input[name="record"]').each(function(){
-            	if($(this).is(":checked")){
+            $("#proforma tbody").find('input[name="record"]').each(function(){
+            	 $(this).parents("tbody").empty();
+					$("#grandtotal").html("");
+		$("#grandvat").html("");
+		$("#granddiscount").html("");
+$("#granddeposit").html("");
+		grandTotal=0;
+			 grandvat=0
 
-                    $(this).parents("tr").remove();
-				
+				if($(this).is(":checked")){
+
+
+
                 }
 
             });
@@ -211,15 +366,15 @@ $( "input" ).on( "click", function() {
 
 //Display Range value
 function updateTextInput(val) {
-          document.getElementById('textInput').value=val; 
+          document.getElementById('textInput').value=val;
         }
-		
-		
-		///Prevent Negative Number Entry in Number Fields
-		
-		
 
-		
+
+		///Prevent Negative Number Entry in Number Fields
+
+
+
+
 </script>
 
 </body>
