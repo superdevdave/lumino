@@ -23,12 +23,19 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <div class="page-header">
         <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to QrentCRM.</h1>
     </div>
-    <p><a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></p> 
+    <p><a href="logout.php" class="btn btn-danger">Sign Out of Your Account     </a></p> 
 	<br>
 	<br>
 	<br>
 	
-	<a href="dashboard.php" class="btn btn-danger">Proceed to Dashboard</a></p> 
+	<a href="dashboard.php" class="btn btn-danger">Proceed to My Dashboard     </a></p> 
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<a href="groupdashboard.php" class="btn btn-danger">Proceed to Group Dashboard</a></p> 
 	<br>
 	<br>
 	<br>
@@ -36,7 +43,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 	<br>
 	<br>
 	
-	<img src="C:\wamp64\www\lumino\images\logo@2x.png" alt="QrentCRM Logo" width="460" height="345">
+	<img src="logo.png" alt="QrentCRM Logo" width="460" height="345">
 	
 </body>
 </html>

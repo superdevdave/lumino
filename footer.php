@@ -143,6 +143,10 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 			var grandvat=0;
 			var granddiscount=0;
 			var granddeposit=0;
+			
+			var grandProformadocno;
+
+		
 
 		
 
@@ -170,7 +174,7 @@ $.ajax({
            { //window.location.href=actionstring;
               //alert(data); // show response from the php script.
 			  var datafill=Number(data)+1;
-			  var theData=pad(datafill,4);
+			  var theData=pad(datafill,6);
 			  
 			//  alert(theData);
 		//var ctxt = '' + data;
@@ -231,18 +235,22 @@ $.ajax({
     event.preventDefault(); 
 
 
-if (chektable='update')
+if (chektable=='update')
 { 
  var datafill=Number(theData)+1;
-			  var theData1=pad(datafill,4);
+			  var theData1=pad(datafill,6);
 			  	currentProformaDoc=theData1;
+				plaindocno=theData;
+				grandProformadocno=currentProformaDoc;
 alert (currentProformaDoc);
 }
 else
 {
- var datafill=Number(theData)-1;
-			  var theData2=pad(datafill,4);
+ var datafill=Number(theData);
+			  var theData2=pad(datafill,6);
 			  	currentProformaDoc=theData2;
+					plaindocno=theData;
+						grandProformadocno=currentProformaDoc;
 alert (currentProformaDoc);
 	
 }
@@ -255,7 +263,7 @@ alert(chektable);
    
 var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount)+Number(granddeposit);
 				 var vat=Number(total-normaltotal);
-    var url="process.php?action=addProformaItem&itemdesc="+$("#itemdescription").val()+"&unitprice="+$("#unitprice").val()+"&qty="+$("#qty").val()+"&store="+$("#store").val()+"&total="+total+"&vat="+vat+"&docno="+currentProformaDoc+"&updatestate="+chektable;
+    var url="process.php?action=addProformaItem&itemdesc="+$("#itemdescription").val()+"&unitprice="+$("#unitprice").val()+"&qty="+$("#qty").val()+"&store="+$("#store").val()+"&total="+total+"&vat="+vat+"&docno="+currentProformaDoc+"&updatestate="+chektable+"&plaindocno="+plaindocno;
 
     //var url = "path/to/your/script.php"; // the script where you handle the form input.
 
@@ -269,14 +277,16 @@ $.ajax({
 		
 			 // var datafill=Number(data)+1;
 			//  var theData=pad(datafill,4);
-		alert(data);
+			
 		alert(response);
 		
-           }
+           },
+		   async:false
+		   
 
          });
   e.preventDefault(); 
-	  
+	  chektable='dontupdate';
     granddiscount=$("#DiscountAmount").val();
 			   granddeposit=$("#DepositAmount").val();
 
@@ -292,9 +302,9 @@ $.ajax({
 				  $("#granddeposit").html(Number(granddeposit));
 
 				  grandvat+=Number(vat);
-				var   grandTot1=Number(total-granddiscount);
-				var grandTot2=Number(grandTot1+granddeposit);
-			   grandTotal+=Number(total-granddiscount+granddeposit);
+				var   grandTot1=Number(total)-Number(granddiscount);
+				var grandTot2=Number(grandTot1)+Number(granddeposit);
+			   grandTotal+=Number(total)-Number(granddiscount)+Number(granddeposit);
 			   //grandTotal+=grandTot2;
 			   //grandTot1=0;
 			 //  grandTot1=0;
@@ -324,6 +334,48 @@ $.ajax({
 
 });
  
+ //SUBMIT PROFORMA INVOICE
+ var grandexcl=grandtotal/1.15;
+    $("#SubmitProforma").click(function(event){
+		
+		 $('#proformaBodyForm .submit').click();
+	
+	alert(grandProformadocno);
+	alert(grandvat+" -"+grandtotal+" -"+grandexcl);
+		
+		
+	  event.preventDefault();
+		
+
+	
+ //  return false;
+   
+   
+   
+		 	var actionstring="process.php?action=submitProforma&tax="+$("#grandvat").val()+"&total="+$("#grandtotal").val()+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val();
+$.ajax({
+           type: "POST",
+	       url: actionstring,
+           data: $("#proformaBodyForm").serialize(), // serializes the form's elements.
+           success: function(data,response)
+           { //window.location.href=actionstring;
+              //alert(data); // show response from the php script.
+		
+			 // var datafill=Number(data)+1;
+			//  var theData=pad(datafill,4);
+			theData=data;
+			
+			alert(data);
+			alert(response);
+
+
+		
+           }
+	
+		
+         });
+		 	  
+		});
   
 
 

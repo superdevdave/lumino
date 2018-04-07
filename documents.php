@@ -131,7 +131,7 @@ echo odbc_error($connection);
       <option>Corporates</option>
 	   <option>Other</option>
     </select> </div>
-  </form>
+
      <div class="form-group">
     <label for="Laptops">No of Laptops</label>
     <input required type="text" class="form-control" id="Laptops" placeholder="0">
@@ -184,8 +184,8 @@ echo odbc_error($connection);
 
       </div>
       <div class="modal-footer">
-           <input type="submit" class="btn btn-default" value="Save"> 
-     
+           <input type="submit" id="btnUpdateProforma" class="btn btn-default" value="Save"> 
+       </form>
 		<button type="button" class="btn btn-default" data-dismiss="modal"> <em class="fa fa-close color-red"></em> Close</button>
       </div>
     </div>
@@ -207,11 +207,14 @@ echo odbc_error($connection);
         <h4 class="modal-title">Generate Proforma Invoice</h4>
       </div>
       <div class="modal-body">
-      <form method="post" action="?action=addopp">
+      <form id="proformaBodyForm" action="">
+	    <!-- Hidden submit button-->
+	  <input type="submit" class="submit" style="display:none;">
+	  
   <div class="form-group">
   
-    <label  for="OpportunityName">Customer </label>
-    <input  required type="text" class="form-control" id="CustomerName" placeholder="Customer" >
+    <label  for="OpportunityName">Customer-Organisation </label>
+    <input  required type="text" class="form-control" id="Customer" placeholder="Customer" >
 
   </div>
 
@@ -239,7 +242,7 @@ echo odbc_error($connection);
      <div class="form-group">
          
     <label   for="ContactName">Contact Name</label>
-    <input  required type="text" class="form-control" id="Laptops" placeholder="0">
+    <input  required type="text" class="form-control" id="ContactName" placeholder="0">
   
 </div>
    <div class="form-group">
@@ -254,7 +257,29 @@ echo odbc_error($connection);
     <label for="Address2">Address2</label>
     <input required type="text" class="form-control" id="Address2" placeholder="Harare">
   </div>
+ <div class="form-group">
+    <label for="City">City</label>
+    <input required type="text" class="form-control" id="City" placeholder="City">
+  </div>
+  <div class="form-group">
+   <h4><strong>Province</strong></h4>
 
+      <div class="form-group">
+	   <label for="store">Province</label>
+        <select required class="form-control" id="province">
+      <option value="Harare Province">Harare</option>
+      <option value="Bulawayo Province">Bulawayo</option>
+     	<option value="Manicaland Province">Manicaland</option>
+		<option value="Midlands Province">Midlands</option>
+             	<option value="Masvingo Province">Masvingo</option>
+            	<option value="Matebeleland North">Matebeleland North</option>
+            	<option value="Matebeleland South">Matebeleland South</option>
+            	 	<option value="Mashonaland Central">Mash Central</option>
+					<option value="Mashonaland East">Mash East</option>
+								<option value="Mashonaland West">Mash West</option>
+      
+        </select>
+		  </div>
 <div class="form-group">
    <h4><strong> <label for="Details">Invoice Summary Details</label></strong></h4>
     <input required type="text" class="form-control" id="Details" placeholder="eg. 10x Dell E6420 laptops,10 desktops,Delivery Charge">
@@ -274,7 +299,8 @@ echo odbc_error($connection);
     <div class="form-group">
     <label for="Deposit">Discount Amount</label>
     <input  type="number"  class="form-control" id="DiscountAmount" placeholder="0">
-  </div
+  </div>
+  </form>
   <div class="form-group">
    <h4><strong>Invoice Line Items</strong></h4>
 
@@ -296,7 +322,7 @@ echo odbc_error($connection);
            <input type="text" id="itemdescription" placeholder="Description">
         <input type="number" min="1" id="unitprice" name="unitprice" placeholder="Unit Price">
          <input type="number" min="1" id="qty" placeholder="Qty">
-      </form>
+   
 	  <form id="additemform">
     	<input type="submit" value="Add Item" class="add-row">
 				<button type="button" class="delete-row">Reset Invoice</button>
@@ -305,6 +331,7 @@ echo odbc_error($connection);
 
     <table id="proforma">
         <thead>
+		<tr></tr>
             <tr>
                 <th>Select</th>
                 <th>Store</th>
@@ -358,7 +385,8 @@ echo odbc_error($connection);
 
  
     
-    <input type="submit" class="btn btn-default" id="closeProfAdd" value="Save">
+    <button id="SubmitProforma" class="btn btn-default" id="closeProfAdd">Save</button>
+	
 	<button id="closeBtn" data-toggle="modal" data-target="processProfModal" class="btn btn-default"><em class="fa fa-close color-red"></em>Close</button>
   </div>
 

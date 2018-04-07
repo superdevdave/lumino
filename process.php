@@ -12,8 +12,6 @@ $action = $_REQUEST['action'];
 
 
 
-"Hello";
-
 $action;
 
 
@@ -47,7 +45,9 @@ switch($action) {
 	case 'change-pass':
 		changePass();
 	break;
-			
+	case'submitProforma':
+	SubmitProforma();
+	break;
 	case 'logOut':
 		logOut();
 	break;		
@@ -63,21 +63,74 @@ function GetProformaNo()
 		$fila = mysql_query($sql);
 		$fila2=mysql_fetch_row($fila);
 	echo $fila2[0];
+	
+	
+
 }
 
+function SubmitProforma(){
+ 	include("dbconn.php");
+		include("dbconn3.php");
+	
+echo $docno="PF".$_REQUEST['docno'];
+echo $plaindocno=$_REQUEST['plaindocno'];
+
+echo $description=$_REQUEST['description'];
+echo $updatestate=$_REQUEST['updatestate'];
+
+
+echo $tax=$_REQUEST['vat'];
+echo $total=$_REQUEST['total'];
+
+
+
+echo $subtotal=$_REQUEST['subtotal'];
+
+echo $custid=$_REQUEST['custid'];
+echo $cashname=$_REQUEST['cashname'];
+echo $customer=$_REQUEST['customer'];
+echo $phone=$_REQUEST['phone'];
+echo $address=$_REQUEST['address'];
+echo $address2=$_REQUEST['address2'];
+echo $province=$_REQUEST['province'];
+echo $city=$_REQUEST['city'];
+echo $email=$_REQUEST['email'];
+echo $depositcash=$_REQUEST['depositcash'];
+echo $depositperiod=$_REQUEST['depositperiod'];
+echo $discountamount=$_REQUEST['discount'];
+echo $remarks=$_REQUEST['remarks'];
+echo $rentalterm=$_REQUEST['rentalterm'];
+echo $rentaldesc=$_REQUEST['rentaldesc'];
+
+
+$sql = "INSERT INTO invserialsheader(docno,description,tax,total,subtotal,custid,cashname,customer,phone,address,address2,province,city,email,depositcash,depositperiod,discount,remarks,rentalterm,rentaldesc)
+VALUES ('$docno', '$description','$tax','$total','$subtotal','$custid','$cashname','$customer','$phone','$address','$address2','$province','$city','$email','$depositcash','$depositperiod','$discountamount','$remarks','$rentalterm','$rentaldesc')";
+
+//$sql = "INSERT INTO invserialsheader(docno) VALUES ('$docno')";
+mysql_query($sql);
+
+  $connection;
+echo mysql_error($connection);
+}
 
 function AddProformaItem(){
  	include("dbconn.php");
 		include("dbconn3.php");
 	
 echo $docno="PF".$_REQUEST['docno'];
+echo $plaindocno=$_REQUEST['plaindocno'];
+
 echo $vat=$_REQUEST['vat'];
+echo $total=$_REQUEST['total'];
+
+
+
 echo $description=$_REQUEST['itemdesc'];
 echo $updatestate=$_REQUEST['updatestate'];
 echo $store=$_REQUEST['store'];
 echo $item=$_REQUEST['item'];
 echo $qty=$_REQUEST['qty'];
-echo $total=$_REQUEST['total'];
+
 echo $_REQUEST['description'];
 echo $unitprice=$_REQUEST['unitprice'];
 
@@ -89,12 +142,17 @@ mysql_query($sql);
   $connection;
 echo mysql_error($connection);
 
+$updatestring="update";
 
-if ($updatestate="update")
+if ($updatestate==$updatestring)
 {
-$newdocno=$docno+1;
+	echo "updating   -";
+ echo $newdocno=$plaindocno+1;
 $sql2="update acctable set PnNo='".$newdocno."'";
+
 mysql_query($sql2);
+$connection;
+echo mysql_error($connection);
 }
 }
 
