@@ -250,6 +250,10 @@ echo odbc_error($connection);
     <input required type="text" class="form-control" id="PhoneNumber" placeholder="e.g 0772907676">
   </div>
    <div class="form-group">
+    <label for="PhoneNumber">Email Address</label>
+    <input  type="text" class="form-control" id="email" placeholder="customer@organisation.co.zw">
+  </div>
+   <div class="form-group">
     <label for="Address1">Address1</label>
     <input required type="text" class="form-control" id="Address1" placeholder="e.g 8 George Avenue Msasa">
   </div>
@@ -320,7 +324,7 @@ echo odbc_error($connection);
 		  </div>
 
            <input type="text" id="itemdescription" placeholder="Description">
-        <input type="number" min="1" id="unitprice" name="unitprice" placeholder="Unit Price">
+        <input type="number" min="1" id="unitprice" name="unitprice" placeholder="Unit Price/Per Rental Term">
          <input type="number" min="1" id="qty" placeholder="Qty">
    
 	  <form id="additemform">

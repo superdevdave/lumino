@@ -139,7 +139,7 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 
    ///THIS IS FOR THE PROCESS PROFORMA ADD ITEMS SCRIPT
 			var vatTotal=0;
-			var grandTotal=2;
+			var grandTotal=0;
 			var grandvat=0;
 			var granddiscount=0;
 			var granddeposit=0;
@@ -296,8 +296,8 @@ $.ajax({
             var unitprice = $("#unitprice").val();
              var qty = $("#qty").val();
 
-			     var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount+granddeposit);
-				 var vat=Number(total-normaltotal);
+			     var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount)+Number(granddeposit);
+				 var vat=Number(total)-Number(normaltotal);
 				  $("#granddiscount").html(Number(granddiscount));
 				  $("#granddeposit").html(Number(granddeposit));
 
@@ -335,16 +335,17 @@ $.ajax({
 });
  
  //SUBMIT PROFORMA INVOICE
- var grandexcl=grandtotal/1.15;
+ 
     $("#SubmitProforma").click(function(event){
 		
 		 $('#proformaBodyForm .submit').click();
-	
+	var grandexcl=Number(grandTotal)/Number(1.15);
+	var tax=grandvat;
 	alert(grandProformadocno);
-	alert(grandvat+" -"+grandtotal+" -"+grandexcl);
+	alert(grandvat+" "+grandTotal+" "+grandexcl)
 		
 		
-	  event.preventDefault();
+	
 		
 
 	
@@ -352,8 +353,10 @@ $.ajax({
    
    
    
-		 	var actionstring="process.php?action=submitProforma&tax="+$("#grandvat").val()+"&total="+$("#grandtotal").val()+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val();
-$.ajax({
+		 	var actionstring="process.php?action=submitProforma&tax="+tax+"&total="+grandTotal+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val();
+  event.preventDefault();
+  
+			$.ajax({
            type: "POST",
 	       url: actionstring,
            data: $("#proformaBodyForm").serialize(), // serializes the form's elements.
