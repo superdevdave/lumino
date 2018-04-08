@@ -340,7 +340,7 @@ $.ajax({
 		
 		 $('#proformaBodyForm .submit').click();
 	var grandexcl=Number(grandTotal)/Number(1.15);
-	var tax=grandvat;
+	var tax=Number(grandvat);
 	alert(grandProformadocno);
 	alert(grandvat+" "+grandTotal+" "+grandexcl)
 		
