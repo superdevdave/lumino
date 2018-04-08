@@ -1,6 +1,9 @@
 <?php
 
-include("head.php");?>
+include("head.php");
+
+include("dbconn3.php");
+?>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
@@ -25,6 +28,17 @@ include("head.php");?>
 			<br>
 <?php 
 
+
+$query = "SELECT * FROM invserialsheader"; //You don't need a ; like you do in SQL
+$result = mysql_query($query);
+
+echo "<table id=\"example\" class=\"display\" cellspacing=\"0\" width=\"100%\">"; // start a table tag in the HTML
+echo "<thead><tr><th>ID</th><th>Document Number</th><th>Date</th><th>Organisation/Company</th><th>Contact Person</th><th>Sales Rep</th><th>Rental Term</th><th>Rental Description</th><th>Description</th><th>Sub Total</th><th>VAT</th><th>Total</th><th>Discount</th><th>Deposit Amount</th><th>Deposit Period</th><th>Address</th><th>Address2</th><th>City</th><th>Province</th><th>Mobile Phone</th><th>Telephone</th><th>Email</th></tr></thead><tbody>";
+while($row = mysql_fetch_array($result)){   //Creates a loop to loop through results
+echo "<tr><td>". $row['ID']."</td><td>". $row['Docno']."</td><td>". $row['DDate']."</td><td>".$row['Customer']."</td><td>".$row['CashName']."</td><td>".$row['username']."</td><td>".$row['RentalTerm']."</td><td>".$row['Rentaldesc']."</td><td>".$row['Description']."</td><td>".$row['subtotal']."</td><td>".$row['Tax']."</td><td>".$row['total']."</td><td>".$row['Discount']."</td><td>".$row['DepositCash']."</td><td>".$row['DepositPeriod']."</td><td>".$row['Address']."</td><td>".$row['Address2']."</td><td>".$row['City']."</td><td>".$row['Province']."</td><td>".$row['Mobile']."</td><td>".$row['Telephone']."</td><td>".$row['Email']."</td></tr>";  //$row['index'] the index here is a field name
+}
+
+echo "</tbody></table>"; //Close the table in HTML
 
 
 ?>
@@ -61,7 +75,8 @@ if ($result->num_rows > 0) {
 }
 	echo mysql_error();
 	echo "test";
-$conn->close(); */
+$conn->close(); 
+/**
 $servername = "127.0.0.1";
 $username = "root";
 $password = "Pass@1234@1";
@@ -69,7 +84,7 @@ $dbname = "TILL";
 
 //$connection = odbc_connect("Driver={Pervasive ODBC Client Interface};ServerName=$servername;dbq=dbname;");
 $connection=odbc_connect('till','','');
-$query = "SELECT * from CustDetails where IND='P' or IND='C' or IND='I' or IND='D' or IND='R'"; //You don't need a ; like you do in SQL
+$query = "SELECT * from invserialsheader where IND='P' or IND='C' or IND='I' or IND='D' or IND='R'"; //You don't need a ; like you do in SQL
 
 $result = odbc_exec($connection, $query);
 
@@ -106,6 +121,7 @@ echo "</tbody></table>"; //Close the table in HTML
 echo $query;
 
 echo odbc_error($connection);
+*/
 ?>
 
 <!-- View Document Modal -->

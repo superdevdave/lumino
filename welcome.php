@@ -35,7 +35,11 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 	<br>
 	<br>
 	<br>
-	<a href="groupdashboard.php" class="btn btn-danger">Proceed to Group Dashboard</a></p> 
+	<?php if ($_SESSION['role']=="Administrator"||$_SESSION['role']=="Manager")
+	echo "
+	<a href=\"groupdashboard.php\" class=\"btn btn-danger\">Proceed to Group Dashboard</a></p> 
+	
+	";?>
 	<br>
 	<br>
 	<br>
