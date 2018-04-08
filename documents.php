@@ -214,7 +214,7 @@ echo odbc_error($connection);
   <div class="form-group">
   
     <label  for="OpportunityName">Customer-Organisation </label>
-    <input  required type="text" class="form-control" id="Customer" placeholder="Customer" >
+    <input  required type="text" class="form-control" id="Customer" placeholder="Full Name of Organisation e.g. Delta Beverages or MBCA Bank" >
 
   </div>
 
@@ -242,7 +242,7 @@ echo odbc_error($connection);
      <div class="form-group">
          
     <label   for="ContactName">Contact Name</label>
-    <input  required type="text" class="form-control" id="ContactName" placeholder="0">
+    <input  required type="text" class="form-control" id="ContactName" placeholder="Please use Full Name of Contact">
   
 </div>
    <div class="form-group">

@@ -96,7 +96,7 @@ echo "</tbody></table>"; //Close the table in HTML
   
     <div class="form-group">
     <label for="OpportunityName">Organisation/Company Name</label>
-    <input required type="text" class="form-control" name="Organisation" id="Organisation" placeholder="Organisation/Company Name">
+    <input required type="text" class="form-control" name="Organisation" id="Organisation" placeholder="Please use Full Organisation Name e.g Qrent Zambia,Delta Beverages">
   </div>
   
   <div class="form-group">
@@ -168,11 +168,11 @@ echo "</tbody></table>"; //Close the table in HTML
   </div>
    <div class="form-group">
     <label for="MaturityDate">Expected Maturity Date</label>
-    <input required type="date" class="form-control" name="MaturityDate" id="MaturityDate" placeholder="Expected Date of Oppoturnity Maturity">
+    <input required type="date" class="form-control" name="MaturityDate" id="MaturityDate" placeholder="Expected Date of Maturity">
   </div>
      <div class="form-group">
     <label for="ContactPerson">Contact Person</label>
-    <input type="text" class="form-control" name="ContactPerson" id="ContactPerson" placeholder="Full Name of Contact">
+    <input type="text" class="form-control" name="ContactPerson" id="ContactPerson" placeholder="Please Use Full Name of Contact">
   </div>
        <div class="form-group">
     <label for="ContactPhone">Contact Phone</label>
