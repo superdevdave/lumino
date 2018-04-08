@@ -109,16 +109,21 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 	 $("#edDescription").val(data[8]);
 	 $("#edContactPerson").val(data[9]);
 	$("#edContactEmail").val(data[10]);
-	 $("#edContactPhone").val(data[11]);
-	  $("#edLeadSource").val(data[12]).change();
-	 $("#edMaturityDate").val(data[13]);
+	 $("#edMobile").val(data[11]);
+	 	 $("#edTelephone").val(data[12]);
+		 	 	 $("#edAddress").val(data[2]);
+				 	 	 $("#edAddress2").val(data[3]);
+						 	 	 $("#edCity").val(data[13]);
+								 	 	 $("#edProvince").val(data[14]);
+	  $("#edLeadSource").val(data[15]);
+	 $("#edMaturityDate").val(data[16]);
 
-	$("#edLaptops").val(data[15]);
-     $("#edDesktops").val(data[16]);
-	  $("#edServers").val(data[17]);
-	   $("#edProjectors").val(data[18]);
-	    $("#edNetworking").val(data[15]);
-		  $("#edMonitors").val(data[19]);
+	$("#edLaptops").val(data[18]);
+     $("#edDesktops").val(data[19]);
+	  $("#edServers").val(data[20]);
+	   $("#edProjectors").val(data[21]);
+	    $("#edNetworking").val(data[22]);
+		  $("#edMonitors").val(data[23]);
 
 
       if(this.checked){
@@ -353,7 +358,7 @@ $.ajax({
    
    
    
-		 	var actionstring="process.php?action=submitProforma&tax="+tax+"&total="+grandTotal+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val();
+		 	var actionstring="process.php?action=submitProforma&tax="+tax+"&total="+grandTotal+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val()+"&telephone="+$("#Telephone").val()+"&salesrep="+$("#salesrep").val();
   event.preventDefault();
   
 			$.ajax({

@@ -246,11 +246,14 @@ echo odbc_error($connection);
   
 </div>
    <div class="form-group">
-    <label for="PhoneNumber">Phone Number</label>
+    <label for="PhoneNumber">Mobile Phone Number</label>
     <input required type="text" class="form-control" id="PhoneNumber" placeholder="e.g 0772907676">
+  </div><div class="form-group">
+    <label for="Telephone">Telephone</label>
+    <input required type="text" class="form-control" id="Telephone" placeholder="e.g 0772907676">
   </div>
    <div class="form-group">
-    <label for="PhoneNumber">Email Address</label>
+    <label for="Email Address">Email Address</label>
     <input  type="text" class="form-control" id="email" placeholder="customer@organisation.co.zw">
   </div>
    <div class="form-group">
@@ -265,9 +268,7 @@ echo odbc_error($connection);
     <label for="City">City</label>
     <input required type="text" class="form-control" id="City" placeholder="City">
   </div>
-  <div class="form-group">
-   <h4><strong>Province</strong></h4>
-
+  
       <div class="form-group">
 	   <label for="store">Province</label>
         <select required class="form-control" id="province">
@@ -304,6 +305,9 @@ echo odbc_error($connection);
     <label for="Deposit">Discount Amount</label>
     <input  type="number"  class="form-control" id="DiscountAmount" placeholder="0">
   </div>
+  <input type="hidden" id="salesrep" value="<?php echo $_SESSION['salesrep'];?>" name="salesrep">
+   <input type="hidden" id="username" value="<?php echo $_SESSION['username'];?>" name="username">
+ 
   </form>
   <div class="form-group">
    <h4><strong>Invoice Line Items</strong></h4>

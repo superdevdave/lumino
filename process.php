@@ -79,13 +79,13 @@ echo $description=$_REQUEST['description'];
 echo $updatestate=$_REQUEST['updatestate'];
 
 
-echo $tax=$_REQUEST['vat'];
+echo $tax=$_REQUEST['tax'];
 echo $total=$_REQUEST['total'];
 
 
 
 echo $subtotal=$_REQUEST['subtotal'];
-
+echo $salesrep=$_REQUEST['salesrep'];
 echo $custid=$_REQUEST['custid'];
 echo $cashname=$_REQUEST['cashname'];
 echo $customer=$_REQUEST['customer'];
@@ -103,14 +103,23 @@ echo $rentalterm=$_REQUEST['rentalterm'];
 echo $rentaldesc=$_REQUEST['rentaldesc'];
 
 
-$sql = "INSERT INTO invserialsheader(docno,description,tax,total,subtotal,custid,cashname,customer,phone,address,address2,province,city,email,depositcash,depositperiod,discount,remarks,rentalterm,rentaldesc)
-VALUES ('$docno', '$description','$tax','$total','$subtotal','$custid','$cashname','$customer','$phone','$address','$address2','$province','$city','$email','$depositcash','$depositperiod','$discountamount','$remarks','$rentalterm','$rentaldesc')";
+$sql = "INSERT INTO invserialsheader(docno,description,tax,total,subtotal,custid,cashname,customer,phone,address,address2,province,city,email,depositcash,depositperiod,discount,remarks,rentalterm,salesrep)
+VALUES ('$docno', '$description','$tax','$total','$subtotal','$custid','$cashname','$customer','$phone','$address','$address2','$province','$city','$email','$depositcash','$depositperiod','$discountamount','$remarks','$rentalterm','$rentaldesc','$salesrep')";
+
+$sql2="INSERT INTO customer(name,email,mobile,telephone,organisationname,address,address2,city,province,sales_rep)
+VALUES ('$cashname', '$email','$mobile','$telephone','$customer','$address','$address2','$city','$phone','$province','$salesrep')";
 
 //$sql = "INSERT INTO invserialsheader(docno) VALUES ('$docno')";
 mysql_query($sql);
 
   $connection;
 echo mysql_error($connection);
+
+mysql_query($sql2);
+
+  $connection;
+echo mysql_error($connection);
+}
 }
 
 function AddProformaItem(){
@@ -165,7 +174,8 @@ function addOpportunities(){
 
 
 
-$usernameFirstname="Joy Napata";
+$usernameFirstname=$_REQUEST['username'];
+$salesrep=$_REQUEST['salesrep'];
 
 echo $title=$_REQUEST['OpportunityName'];
 echo $organisation=$_REQUEST['Organisation'];
@@ -178,7 +188,12 @@ echo $projectors=$_REQUEST['Projectors'];
 $networking=$_REQUEST['Networking'];
 $rentalamount=$_REQUEST['RentalAmount'];
 $maturitydate=$_REQUEST['MaturityDate'];
-$contactphone=$_REQUEST['ContactPhone'];
+$contactphone=$_REQUEST['telephone'];
+$mobile=$_REQUEST['mobile'];
+$address=$_REQUEST['address'];
+$address2=$_REQUEST['address2'];
+$city=$_REQUEST['city'];
+$province=$_REQUEST['province'];
 $contactperson=$_REQUEST['ContactPerson'];
 $contactemail=$_REQUEST['ContactEmail'];
 $leadsource=$_REQUEST['LeadSource'];
@@ -187,11 +202,16 @@ $description=$_REQUEST['Description'];
 $totalunits=$laptops+$desktops+$servers+$projectors;
 
 $ActivityStreamDescription=$usernameFirstname." has just created a new opportunity called ".$title;
+$AcivityType="AddOpportunity";
 
+$sql = "INSERT INTO opportunity(opportunity_name,sales_rep,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,telephone,address,address2,province,city,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate)
+VALUES ('$title', '$usernameFirstname', '$organisation','$salestype','Open','$rentalamount','$totalunits','$description','$contactemail','$mobile','$telephone','$address','$address2','$province','$city','$laptops','$projectors','$desktops','$printers','$monitors','$servers','$networking','$leadsource','$contactperson','$maturitydate')";
 
-$sql = "INSERT INTO opportunity(opportunity_name,sales_rep,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate)
-VALUES ('$title', '$usernameFirstname', '$organisation','$salestype','Open','$rentalamount','$totalunits','$description','$contactemail','$contactphone','$laptops','$projectors','$desktops','$printers','$monitors','$servers','$networking','$leadsource','$contactperson','$maturitydate')";
-$sql2="insert into activties (Description,Username) values('$ActivityStreamDescription','$usernameFirstname')";
+$sql2="insert into activties (Description,Username,salesrep,activitytype) values('$ActivityStreamDescription','$usernameFirstname',$salesrep,$activitytype)";
+
+$sql3="INSERT INTO customer(name,email,mobile,telephone,organisationname,address,address2,city,province,sales_rep)
+VALUES ('$contactperson', '$contactemail','$mobile','$telephone','$customer','$address','$address2','$city','$phone','$province','$usernameFirstname')";
+
 mysql_query($sql);
 mysql_query($sql2);
 

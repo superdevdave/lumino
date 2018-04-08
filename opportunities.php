@@ -69,9 +69,9 @@ $query = "SELECT * FROM opportunity"; //You don't need a ; like you do in SQL
 $result = mysql_query($query);
 
 echo "<table id=\"example\" class=\"display\" cellspacing=\"0\" width=\"100%\">"; // start a table tag in the HTML
-echo "<thead><tr><th>ID</th><th>Opportunity Name</th><th>Opportunity Status</th><th>Sales Rep</th><th>Customer</th><th>Sales Type</th></th><th>RentalAmount</th><th>Units</th><th>Description</th><th>ContactPerson</th><th>Email</th><th>PhoneNumber</th><th>LeadSource</th><th>Maturity Date</th><th>Date Initiated</th><th>No Of Laptops</th><th>No Of Desktops</th><th>No of Servers</th><th>No Of Projectors</th><th>Networking Equipment</th><th>Monitors</th><th>Reason for Cancellation</th></tr></thead><tbody>";
+echo "<thead><tr><th>ID</th><th>Opportunity Name</th><th>Opportunity Status</th><th>Sales Rep</th><th>Customer</th><th>Sales Type</th></th><th>RentalAmount</th><th>Units</th><th>Description</th><th>ContactPerson</th><th>Email</th><th>Mobile Phone</th><th>Telephone</th><th>City</th><th>Province</th><th>LeadSource</th><th>Maturity Date</th><th>Date Initiated</th><th>No Of Laptops</th><th>No Of Desktops</th><th>No of Servers</th><th>No Of Projectors</th><th>Networking Equipment</th><th>Monitors</th><th>Reason for Cancellation</th></tr></thead><tbody>";
 while($row = mysql_fetch_array($result)){   //Creates a loop to loop through results
-echo "<tr><td>". $row['id']."</td><td>".$row['opportunity_name']."</td><td>".$row['status']."</td><td>".$row['sales_rep']."</td><td>".$row['customer']."</td><td>".$row['sales_type']."</td><td>".$row['rental_amount']."</td><td>".$row['units_sold']."</td><td>".$row['description']."</td><td>".$row['contact_name']."</td><td>".$row['email']."</td><td>".$row['mobile']."</td><td>".$row['leads_source']."</td><td>".$row['MaturityDate']."</td><td>".$row['DateInitiated']."</td><td>".$row['laptops']."</td><td>".$row['desktops']."</td><td>".$row['servers']."</td><td>".$row['projectors']."</td><td>".$row['networking']."</td><td>".$row['monitors']."</td><td>".$row['Reason']."</td></tr>";  //$row['index'] the index here is a field name
+echo "<tr><td>". $row['id']."</td><td>".$row['opportunity_name']."</td><td>".$row['status']."</td><td>".$row['sales_rep']."</td><td>".$row['customer']."</td><td>".$row['sales_type']."</td><td>".$row['rental_amount']."</td><td>".$row['units_sold']."</td><td>".$row['description']."</td><td>".$row['contact_name']."</td><td>".$row['email']."</td><td>".$row['mobile']."</td><td>".$row['telephone']."</td><td>".$row['city']."</td><td>".$row['province']."</td><td>".$row['leads_source']."</td><td>".$row['MaturityDate']."</td><td>".$row['DateInitiated']."</td><td>".$row['laptops']."</td><td>".$row['desktops']."</td><td>".$row['servers']."</td><td>".$row['projectors']."</td><td>".$row['networking']."</td><td>".$row['monitors']."</td><td>".$row['Reason']."</td></tr>";  //$row['index'] the index here is a field name
 }
 
 echo "</tbody></table>"; //Close the table in HTML
@@ -175,9 +175,42 @@ echo "</tbody></table>"; //Close the table in HTML
     <input type="text" class="form-control" name="ContactPerson" id="ContactPerson" placeholder="Please Use Full Name of Contact">
   </div>
        <div class="form-group">
-    <label for="ContactPhone">Contact Phone</label>
-    <input type="text" class="form-control" name="ContactPhone" id="ContactPhone" placeholder="Phone...Optional">
+    <label for="ContactPhone">Mobile Phone</label>
+    <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone...Optional">
   </div>
+      <div class="form-group">
+    <label for="ContactPhone">Telephone</label>
+    <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Phone...Optional">
+  </div>
+    <div class="form-group">
+    <label for="ContactPhone">Address</label>
+    <input type="text" class="form-control" name="address" id="address" placeholder="Address...Optional">
+  </div>
+  <div class="form-group">
+    <label for="ContactPhone">Address 2</label>
+    <input type="text" class="form-control" name="address2" id="address2" placeholder="Address...Optional">
+  </div>
+   <div class="form-group">
+    <label for="ContactPhone">City</label>
+    <input type="text" required class="form-control" name="city" id="city" placeholder="City">
+  </div>
+
+        <div class="form-group">
+	   <label for="store">Province</label>
+        <select required class="form-control" id="province">
+      <option value="Harare Province">Harare</option>
+      <option value="Bulawayo Province">Bulawayo</option>
+     	<option value="Manicaland Province">Manicaland</option>
+		<option value="Midlands Province">Midlands</option>
+             	<option value="Masvingo Province">Masvingo</option>
+            	<option value="Matebeleland North">Matebeleland North</option>
+            	<option value="Matebeleland South">Matebeleland South</option>
+            	 	<option value="Mashonaland Central">Mash Central</option>
+					<option value="Mashonaland East">Mash East</option>
+								<option value="Mashonaland West">Mash West</option>
+      
+        </select>
+		  </div>
      <div class="form-group">
     <label for="ContactEmail">Contact Email</label>
     <input type="email" class="form-control" name="ContactEmail" id="ContactEmail" placeholder="Email...Optional">
@@ -298,10 +331,36 @@ echo "</tbody></table>"; //Close the table in HTML
     <label for="ContactPerson">Contact Person</label>
     <input type="text" class="form-control" name="edContactPerson" id="edContactPerson" placeholder="Full Name of Contact">
   </div>
-       <div class="form-group">
-    <label for="ContactPhone">Contact Phone</label>
-    <input type="text" class="form-control" name="edContactPhone" id="edContactPhone" placeholder="Phone...Optional">
+        <div class="form-group">
+    <label for="ContactPhone">Mobile Phone</label>
+    <input type="text" class="form-control" name="edMobile" id="edMobile" placeholder="Phone...Optional">
   </div>
+      <div class="form-group">
+    <label for="ContactPhone">Telephone</label>
+    <input type="text" class="form-control" name="edTelephone" id="edTelephone" placeholder="Phone...Optional">
+  </div>
+    
+   <div class="form-group">
+    <label for="ContactPhone">City</label>
+    <input type="text" required class="form-control" name="edCity" id="edCity" placeholder="City">
+  </div>
+
+        <div class="form-group">
+	   <label for="store">Province</label>
+        <select required class="form-control" id="edProvince">
+      <option value="Harare Province">Harare</option>
+      <option value="Bulawayo Province">Bulawayo</option>
+     	<option value="Manicaland Province">Manicaland</option>
+		<option value="Midlands Province">Midlands</option>
+             	<option value="Masvingo Province">Masvingo</option>
+            	<option value="Matebeleland North">Matebeleland North</option>
+            	<option value="Matebeleland South">Matebeleland South</option>
+            	 	<option value="Mashonaland Central">Mash Central</option>
+					<option value="Mashonaland East">Mash East</option>
+								<option value="Mashonaland West">Mash West</option>
+      
+        </select>
+		  </div>
      <div class="form-group">
     <label for="ContactEmail">Contact Email</label>
     <input type="text" class="form-control" name="edContactEmail" id="edContactEmail" placeholder="Email...Optional">
@@ -311,6 +370,9 @@ echo "</tbody></table>"; //Close the table in HTML
 <textarea class="form-control" rows="3" name="edDescription" id="edDescription">
  </textarea>
  </div>
+  <input type="hidden" id="salesrep" value="<?php echo $_SESSION['salesrep'];?>" name="salesrep">
+   <input type="hidden" id="username" value="<?php echo $_SESSION['username'];?>" name="username">
+ 
 
       </div>
       <div class="modal-footer">
