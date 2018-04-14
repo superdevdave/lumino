@@ -97,7 +97,13 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 
       // Get row ID and Record Data TO use in Opportunities Edit Modal Form
      var rowId = data[0];
+	 
+	 //Get the Document Number of Selected Proforma Number for Viewing Items
+	 
+	 var viewProfomaNo=data[1];
 
+
+	 
 	 $("#edOpportunityID").val(data[0]);
 	 $("#CloseOppID").val(data[0]);
 	 $("#CancelOppID").val(data[0]);
@@ -141,6 +147,15 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 
    });
 
+  $("#btnViewSelectedProforma").click(function(event){
+  
+	  var viewselecteddocaction="viewpfinvoice.php?docno="+viewProfomaNo;
+	  
+	  window.href.location=viewselecteddocaction;
+	  
+	   event.preventDefault(); 
+ 
+});
 
    ///THIS IS FOR THE PROCESS PROFORMA ADD ITEMS SCRIPT
 			var vatTotal=0;
@@ -359,6 +374,7 @@ $.ajax({
    
    
 		 	var actionstring="process.php?action=submitProforma&tax="+tax+"&total="+grandTotal+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val()+"&telephone="+$("#Telephone").val()+"&salesrep="+$("#salesrep").val();
+			var viewresultstring="viewpfinvoice.php?docno=PF"+grandProformadocno;
   event.preventDefault();
   
 			$.ajax({
@@ -366,7 +382,7 @@ $.ajax({
 	       url: actionstring,
            data: $("#proformaBodyForm").serialize(), // serializes the form's elements.
            success: function(data,response)
-           { //window.location.href=actionstring;
+           { 
               //alert(data); // show response from the php script.
 		
 			 // var datafill=Number(data)+1;
@@ -375,6 +391,7 @@ $.ajax({
 			
 			alert(data);
 			alert(response);
+			window.location.href=viewresultstring;
 
 
 		

@@ -17,7 +17,7 @@ include("dbconn3.php");
 		<div class="row">
 			<div class="col-lg-12">
 			<form id="generateProformaForm"
-				<h1 class="page-header">Documents</h1> <button class="btn btn-default"><span class="fa fa-add"></span><em class="fa fa-eye color-red"> </em> View Selected Document</button>
+				<h1 class="page-header">Documents</h1> <button id="btnViewSelectedProforma" class="btn btn-default"><span class="fa fa-add"></span><em class="fa fa-eye color-red"> </em> View Selected Document</button>
 			
 				<button data-toggle="modal" id="generateProforma" data-target="#processProfModal" class="btn btn-default"><em class="fa fa-file color-red"></em>  Generate Proforma Invoice</button>
 	</form>
@@ -33,9 +33,9 @@ $query = "SELECT * FROM invserialsheader"; //You don't need a ; like you do in S
 $result = mysql_query($query);
 
 echo "<table id=\"example\" class=\"display\" cellspacing=\"0\" width=\"100%\">"; // start a table tag in the HTML
-echo "<thead><tr><th>ID</th><th>Document Number</th><th>Date</th><th>Organisation/Company</th><th>Contact Person</th><th>Sales Rep</th><th>Rental Term</th><th>Rental Description</th><th>Description</th><th>Sub Total</th><th>VAT</th><th>Total</th><th>Discount</th><th>Deposit Amount</th><th>Deposit Period</th><th>Address</th><th>Address2</th><th>City</th><th>Province</th><th>Mobile Phone</th><th>Telephone</th><th>Email</th></tr></thead><tbody>";
+echo "<thead><tr><th>ID</th><th>Document Number</th><th>Date</th><th>Organisation/Company</th><th>Contact Person</th><th>Sales Rep</th><th>Rental Term</th><th>Rental Description</th><th>Description</th><th>Sub Total</th><th>VAT</th><th>Total</th><th>Discount</th><th>Deposit Amount</th><th>Deposit Period</th><th>Address</th><th>Address2</th><th>City</th><th>Province</th><th>Mobile Phone</th><th>Telephone</th><th>Email</th><th>Remarks</th></tr></thead><tbody>";
 while($row = mysql_fetch_array($result)){   //Creates a loop to loop through results
-echo "<tr><td>". $row['ID']."</td><td>". $row['Docno']."</td><td>". $row['DDate']."</td><td>".$row['Customer']."</td><td>".$row['CashName']."</td><td>".$row['username']."</td><td>".$row['RentalTerm']."</td><td>".$row['Rentaldesc']."</td><td>".$row['Description']."</td><td>".$row['subtotal']."</td><td>".$row['Tax']."</td><td>".$row['total']."</td><td>".$row['Discount']."</td><td>".$row['DepositCash']."</td><td>".$row['DepositPeriod']."</td><td>".$row['Address']."</td><td>".$row['Address2']."</td><td>".$row['City']."</td><td>".$row['Province']."</td><td>".$row['Mobile']."</td><td>".$row['Telephone']."</td><td>".$row['Email']."</td></tr>";  //$row['index'] the index here is a field name
+echo "<tr><td>". $row['ID']."</td><td>". $row['Docno']."</td><td>". $row['DDate']."</td><td>".$row['Customer']."</td><td>".$row['CashName']."</td><td>".$row['username']."</td><td>".$row['RentalTerm']."</td><td>".$row['Rentaldesc']."</td><td>".$row['Description']."</td><td>".$row['subtotal']."</td><td>".$row['Tax']."</td><td>".$row['total']."</td><td>".$row['Discount']."</td><td>".$row['DepositCash']."</td><td>".$row['DepositPeriod']."</td><td>".$row['Address']."</td><td>".$row['Address2']."</td><td>".$row['City']."</td><td>".$row['Province']."</td><td>".$row['Mobile']."</td><td>".$row['Telephone']."</td><td>".$row['Email']."</td><td>".$row['Remarks']."</td></tr>";  //$row['index'] the index here is a field name
 }
 
 echo "</tbody></table>"; //Close the table in HTML
