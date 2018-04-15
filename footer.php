@@ -173,8 +173,10 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 			var grandvat=0;
 			var granddiscount=0;
 			var granddeposit=0;
-			
+			var monthlyrental=0;
+			var grandeposit=0;
 			var grandProformadocno;
+			var excltotal=0;
 
 		
 
@@ -289,10 +291,13 @@ alert(chektable);
 
 
    
+
    var total = 1.15*($("#qty").val()*$("#unitprice").val());
+   var exclvat=Number(total)/1.15;
+   var vat=Number(total-exclvat);
    
-var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount)+Number(granddeposit);
-				 var vat=Number(total-normaltotal);
+var normaltotal =Number($("#qty").val()*$("#unitprice").val());
+				//ar vat=Number(total-normaltotal);
     var url="process.php?action=addProformaItem&itemdesc="+$("#itemdescription").val()+"&unitprice="+$("#unitprice").val()+"&qty="+$("#qty").val()+"&store="+$("#store").val()+"&total="+total+"&vat="+vat+"&docno="+currentProformaDoc+"&updatestate="+chektable+"&plaindocno="+plaindocno;
 
     //var url = "path/to/your/script.php"; // the script where you handle the form input.
@@ -318,7 +323,7 @@ $.ajax({
   e.preventDefault(); 
 	  chektable='dontupdate';
     granddiscount=$("#DiscountAmount").val();
-			   granddeposit=$("#DepositAmount").val();
+			   var depositperiod=$("#DepositPeriod").val();
 
             var store = $("#store").val();
 
@@ -327,27 +332,39 @@ $.ajax({
              var qty = $("#qty").val();
 
 			     var normaltotal =Number($("#qty").val()*$("#unitprice").val())-Number(granddiscount)+Number(granddeposit);
-				 var vat=Number(total)-Number(normaltotal);
+				//var vat=Number(total)-Number(normaltotal);
 				  $("#granddiscount").html(Number(granddiscount));
-				  $("#granddeposit").html(Number(granddeposit));
-
+				  
+				  
 				  grandvat+=Number(vat);
-				var   grandTot1=Number(total)-Number(granddiscount);
-				var grandTot2=Number(grandTot1)+Number(granddeposit);
-			   grandTotal+=Number(total)-Number(granddiscount)+Number(granddeposit);
+				
+			
+			   if ($("#store").val()!="020")
+{
+			   monthlyrental+=Number(total);
+}
+granddeposit=Number(monthlyrental)*Number(depositperiod);
+//var   grandTot1=Number(total)-Number(granddiscount);
+var grandTot2=Number(total)-Number(granddiscount);
+   grandTotal+=(Number(granddeposit)+Number(grandTot2));
 			   //grandTotal+=grandTot2;
 			   //grandTot1=0;
 			 //  grandTot1=0;
 			   
+ $("#granddeposit").html(Number(granddeposit));
+
             var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + store + "</td><td>" + itemdescription + "</td><td>" + unitprice + "</td><td>" + qty + "</td><td>" + total + "</td></tr>";
 
 
+alert(monthlyrental);
 
 			$("#proforma tbody").append(markup);
 		$("#grandtotal").html(grandTotal);
 		$("#grandvat").html(grandvat);
 		$("#unitprice").val("Unit Price");
 		 $("#itemdescription").val("Description");
+		 $("#store").val("000");
+		 //$("#store").html("000");
 		 $("#qty").val("Qty");
 
 
@@ -366,13 +383,36 @@ $.ajax({
  
  //SUBMIT PROFORMA INVOICE
  
+ 
+ $("#itemdescription").change(function()
+ {
+	 if ($("#store").val()=="000")
+	 {
+		 alert("Please Pick a Valid Store Category First Before Clicking Add Item or proceeding otherwise your figures would be innacurate");
+	 }
+ });
+ 
+  $("#qty").change(function()
+ {
+	 if ($("#store").val()=="000")
+	 {
+		 alert("Please Pick a Valid Store Category First Before Clicking Add Item or proceeding otherwise your figures would be innacurate");
+	 }
+ });
+   $("#qty").change(function()
+ {
+	 if ($("#unitprice").val()=="000")
+	 {
+		 alert("Please Pick a Valid Store Category First Before Clicking Add Item or proceeding otherwise your figures would be innacurate");
+	 }
+ });
     $("#SubmitProforma").click(function(event){
 		
 		 $('#proformaBodyForm .submit').click();
 	var grandexcl=Number(grandTotal)/Number(1.15);
 	var tax=Number(grandvat);
-	alert(grandProformadocno);
-	alert(grandvat+" "+grandTotal+" "+grandexcl)
+	//alert(grandProformadocno);
+	//alert(grandvat+" "+grandTotal+" "+grandexcl)
 		
 		
 	
@@ -383,7 +423,7 @@ $.ajax({
    
    
    
-		 	var actionstring="process.php?action=submitProforma&tax="+tax+"&total="+grandTotal+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val()+"&telephone="+$("#Telephone").val()+"&salesrep="+$("#salesrep").val();
+		 	var actionstring="process.php?action=submitProforma&tax="+tax+"&total="+grandTotal+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val()+"&telephone="+$("#Telephone").val()+"&salesrep="+$("#salesrep").val()+"&terms="+$("#Terms").val()+"&monthlyrental="+monthlyrental;
 			var viewresultstring="viewpfinvoice.php?docno=PF"+grandProformadocno;
   event.preventDefault();
   
@@ -399,8 +439,8 @@ $.ajax({
 			//  var theData=pad(datafill,4);
 			theData=data;
 			
-			alert(data);
-			alert(response);
+			//alert(data);
+			//alert(response);
 			window.location.href=viewresultstring;
 
 
@@ -424,6 +464,11 @@ $.ajax({
 $("#granddeposit").html("");
 		grandTotal=0;
 			 grandvat=0
+			 granddeposit=0;
+			 vat=0;
+			 total=0;
+			  $("#store").val("000");
+			 
 
 				if($(this).is(":checked")){
 

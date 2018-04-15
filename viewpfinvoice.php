@@ -66,6 +66,10 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
 #proformaInvoiceTable > tbody > tr > .thick-line {
     border-top: 2px solid;
 }
+@page {
+    size: 25cm 35.7cm;
+    margin: 5mm 5mm 5mm 5mm; /* change the margins as you want them to be. */
+}
 </style>
 
 <!------ Include the above in your HEAD tag ---------->
@@ -160,7 +164,7 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
     								<td class="no-line"></td>
     								<td class="no-line"></td>
     								<td class="no-line text-center"><strong>Discount Amount</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['DiscountCash']); ?> </td>
+    								<td class="no-line text-right">$ <?php echo round_up($headerrow['Discount']); ?> </td>
     							</tr>
 								<tr>
     								<td class="thick-line"></td>
@@ -186,6 +190,10 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
     				</div>
 					<div>
 					<table>
+					<tr>
+    								<td class="no-line"><strong>  Billing Terms: </strong></td>
+    								<td class="no-line">  <?php echo $headerrow['Terms']; ?></td>
+					</tr>
 					<tr>
     								<td class="no-line"><strong><?php echo $headerrow['Terms']; ?>  VAT</strong></td>
     								<td class="no-line">  $ <?php  echo round_up($theVAT); ?></td>

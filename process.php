@@ -91,6 +91,7 @@ echo $custid=$_REQUEST['custid'];
 echo $cashname=$_REQUEST['cashname'];
 echo $customer=$_REQUEST['customer'];
 echo $phone=$_REQUEST['phone'];
+echo $telephone=$_REQUEST['telephone'];
 echo $address=$_REQUEST['address'];
 echo $address2=$_REQUEST['address2'];
 echo $province=$_REQUEST['province'];
@@ -102,13 +103,15 @@ echo $discountamount=$_REQUEST['discount'];
 echo $remarks=$_REQUEST['remarks'];
 echo $rentalterm=$_REQUEST['rentalterm'];
 echo $rentaldesc=$_REQUEST['rentaldesc'];
+echo $terms=$_REQUEST['terms'];
+echo $monthlyrental=$_REQUEST['monthlyrental'];
 
 
-$sql = "INSERT INTO invserialsheader(docno,description,tax,total,subtotal,custid,cashname,customer,phone,address,address2,province,city,email,depositcash,depositperiod,discount,remarks,rentalterm,rentaldesc,sales_rep,username)
-VALUES ('$docno', '$description','$tax','$total','$subtotal','$custid','$cashname','$customer','$phone','$address','$address2','$province','$city','$email','$depositcash','$depositperiod','$discountamount','$remarks','$rentalterm','$rentaldesc','$salesrep','$username')";
+$sql = "INSERT INTO invserialsheader(docno,description,tax,total,subtotal,custid,cashname,customer,phone,telephone,address,address2,province,city,email,depositcash,depositperiod,discount,remarks,rentalterm,rentaldesc,sales_rep,username,Terms,MonthlyRental)
+VALUES ('$docno', '$description','$tax','$total','$subtotal','$custid','$cashname','$customer','$phone','$telephone','$address','$address2','$province','$city','$email','$depositcash','$depositperiod','$discountamount','$remarks','$rentalterm','$rentaldesc','$salesrep','$username','$terms','$monthlyrental')";
 
 $sql2="INSERT INTO customer(name,email,mobile,telephone,organisationname,address,address2,city,province,sales_rep,username)
-VALUES ('$cashname', '$email','$mobile','$telephone','$customer','$address','$address2','$city','$province','$salesrep','$username')";
+VALUES ('$cashname', '$email','$phone','$telephone','$customer','$address','$address2','$city','$province','$salesrep','$username')";
 
 //$sql = "INSERT INTO invserialsheader(docno) VALUES ('$docno')";
 mysql_query($sql);

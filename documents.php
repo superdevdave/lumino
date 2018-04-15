@@ -153,6 +153,7 @@ echo odbc_error($connection);
  <select required class="form-control" id="SalesType">
       <option>Schools</option>
       <option>Corporates</option>
+	   <option>Government</option>
 	   <option>Other</option>
     </select> </div>
 
@@ -263,6 +264,18 @@ echo odbc_error($connection);
       <option>Years</option>
       </select>
  </div>
+ 
+ <label class="" for="Rental">Payment & Billing Interval</label>
+  <select  required class="form-control" name="Terms" id="Terms">
+        <option>Daily</option>
+        <option>Weekly</option>
+  	   <option selected>Monthly</option>
+	   <option>Quarterly</option>
+	   	   <option>Termly</option>
+		      <option>Yearly</option>
+
+      </select>
+ </div>
      <div class="form-group">
          
     <label   for="ContactName">Contact Name</label>
@@ -323,7 +336,7 @@ echo odbc_error($connection);
   </div>
   <div class="form-group">
     <label for="Deposit">Deposit Amount</label>
-    <input  type="number"  class="form-control" id="DepositAmount" placeholder="0">
+    <input readonly  type="number"  class="form-control" id="DepositAmount" placeholder="0">
   </div>
     <div class="form-group">
     <label for="Deposit">Discount Amount</label>
@@ -339,6 +352,7 @@ echo odbc_error($connection);
       <div class="form-group">
 	   <label for="store">Store Code</label>
         <select required class="form-control" id="store">
+  <option value="000" selected>Please Select Store</option>
       <option value="001">Desktops</option>
       <option value="002">LCDs</option>
      	<option value="003 Laptops">Laptops</option>
@@ -347,6 +361,7 @@ echo odbc_error($connection);
             	<option value="006">Printers</option>
             	 	<option value="007">Projectors</option>
              	<option value="012">Accessories</option>
+				 	<option value="020">Service</option>
 				<option value="020">Other</option>
         </select>
 		  </div>
