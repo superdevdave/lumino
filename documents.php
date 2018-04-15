@@ -15,13 +15,21 @@ include("dbconn3.php");
 		</div><!--/.row-->
 		
 		<div class="row">
-			<div class="col-lg-12">
-			<form id="generateProformaForm"
-				<h1 class="page-header">Documents</h1> <button id="btnViewSelectedProforma" class="btn btn-default"><span class="fa fa-add"></span><em class="fa fa-eye color-red"> </em> View Selected Document</button>
-			
+		
+				
+				
+				<h1 class="page-header">Documents</h1>
+<table>
+<<td style="white-space:nowrap;">
+
+		<button id="btnViewSelectedProforma" class="btn btn-default"><span class="fa fa-add"></span><em class="fa fa-eye color-red"> </em> View Selected Document</button>
+		
+				<form id="generateProformaForm">
 				<button data-toggle="modal" id="generateProforma" data-target="#processProfModal" class="btn btn-default"><em class="fa fa-file color-red"></em>  Generate Proforma Invoice</button>
 	</form>
-			</div>
+	</td>
+		</table>
+		
 		</div><!--/.row-->
 		
 			<div class="row">

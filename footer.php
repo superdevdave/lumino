@@ -26,6 +26,7 @@
 
 	<script type="text/javascript">
 	var currentRowId;
+		
 
 	//Load Datatables
 $(window).load(function() {
@@ -53,7 +54,7 @@ $(window).load(function() {
 
 $(document).ready(function (){
 var chektable;
-
+ var viewProformaNo;
 	
 var pad='00000';
  /*
@@ -100,8 +101,9 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 	 
 	 //Get the Document Number of Selected Proforma Number for Viewing Items
 	 
-	 var viewProfomaNo=data[1];
 
+	 
+	 viewProformaNo=data[1];
 
 	 
 	 $("#edOpportunityID").val(data[0]);
@@ -146,14 +148,22 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 
 
    });
+   
+   ///VIEW SELECTED PROFORMA DOCUMENT
+   
+  $("#viewProformaForm").submit(function(event){
+    event.preventDefault();
+});
 
   $("#btnViewSelectedProforma").click(function(event){
-  
-	  var viewselecteddocaction="viewpfinvoice.php?docno="+viewProfomaNo;
 	  
-	  window.href.location=viewselecteddocaction;
+
+  alert(viewProformaNo);
+	  var viewselecteddocaction;
+	  viewselecteddocaction="viewpfinvoice.php?docno="+viewProformaNo;
 	  
-	   event.preventDefault(); 
+	  window.location.href=(viewselecteddocaction);
+	   
  
 });
 
