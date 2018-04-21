@@ -61,9 +61,9 @@ $query = "SELECT * FROM meetings"; //You don't need a ; like you do in SQL
 $result = mysql_query($query);
 
 echo "<table id=\"example\" class=\"display\" cellspacing=\"0\" width=\"100%\">"; // start a table tag in the HTML
-echo "<thead><tr><th>ID</th><th>Opportunity Name</th><th>Opportunity Status</th> <th>Sales Rep</th><th> Customer</th><th> Sales Type</th><th> Product Category</th><th>Rental Amount</th><th>Units</th><th>Description</th><th>Email</th><th>Phone Number</th><th>Lead Source</th></tr></thead>";
+echo "<thead><tr><th>ID</th><th>Title</th><th>Description</th> <th>Customer</th><th>User</th><th>Scheduled Date</th><th>Status</th><th>Outcome</th><th>User</th></tr></thead>";
 while($row = mysql_fetch_array($result)){   //Creates a loop to loop through results
-echo "<tbody><tr><td>" . $row['id'] . "</td><td>" . $row['opportunity_name'] . "</td><td>".$row['status'] ."</td><td>".$row['sales_rep'] . "</td><td>".$row['customer'] . "</td><td>".$row['sales_type'] . "</td><td>".$row['product'] . "</td><td>".$row['rental_amount'] . "</td><td>".$row['units_sold'] . "</td><td>".$row['description'] . "</td><td>".$row['email'] . "</td><td>".$row['mobile'] . "</td><td>".$row['leads_source'] . "</td><td></tr></tbody>";  //$row['index'] the index here is a field name
+echo "<tbody><tr><td>" . $row['id'] . "</td><td>" . $row['Title'] . "</td><td>".$row['Description'] ."</td><td>".$row['Customer'] . "</td><td>".$row['User'] . "</td><td>".$row['Date'] . "</td><td>".$row['Status'] . "</td><td>".$row['Outcome'] . "</td><td>".$row['User'] . "</td></tr></tbody>";  //$row['index'] the index here is a field name
 }
 
 echo "</table>"; //Close the table in HTML

@@ -432,8 +432,8 @@ echo odbc_error($connection);
 
  
     
-    <button id="SubmitProforma" class="btn btn-default" id="closeProfAdd">Save</button>
-	
+    <button id="SubmitProforma" class="btn btn-default" id="closeProfAdd"><em class="fa fa-plus color-red"></em> Create Proforma Only</button>
+	<button id="SubmitProforma" class="btn btn-default" id="closeProfAdd"><em class="fa fa-plus color-red"></em> Create As Proforma + Opportunity</button>
 	<button id="closeBtn" data-toggle="modal" data-target="processProfModal" class="btn btn-default"><em class="fa fa-close color-red"></em>Close</button>
   </div>
 

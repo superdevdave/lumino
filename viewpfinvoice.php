@@ -78,7 +78,7 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
-    		<img src="http://qrent.co.zw/wp-content/uploads/2016/05/Qrent-Logo-75x.jpg">    	<h2>Profoma Invoice</h2><h3 class="pull-right">Invoice # <?php echo $headerrow['Docno']; ?></h3>
+    		<img src="http://qrent.co.zw/wp-content/uploads/2016/05/Qrent-Logo-75x.jpg">    	<h2>Proforma Invoice</h2><h3 class="pull-right">Invoice # <?php echo $headerrow['Docno']; ?></h3>
     		</div>
     		<hr>
     		<div class="row">
