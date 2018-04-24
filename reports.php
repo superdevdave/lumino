@@ -89,7 +89,7 @@ var todate=$("#todate").val();
 
  $('#individualreportform .submit').click();
 	alert("Testing Tesing 12");
-	 var actionstring="process.php?action=viewIndividualReport&type="+reportType+"&date="+$dailydate+"&fromdate="+$fromdate+"&todate="+$todate;
+	 var actionstring="process.php?action=viewIndividualReport.php&type="+reportType+"&date="+$dailydate+"&fromdate="+$fromdate+"&todate="+$todate;
 $.ajax({
            type: "GET",
 	       url: actionstring,

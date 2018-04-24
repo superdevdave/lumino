@@ -1,13 +1,69 @@
+<!DOCTYPE html>
+<head>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+
 <?php
 session_start();
 include ("dbconn.php");
 include ("dbconn3.php");
+
+echo $GLOBALS['salesrep']="dave";//$_SESSION["salesrep"];
+
+echo  $username="David Mandengenda";//$_SESSION["username"];
 
 function round_up($number, $precision = 2)
 {
     $fig = (int) str_pad('1', $precision, '0');
     return (ceil($number * $fig) / $fig);
 }
+	
+//Get Document Header Information
+$reporttype="Daily";//$_REQUEST['reporttype'];
+
+//echo $reporttype;
+
+
+switch($reporttype) {
+	case 'Daily':
+	viewDailyReport();
+	break;
+	
+	case 'Weekly':
+	EditOpportunityData();
+	break;
+	
+	case 'Monthly':
+		CancelOpportunity();
+	break;
+	
+	case 'Custom':
+		CloseOpportunity();
+	break;
+    	case 'addProformaItem':
+	 AddProformaItem();
+	break;
+	case 'getProformaNo':
+		GetProformaNo();
+	break;
+	
+	case 'change-pass':
+		changePass();
+	break;
+	case'submitProforma':
+	SubmitProforma();
+	break;
+	case'viewIndividualReport':
+	ViewIndividualReport();
+	break;
+	case 'logOut':
+		logOut();
+	break;		
+
+}//switch
+
 
 ///Get Branch Information
 $query = "SELECT * FROM branch where id=1"; //You don't need a ; like you do in SQL
@@ -17,94 +73,109 @@ $connection;
 
 echo mysql_error($connection);
 
-//Get Document Header Information
-$reporttype=$_REQUEST[''];
 
-
-switch ($reporttype)
+function EditOpportunityData()
 {
-	
-	case 'Daily':
-	viewDailyReport();
-	break;
-	case 'Weekly':
-	viewWeeklyReport();
-	break;
-	case 'Monthly':
-	viewMonthlyReport();
-	break;
-	default:
-	viewCustomReport();
-		
+	echo "hatina kupinda";
 }
 
 function viewDailyReport()
 {
-	
-echo $salesrep=$_REQUEST['docno'];
+include ("dbconn.php");
+include ("dbconn3.php");
+echo "Tapinda";
 
-echo $username=$_REQUEST[];
+echo $salesrep="dave";
 
-echo $fromdate=$_REQUEST[''];
+//echo $fromdate=$_REQUEST['fromdate'];
 
-echo $dailydate=$_REQUEST[''];
+//echo $fromdate=$_REQUEST['todate'];
+
+$dailydate=date("Y/m/d");
+
+echo $startdate=date("d/m/Y");
+
+echo $enddate=date("d/m/Y");
+
+//Get Number of laptops Hired
+$query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep' and status='Closed' and DateClosed='$dailydate'"; //You don't need a ; like you do in SQL
+$result11 = mysql_query($query11);
+$row=mysql_fetch_row($result11);
+$laptopshired=$row[0];
+$GLOBALS['laptopshired']=$laptopshired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of desktops Hired
+$query12 = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep' and status='Closed' and DateClosed='$dailydate'"; //You don't need a ; like you do in SQL
+$result12 = mysql_query($query12);
+$row=mysql_fetch_row($result12);
+$desktopshired=$row[0];
+$GLOBALS['desktopshired']=$desktopshired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of servers Hired
+$query13 = "SELECT sum(servers) FROM opportunity where sales_rep='$salesrep' and status='Closed' and DateClosed='$dailydate'"; //You don't need a ; like you do in SQL
+$result13 = mysql_query($query13);
+$row=mysql_fetch_row($result13);
+$servershired=$row[0];
+$GLOBALS['servershired']=$servershired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of projectors Hired
+$query14 = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep' and status='Closed' and DateClosed='$dailydate'"; //You don't need a ; like you do in SQL
+$result14 = mysql_query($query14);
+$row=mysql_fetch_row($result14);
+$projectorshired=$row[0];
+$GLOBALS['projectorshired']=$projectorshired;
+$connection;
+
+echo mysql_error($connection);
+//Get Total Revenue Generated
+$query15 = "SELECT sum(rental_amount) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and DateClosed='$dailydate'"; //You don't need a ; like you do in SQL
+$result15 = mysql_query($query15);
+$row=mysql_fetch_row($result15);
+$totalrevenue=$row[0];
+$GLOBALS['totalrevenue']=$totalrevenue;
+$connection;
+echo mysql_error($connection);
 
 //Get New Opportunities
-$query2 = "SELECT * FROM opportunity where sales_rep='$salesrep' and DateInitiated='$dailydate'"; //You don't need a ; like you do in SQL
-$result2 = mysql_query($query2);
-$newopportunitiesrow = mysql_fetch_array($result2);
+$query15 = "SELECT * FROM opportunity where sales_rep='$salesrep' and DateInitiated='$dailydate'"; //You don't need a ; like you do in SQL
+$result15 = mysql_query($query15);
+$newopportunitiesrow = mysql_fetch_array($result15);
 $connection;
 
 echo mysql_error($connection);
 
 //Get Open Opportunities
-$query2 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Open'"; //You don't need a ; like you do in SQL
-$result2 = mysql_query($query2);
-$opportunitiesrow = mysql_fetch_array($result2);
+$query16 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Open'"; //You don't need a ; like you do in SQL
+$result16 = mysql_query($query16);
+$opportunitiesrow = mysql_fetch_array($result16);
 $connection;
 
 echo mysql_error($connection);
 
 //Get Generated  Proformas
-$query2 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and DDate='$dailydate'"; //You don't need a ; like you do in SQL
-$result2 = mysql_query($query2);
-$proformasrow = mysql_fetch_array($result2);
+$query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and DDate='$dailydate'"; //You don't need a ; like you do in SQL
+$result17 = mysql_query($query17);
+$proformasrow = mysql_fetch_array($result17);
 $connection;
 
-echo mysql_error($connection)
+//echo mysql_error($connection);
 
 
-//Get Lost Opportunities
-$query2 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Cancelled' and DateCancelled='$dailydate' "; //You don't need a ; like you do in SQL
-$result2 = mysql_query($query2);
-$lostopportunitiesrow = mysql_fetch_array($result2);
+//Get Lost Opportunities/$query18 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Cancelled' and DateCancelled='$dailydate'"; //You don't need a ; like you do in SQL
+$result18 = mysql_query($query18);
+$lostopportunitiesrow = mysql_fetch_array($result18);
 $connection;
 
-echo mysql_error($connection)
+//echo mysql_error($connection);
 
 }
-
-//Get Document Lines Information
-
-
-$query3 = "SELECT * FROM invserialslines where docno='$profno'"; //You don't need a ; like you do in SQL
-$result3 = mysql_query($query3);
-//$headerrow = mysql_fetch_array($result2);
-$connection;
-
-echo mysql_error($connection);
-
-$theNo=$headerrow['MonthlyRental']/1.15; 
-$theVAT=$headerrow['MonthlyRental']-$theNo;
-
-
 ?>
-
-<!DOCTYPE html>
-<head>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <style>
 .invoice-title h2, .invoice-title h3 {
@@ -134,7 +205,7 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
-    		<img src="http://qrent.co.zw/wp-content/uploads/2016/05/Qrent-Logo-75x.jpg">     <h2>Individual Sales Report</h2><h4 class="pull-right"> For:<?php echo $headerrow['reportuser']; ?></h2>
+    		<img src="http://qrent.co.zw/wp-content/uploads/2016/05/Qrent-Logo-75x.jpg">     <h2>Individual Sales Report</h2><h4 class="pull-right"> For:<?php echo $username; ?></h2>
     		</div>
     		<hr>
     		<div class="row">
@@ -145,7 +216,7 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
 					<strong>Report Type:</strong>
     					<?php echo $reporttype; ?><br>
     					<strong>Generated By:</strong>
-    					<?php echo $SESSION_['username']; ?><br>
+    					<?php echo $username; ?><br>
     				<strong>Date Generated :</strong>
     					<?php echo date("d/m/Y"); ?><br>
     				
@@ -157,17 +228,15 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
     				<address>
 					<strong>SUMMARY:</strong><br>
     					<strong>Laptops Hired:</strong>
-    					<?php echo $SESSION_['username']; ?><br>
+    					<?php echo $laptopshired; ?><br>
     				<strong>Desktops Hired :</strong>
-    					<?php echo date("d/m/Y"); ?><br>
+    					<?php echo $desktopshired; ?><br>
     				<strong>Projectors Hired:</strong>
-    					<?php echo date("d/m/Y"); ?><br>
+    					<?php echo $projectorshired; ?><br>
 							<strong>Servers Hired:</strong>
-    					<?php echo date("d/m/Y"); ?><br>
-    				<strong>Other Units:</strong>
-    					<?php echo date("d/m/Y"); ?><br>
-    				<strong>Revenue :</strong>
-    					<?php echo date("d/m/Y"); ?><br>
+    					<?php echo $servershired; ?><br>
+    					<strong>Revenue :</strong>
+    					<?php echo "$".$totalrevenue; ?><br>
     				
     				</address>
     			</div>
@@ -261,10 +330,13 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
     					<table id="proformaInvoiceTable1" class="table table-condensed">
     						<thead>
                                 <tr>
-        							<td><strong>Item Description</strong></td>
-        							<td class="text-center"><strong>Stage/Outcome</strong></td>
-        							<td class="text-center"><strong>Maturity Date</strong></td>
-        							<td class="text-right"><strong></strong></td>
+        							<td><strong>Title</strong></td>
+        							<td class="text-center"><strong>Customer</strong></td>
+        							<td class="text-center"><strong>Expected Maturity Date</strong></td>
+									<td class="text-center"><strong>Rental Type</strong></td>
+									<td class="text-center"><strong>Total units</strong></td>
+									<td class="text-center"><strong>Expected Revenue</strong></td>
+        							<td class="text-right"><strong>Notes</strong></td>
                                 </tr>
     						</thead>
     						<tbody>
@@ -276,42 +348,7 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     							
     							
-									<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Deposit Period</strong></td>
-    								<td class="no-line text-right"><?php echo$headerrow['DepositPeriod']; ?> Months</td>
-    							</tr>
-								<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Deposit Amount</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['DepositCash']); ?> </td>
-    							</tr>
-									<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Discount Amount</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['Discount']); ?> </td>
-    							</tr>
-								<tr>
-    								<td class="thick-line"></td>
-    								<td class="thick-line"></td>
-    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-    								<td class="thick-line text-right">$ <?php echo round_up($headerrow['subtotal']); ?></td>
-    							</tr>
-    							<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Tax</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['Tax']); ?></td>
-    							</tr>
-    							<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Total Due</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['Total']); ?></td>
-    							</tr>
+									<
     						</tbody>
     					</table>
 						
@@ -320,23 +357,7 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
 					
 					</div>
     			</div>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-    		</div>
+						  		</div>
 			
     	</div>
     </div>
@@ -348,8 +369,13 @@ $theVAT=$headerrow['MonthlyRental']-$theNo;
 				</div>
 				<div class="pull-right hidden-print">        
         <button class="btn btn-danger" onclick="window.print();">Print & Save Document</button>
-        <button class="btn btn-danger" onclick="window.open('documents.php');">Back To Documents Menu</button>
+        <button class="btn btn-danger" onclick="window.open('reports.php');">Back To Reports Menu</button>
     </div>    
 </div>
 </div>
 <html>
+
+<?php
+
+
+?>

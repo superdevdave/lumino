@@ -1,7 +1,12 @@
 <?php
 //start session
 
+session_start();
 
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+  header("location: login.php");
+  exit;
+}
 
 $action = $_REQUEST['action'];
 //echo $_REQUEST['itemdesc'];
@@ -48,11 +53,22 @@ switch($action) {
 	case'submitProforma':
 	SubmitProforma();
 	break;
+	case'viewIndividualReport':
+	ViewIndividualReport();
+	break;
 	case 'logOut':
 		logOut();
 	break;		
 
 }//switch
+
+function ViewIndividualReport()
+{
+	include("dbconn.php");
+	include("dbconn3.php");
+	
+	
+}
 
 function GetProformaNo()
 {
@@ -178,8 +194,8 @@ function addOpportunities(){
 
 
 
-$usernameFirstname=$_REQUEST['username'];
-$salesrep=$_REQUEST['salesrep'];
+$username=$_SESSION['username'];
+$salesrep=$_SESSION['salesrep'];
 
 echo $title=$_REQUEST['OpportunityName'];
 echo $organisation=$_REQUEST['Organisation'];
@@ -204,17 +220,19 @@ $leadsource=$_REQUEST['LeadSource'];
 $otherleadsorce=$_REQUEST['OtherLeadSource'];
 $description=$_REQUEST['Description'];
 $totalunits=$laptops+$desktops+$servers+$projectors;
+$dateinitiated=date("Y/m/d");
+//$maturityDate=date($_REQUEST['MaturityDate'],"Y/m/d");
 
 $ActivityStreamDescription=$usernameFirstname." has just created a new opportunity called ".$title;
 $AcivityType="AddOpportunity";
 
-$sql = "INSERT INTO opportunity(opportunity_name,sales_rep,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,telephone,address,address2,province,city,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate)
-VALUES ('$title', '$usernameFirstname', '$organisation','$salestype','Open','$rentalamount','$totalunits','$description','$contactemail','$mobile','$telephone','$address','$address2','$province','$city','$laptops','$projectors','$desktops','$printers','$monitors','$servers','$networking','$leadsource','$contactperson','$maturitydate')";
+$sql = "INSERT INTO opportunity(opportunity_name,sales_rep,username,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,telephone,address,address2,province,city,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate,DateInitiated)
+VALUES ('$title', '$salesrep','$username', '$organisation','$salestype','Open','$rentalamount','$totalunits','$description','$contactemail','$mobile','$telephone','$address','$address2','$province','$city','$laptops','$projectors','$desktops','$printers','$monitors','$servers','$networking','$leadsource','$contactperson','$maturitydate','$dateinitiated')";
 
-$sql2="insert into activties (Description,Username,salesrep,activitytype) values('$ActivityStreamDescription','$usernameFirstname',$salesrep,$activitytype)";
+$sql2="insert into activties (Description,Username,salesrep,activitytype) values('$ActivityStreamDescription','$username',$salesrep,$activitytype)";
 
 $sql3="INSERT INTO customer(name,email,mobile,telephone,organisationname,address,address2,city,province,sales_rep)
-VALUES ('$contactperson', '$contactemail','$mobile','$telephone','$organisation','$address','$address2','$city','$province','$usernameFirstname')";
+VALUES ('$contactperson', '$contactemail','$mobile','$telephone','$organisation','$address','$address2','$city','$province','$username')";
 
 mysql_query($sql);
 mysql_query($sql2);
@@ -237,7 +255,9 @@ function EditOpportunityData()
 
 
 
-$usernameFirstname="Joy Napata";
+$usernameFirstname=$_SESSION['username'];
+$salesrep=$_SESSION['salesrep'];
+
 echo $id =$_REQUEST['edOpportunityID'];
 echo $title=$_REQUEST['edOpportunityName'];
 echo $organisation=$_REQUEST['edOrganisation'];
@@ -259,6 +279,7 @@ $contactemail=$_REQUEST['edContactEmail'];
 $leadsource=$_REQUEST['edLeadSource'];
 $description=$_REQUEST['edDescription'];
 $totalunits=$laptops+$desktops+$servers+$projectors;
+
 
 $ActivityStreamDescription=$usernameFirstname." has just edited a new opportunity called ".$title;
 
@@ -287,12 +308,14 @@ function CloseOpportunity()
 
 
 
-$usernameFirstname="Joy Napata";
+$usernameFirstname=$_SESSION['username'];
+$salesrep=$_SESSION['salesrep'];
+
 $id=$_REQUEST['CloseOppID'];
-$dateclosed;
+$dateclosed=date("Y/m/d");
 $ActivityStreamDescription=$usernameFirstname." has just successfully closed an opportunity called ".$title;
 
-$sql = "update opportunity  set status='Closed' where status='Open' and id='".$id."'";
+$sql = "update opportunity  set status='Closed',DateClosed='$dateclosed' where status='Open' and id='".$id."'";
 mysql_query($sql);
 
  $sql2="insert into activties (Description,Username) values('$ActivityStreamDescription','$usernameFirstname')";
