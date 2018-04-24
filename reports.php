@@ -4,8 +4,9 @@ include("head.php");
 
 include("dbconn3.php");
 ?>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
       
 </style>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -49,7 +50,7 @@ include("dbconn3.php");
                                 <div class="customer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                        <input id="date" type="date" class="form-control" placeholder="Date"/>
+                                        <input id="date" name="date" type="date" class="form-control" placeholder="Date"/>
                                     </div>
 									</div>
 							
@@ -88,15 +89,16 @@ var fromdate=$("#fromdate").val();
 var todate=$("#todate").val();
 
  $('#individualreportform .submit').click();
-	alert("Testing Tesing 12");
-	 var actionstring="process.php?action=viewIndividualReport.php&type="+reportType+"&date="+$dailydate+"&fromdate="+$fromdate+"&todate="+$todate;
-$.ajax({
+	//alert("Testing Tesing 12");
+	 var actionstring="viewindividualreport.php?reporttype="+reportType+"&ddate="+dailydate;
+	 window.location.href=actionstring;
+/*$.ajax({
            type: "GET",
 	       url: actionstring,
            data: $("#individualreportform").serialize(), // serializes the form's elements.
            success: function(data)
-           { //window.location.href=actionstring;
-              //alert(data); // show response from the php script.
+           { //
+              alert(data); // show response from the php script.
 		
 			 // var datafill=Number(data)+1;
 			//  var theData=pad(datafill,4);
@@ -109,8 +111,8 @@ $.ajax({
 		   
 		   async:false
          });
-  		   
-    event.preventDefault(); 
+  		   */
+ //   event.preventDefault(); 
 	
 	});
 	
