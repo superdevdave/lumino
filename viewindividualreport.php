@@ -18,6 +18,9 @@ $username=$_SESSION["username"];
 
 $dailydate=$_REQUEST['ddate'];
 
+
+$dailydate2meetings=$dailydate;
+
 function round_up($number, $precision = 2)
 {
     $fig = (int) str_pad('1', $precision, '0');
@@ -112,7 +115,7 @@ $laptopshired=$row[0];
 $_SESSION['laptopshired']=$laptopshired;
 $connection;
 echo mysql_error($connection);
-echo $query11;
+ $query11;
 
 //Get Number of desktops Hired
 $query12 = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep' and status='Closed' and DateClosed='$dailydate2'"; //You don't need a ; like you do in SQL
@@ -180,7 +183,14 @@ $result18 = mysql_query($query18);
 $lostopportunitiesrow = mysql_fetch_array($result18);
 $connection;
 
-//echo mysql_error($connection);
+
+
+//Get Daily Meetings Started Today 
+echo $query19 = "SELECT * FROM meetings where User='$salesrep' and StartDate like '%$dailydate2%' or EndDate like '%$dailydate2%'"; //You don't need a ; like you do in SQL
+$_SESSION['result19'] = mysql_query($query19);
+$meetingsrow = mysql_fetch_array($result19);
+$connection;
+echo mysql_error($connection);
 
 }
 ?>
@@ -341,7 +351,7 @@ $connection;
     			</div>
 						  		</div>
 			
-    	</div>
+    
 		<div class="panel panel-default">
     			<div class="panel-heading">
     				<h3 class="panel-title"><strong>Generated Proforma Invoices(Quotes)</strong></h3>
@@ -364,6 +374,44 @@ $connection;
 							<?php
 							while($row = mysql_fetch_array($_SESSION['result17'])){   //Creates a loop to loop through results
 		echo "<tr><td>".$row['Docno']."</td><td class=\"text-left\">".$row['DDate']."</td><td class=\"text-center\"> ".$row['Customer']."</td><td class=\"text-center\">".$row['Description']."</td><td class=\"text-right\">".$row['Total']."</td></tr>";  //$row['index'] the index here is a field name
+}
+							?>
+    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							
+    							
+									
+    						</tbody>
+    					</table>
+						
+    				</div>
+					<div>
+					
+					</div>
+    			</div>
+						  		</div>
+									<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Meetings and Appointments </strong></h3>
+    			</div>    							
+				<div class="panel-body">
+    				<div class="table-responsive">
+    					<table id="proformaInvoiceTable1" class="table table-condensed">
+    						<thead>
+                                <tr>
+        							
+        							<td class="text-left"><strong>Meeting Subject</strong></td>
+        							<td class="text-center"><strong>Start Date and Time</strong></td>
+									<td class="text-center"><strong>End Date and Time</strong></td>
+									<td class="text-center"><strong>Description</strong></td>
+									<td class="text-right"><strong>Outcome</strong></td>
+									<td class="text-right"><strong>Status</strong></td>
+        						
+                                </tr>
+    						</thead>
+    						<tbody>
+							<?php
+							while($row = mysql_fetch_array($_SESSION['result19'])){   //Creates a loop to loop through results
+		echo "<tr><td>".$row['Title']."</td><td class=\"text-left\">".$row['StartDate']."</td><td class=\"text-center\"> ".$row['EndDate']."</td><td class=\"text-center\">".$row['Description']."</td><td class=\"text-right\">".$row['Outcome']."</td><td class=\"text-right\">".$row['Status']."</td></tr>";  //$row['index'] the index here is a field name
 }
 							?>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
