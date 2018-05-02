@@ -13,7 +13,7 @@ include("head.php");?>
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Meetings</h1> <button class="btn btn-default"><span class="fa fa-add"></span><em class="fa fa-calendar color-red"></em> Schedule A Meeting</button> <button class="btn btn-default"><em class="fa fa-edit color-red"></em> Edit Meeting</button> <button class="btn btn-default"><em class="fa fa-bullhorn color-red"></em> Send Meeting Invite</button> <button class="btn btn-default"><em class="fa fa-times color-red"></em> Cancel Meeting</button> <button class="btn btn-default"><em class="fa fa-check color-red"></em> Finish Meeting</button>
+				<h1 class="page-header">Meetings</h1> <button class="btn btn-default" data-toggle="modal"  data-target="#addMeetingModal"><span class="fa fa-add"></span><em class="fa fa-calendar color-red"></em> Schedule A Meeting</button> <button class="btn btn-default" data-toggle="modal" data-target="#editMeetingModal"><em class="fa fa-edit color-red"></em> Edit Meeting</button> <button data-toggle="modal" data-target="#cancelMeetingModal" class="btn btn-default"><em class="fa fa-times color-red"></em> Cancel Meeting</button> <button data-toggle="modal" data-target="#finishMeetingModal"class="btn btn-default"><em class="fa fa-check color-red"></em> Finish Meeting</button>
 				
 			</div>
 		</div><!--/.row-->
@@ -56,14 +56,19 @@ if ($result->num_rows > 0) {
 	echo mysql_error();
 	echo "test";
 $conn->close(); */
-
-$query = "SELECT * FROM meetings"; //You don't need a ; like you do in SQL
+include("dbconn.php");
+include("dbconn3.php");
+	
+$query = "SELECT * FROM meetings where User='".$_SESSION['salesrep']."'"; //You don't need a ; like you do in SQL
 $result = mysql_query($query);
+$connection;
 
-echo "<table id=\"example\" class=\"display\" cellspacing=\"0\" width=\"100%\">"; // start a table tag in the HTML
+echo mysql_error($connection);
+
+echo "<table id=\"example3\" class=\"display\" cellspacing=\"0\" width=\"100%\">"; // start a table tag in the HTML
 echo "<thead><tr><th>ID</th><th>Title</th><th>Description</th> <th>Customer</th><th>User</th><th>Scheduled Date</th><th>Status</th><th>Outcome</th><th>User</th></tr></thead>";
 while($row = mysql_fetch_array($result)){   //Creates a loop to loop through results
-echo "<tbody><tr><td>" . $row['id'] . "</td><td>" . $row['Title'] . "</td><td>".$row['Description'] ."</td><td>".$row['Customer'] . "</td><td>".$row['User'] . "</td><td>".$row['Date'] . "</td><td>".$row['Status'] . "</td><td>".$row['Outcome'] . "</td><td>".$row['User'] . "</td></tr></tbody>";  //$row['index'] the index here is a field name
+echo "<tbody><tr><td>" . $row['ID'] . "</td><td>" . $row['Title'] . "</td><td>".$row['Description'] ."</td><td>".$row['Customer'] . "</td><td>".$row['User'] . "</td><td>".$row['StartDate'] . "</td><td>".$row['Status'] . "</td><td>".$row['Outcome'] . "</td><td>".$row['User'] . "</td></tr></tbody>";  //$row['index'] the index here is a field name
 }
 
 echo "</table>"; //Close the table in HTML
@@ -74,18 +79,228 @@ echo "</table>"; //Close the table in HTML
 </div>
 </div>
 
-<script type="text/javascript">
-$(window).load(function() {
-	alert('test');
-    $('#example').DataTable();
-} );
-</script>
+<div id="addMeetingModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Schedule  New Meeting/Appointment</h4>
+      </div>
+      <div class="modal-body">
+       <form method="post" id="addMeetingForm" action="process.php">
+	   <input type="hidden" id="action" name="action" value="addMeeting">
+	   <div class="form-group">
+
+	   
+	   <input type="hidden" name="CloseOppID" id="CloseOppID">
+	   	   <div class="form-group">
+	   <label for="contractsigned">Meeting Subject</label>
+	   <input class="form-control" required type="text" id="Subject" placeholder="Meeting Subject/Title" name="Subject">
+	      </div>
+		  	   <div class="form-group">
+	   	   <label for="goodsdelivered">Customer</label>
+		   	   <input class="form-control" required type="text" id="Customer" placeholder="Customer Organisation" name="Customer">
+		   </div>
+	   </div>
+	   	   <div class="form-group">
+	   	   <label for="goodsdelivered">Contact Person(s)</label>
+		   	   <input class="form-control" required type="text" id="ContactPerson" placeholder="Contact Person" name="ContactPerson">
+		   </div>
+		     <div class="form-group">
+	   	   <label for="goodsdelivered">Location</label>
+		   	   <input class="form-control" required type="text" id="Location" placeholder="Location" name="Location">
+		   </div>
+	      <div class="form-group">
+	   	   <label for="goodsdelivered">Start Date & Time</label>
+		   	   <input class="form-control" required type="datetime-local" id="StartTime" name="StartTime">
+		   </div>
+		   	   	   <label for="goodsdelivered">End Date &  Time</label>
+		   	   <input class="form-control" required type="datetime-local" id="EndDate"  name="EndDate">
+			     <label for="goodsdelivered">Reminder Starts</label>
+		   	   <input class="form-control" required type="datetime-local" id="ReminderDate"  name="ReminderDate">
+		   </div>
+		  
+		 <div class="form-group">
+	   	   <label for="goodsdelivered">Description</label>
+		   <textarea class="form-control" rows="3"  id="Description" required  placeholder="Description" name="Description">
+		   </textarea>
+		   </div>
+	     </div>
+		  </div>
+		  
+		  <div class="modal-footer">
+	
+
+		      <button id="btnAddMeeting"   class="btn btn-default" >Save</button>
+		
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+		  
+	   </div>
+	   </div>
+	         
+	   </form>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+</div>
+
+<div id="finishMeetingModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Finish/Close Meeting</h4>
+      </div>
+      <div class="modal-body">
+       <form method="post" action="process.php?action=finishMeeting">
+	   <div class="form-group">
+
+	   		  
+		 <div class="form-group">
+	   	   <label for="goodsdelivered">Outcome</label>
+		   <textarea class="form-control" rows="3"  id="fnDescription"  placeholder="fnDescription" name="fnDescription">
+		   </textarea>
+		   </div>
+	     </div>
+		  </div>
+		  
+		  <div class="modal-footer">
+	
+
+		      <input id="btnSaveCloseModal" type="submit" class="btn btn-default" >
+		
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+		  
+	   </div>
+	   </div>
+	         
+	   </form>
+      </div>
+
+
+<div id="cancelMeetingModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Cancel Meeting/Appointment</h4>
+      </div>
+      <div class="modal-body">
+       <form method="post" action="process.php?action=cancelMeeting">
+	   <div class="form-group">
+
+		 <div class="form-group">
+	   	   <label for="goodsdelivered">Reason</label>
+		   <textarea class="form-control" rows="3"  id="canDescription"  placeholder="Description" name="canDescription">
+		   </textarea>
+		   </div>
+	     </div>
+		  </div>
+		  
+		  <div class="modal-footer">
+	
+
+		      <input id="btnAddMeeting" type="submit" class="btn btn-default" >
+		
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+		  
+	   </div>
+	   </div>
+	         
+	   </form>
+      </div>
+
+
+<div id="editMeetingModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Meeting/Appointment</h4>
+      </div>
+      <div class="modal-body">
+       <form method="post" action="process.php?action=editMeeting">
+	   <div class="form-group">
+
+	   <form id="editMeetingForm" method="post" action="process.php?action=editMeeting">
+	   <input type="hidden" name="CloseOppID" id="CloseOppID">
+	   	   <div class="form-group">
+	   <label for="contractsigned">Meeting Subject</label>
+	   <input class="form-control" required type="text" id="edMeetingSubject" placeholder="Meeting Subject/Title">
+	      </div>
+		  	   <div class="form-group">
+	   	   <label for="goodsdelivered">Customer</label>
+		   	   <input class="form-control" required type="text" id="edCustomer" placeholder="Customer Organisation" name="edCustomer">
+		   </div>
+	   </div>
+	   	   <div class="form-group">
+	   	   <label for="goodsdelivered">Contact Person(s)</label>
+		   	   <input class="form-control" required type="text" id="edContactPerson" placeholder="Contact Person" name="edContactPerson">
+		   </div>
+		     <div class="form-group">
+	   	   <label for="goodsdelivered">Location</label>
+		   	   <input class="form-control" required type="text" id="edLocation" placeholder="Location" name="edLocation">
+		   </div>
+	      <div class="form-group">
+	   	   <label for="goodsdelivered">Start Date & Time</label>
+		   	   <input class="form-control" required type="datetime-local" id="edStartTime" name="edStartTime">
+		   </div>
+		   	   	   <label for="goodsdelivered">End Date &  Time</label>
+		   	   <input class="form-control" required type="datetime-local" id="edEndDate"  name="edEndDate">
+			     <label for="goodsdelivered">Reminder Starts</label>
+		   	   <input class="form-control" required type="datetime-local" id="edReminderDate"  name="edReminderDate">
+		   </div>
+		  
+		 <div class="form-group">
+	   	   <label for="goodsdelivered">Description</label>
+		   <textarea class="form-control" rows="3"  id="edDescription"  placeholder="Description" name="edDescription">
+		   </textarea>
+		   </div>
+	     </div>
+		  </div>
+		  
+		  <div class="modal-footer">
+	
+
+		      <input id="btnSaveCloseModal" type="submit" class="btn btn-default" >
+		
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+		  
+	   </div>
+	   </div>
+	         
+	   </form>
+      </div>
+
+
 
 
 <?php
 include("footer.php");
 
-
-
-
 ?>
+<script type="text/javascript">
+$(window).load(function() {
+
+    $('#example').DataTable();
+	  $('#example3').DataTable();
+});
+</script>
+
+

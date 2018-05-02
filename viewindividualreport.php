@@ -152,7 +152,7 @@ echo mysql_error($connection);
 
 //Get New Opportunities
 $query15 = "SELECT * FROM opportunity where sales_rep='$salesrep' and DateInitiated='$dailydate2'"; //You don't need a ; like you do in SQL
-$result15 = mysql_query($query15);
+$_SESSION['result15'] = mysql_query($query15);
 $newopportunitiesrow = mysql_fetch_array($result15);
 $connection;
 
@@ -160,15 +160,15 @@ echo mysql_error($connection);
 
 //Get Open Opportunities
 $query16 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Open'"; //You don't need a ; like you do in SQL
-$result16 = mysql_query($query16);
+$_SESSION['result16']= mysql_query($query16);
 $opportunitiesrow = mysql_fetch_array($result16);
 $connection;
 
 echo mysql_error($connection);
 
 //Get Generated  Proformas
-$query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and DDate='$dailydate'"; //You don't need a ; like you do in SQL
-$result17 = mysql_query($query17);
+$query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and DDate='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result17'] = mysql_query($query17);
 $proformasrow = mysql_fetch_array($result17);
 $connection;
 
@@ -205,6 +205,8 @@ $connection;
     size: 25cm 35.7cm;
     margin: 5mm 5mm 5mm 5mm; /* change the margins as you want them to be. */
 }
+
+
 </style>
 
 <!------ Include the above in your HEAD tag ---------->
@@ -264,64 +266,32 @@ $connection;
     	<div class="col-md-12">
     		<div class="panel panel-default">
     			<div class="panel-heading">
-    				<h3 class="panel-title"><strong>Opportunities & Leads</strong></h3>
-    			</div>
-    			<div class="panel-body">
+    				<h3 class="panel-title"><strong>New Leads</strong></h3>
+    			</div>    							
+				<div class="panel-body">
     				<div class="table-responsive">
     					<table id="proformaInvoiceTable1" class="table table-condensed">
     						<thead>
                                 <tr>
-        							<td><strong>Item Description</strong></td>
-        							<td class="text-center"><strong>Stage/Outcome</strong></td>
-        							<td class="text-center"><strong>Maturity Date</strong></td>
-        							<td class="text-right"><strong></strong></td>
+        							<td><strong>Title</strong></td>
+        							<td class="text-center"><strong>Customer</strong></td>
+        							<td class="text-center"><strong>Expected Maturity Date</strong></td>
+									<td class="text-center"><strong>Rental Type</strong></td>
+									<td class="text-center"><strong>Total units</strong></td>
+									<td class="text-center"><strong>Expected Revenue</strong></td>
+        			
                                 </tr>
     						</thead>
     						<tbody>
 							<?php
-							while($row = mysql_fetch_array($result3)){   //Creates a loop to loop through results
-		echo "<tr><td>".$row['StoreCode']." ".$row['Description']."</td><td class=\"text-center\">$ ".round_up($row['UnitCost'])."</td><td class=\"text-center\">".$row['Qty']."</td><td class=\"text-right\">$ ".round_up($row['LnTotal'])."</td></tr>";  //$row['index'] the index here is a field name
+							while($row = mysql_fetch_array($_SESSION['result15'])){   //Creates a loop to loop through results
+		echo "<tr><td>".$row['opportunity_name']."</td><td class=\"text-left\">".$row['customer']."</td><td class=\"text-center\"> ".$row['MaturityDate']."</td><td class=\"text-center\">".$row['sales_type']."</td><td class=\"text-center\">".$row['units_sold']."</td><td class=\"text-center\">".$row['rental_amount']."</td></tr>";  //$row['index'] the index here is a field name
 }
 							?>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     							
     							
-									<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Deposit Period</strong></td>
-    								<td class="no-line text-right"><?php echo$headerrow['DepositPeriod']; ?> Months</td>
-    							</tr>
-								<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Deposit Amount</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['DepositCash']); ?> </td>
-    							</tr>
-									<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Discount Amount</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['Discount']); ?> </td>
-    							</tr>
-								<tr>
-    								<td class="thick-line"></td>
-    								<td class="thick-line"></td>
-    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-    								<td class="thick-line text-right">$ <?php echo round_up($headerrow['subtotal']); ?></td>
-    							</tr>
-    							<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Tax</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['Tax']); ?></td>
-    							</tr>
-    							<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Total Due</strong></td>
-    								<td class="no-line text-right">$ <?php echo round_up($headerrow['Total']); ?></td>
-    							</tr>
+									
     						</tbody>
     					</table>
 						
@@ -330,9 +300,13 @@ $connection;
 					
 					</div>
     			</div>
-				
-				
-				
+						  		</div>
+			
+    	
+    <div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Open Opportunities</strong></h3>
+    			</div>    							
 				<div class="panel-body">
     				<div class="table-responsive">
     					<table id="proformaInvoiceTable1" class="table table-condensed">
@@ -349,14 +323,53 @@ $connection;
     						</thead>
     						<tbody>
 							<?php
-							while($row = mysql_fetch_array($result3)){   //Creates a loop to loop through results
-		echo "<tr><td>".$row['StoreCode']." ".$row['Description']."</td><td class=\"text-center\">$ ".round_up($row['UnitCost'])."</td><td class=\"text-center\">".$row['Qty']."</td><td class=\"text-right\">$ ".round_up($row['LnTotal'])."</td></tr>";  //$row['index'] the index here is a field name
+							while($row = mysql_fetch_array($_SESSION['result16'])){   //Creates a loop to loop through results
+		echo "<tr><td>".$row['opportunity_name']."</td><td class=\"text-left\">".$row['customer']."</td><td class=\"text-center\"> ".$row['MaturityDate']."</td><td class=\"text-center\">".$row['sales_type']."</td><td class=\"text-center\">".$row['units_sold']."</td><td class=\"text-center\">".$row['rental_amount']."</td><td class=\"text-right\"> ".$row['description']."</td></tr>";  //$row['index'] the index here is a field name
 }
 							?>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     							
     							
-									<
+									
+    						</tbody>
+    					</table>
+						
+    				</div>
+					<div>
+					
+					</div>
+    			</div>
+						  		</div>
+			
+    	</div>
+		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Generated Proforma Invoices(Quotes)</strong></h3>
+    			</div>    							
+				<div class="panel-body">
+    				<div class="table-responsive">
+    					<table id="proformaInvoiceTable1" class="table table-condensed">
+    						<thead>
+                                <tr>
+        							
+        							<td class="text-left"><strong>Document No</strong></td>
+        							<td class="text-center"><strong>Date Generated</strong></td>
+									<td class="text-center"><strong>Customer</strong></td>
+									<td class="text-center"><strong>Invoice Summary</strong></td>
+									<td class="text-right"><strong>Expected Revenue</strong></td>
+        						
+                                </tr>
+    						</thead>
+    						<tbody>
+							<?php
+							while($row = mysql_fetch_array($_SESSION['result17'])){   //Creates a loop to loop through results
+		echo "<tr><td>".$row['Docno']."</td><td class=\"text-left\">".$row['DDate']."</td><td class=\"text-center\"> ".$row['Customer']."</td><td class=\"text-center\">".$row['Description']."</td><td class=\"text-right\">".$row['Total']."</td></tr>";  //$row['index'] the index here is a field name
+}
+							?>
+    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							
+    							
+									
     						</tbody>
     					</table>
 						

@@ -50,11 +50,32 @@ $(window).load(function() {
 
 	});
 
+	
+	$('#example3').DataTable({
+			    dom: 'Bfrtip',
+          buttons: [
+              'copy', 'excel', 'pdf', 'print'
+          ],
+		  select:true,
+	columnDefs: [ {
+            orderable: true,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]]
+
+
+	});
 } );
 
 $(document).ready(function (){
 var chektable;
  var viewProformaNo;
+ var viewMeetingNo;
 	
 var pad='00000';
  /*
@@ -86,12 +107,113 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
     alert("You just clicked checkbox with the name " + this.name)
 });
 
-	//Get Id of Selected DataTable Row
- $('#example tbody').on('click', '.select-checkbox', function(e){
+
+$('#example tbody').on('click', '.select-checkbox', function(e){
 
       var $row = $(this).closest('tr');
 
 	  var table=$('#example').DataTable();
+
+      // Get row data
+      var data = table.row($row).data();
+
+      // Get row ID and Record Data TO use in Opportunities Edit Modal Form
+     var rowId = data[0];
+	 
+	 //Get the Document Number of Selected Proforma Number for Viewing Items
+	 
+
+	 
+	 viewMeetingNo=data[0];
+	 
+});
+$('#example tbody').on('click', '.select-checkbox', function(e){
+
+      var $row = $(this).closest('tr');
+
+	  var table=$('#example').DataTable();
+
+      // Get row data
+      var data = table.row($row).data();
+
+      // Get row ID and Record Data TO use in Opportunities Edit Modal Form
+     var rowId = data[0];
+	 
+	 //Get the Document Number of Selected Proforma Number for Viewing Items
+	 
+
+	 
+	 viewProformaNo=data[1];
+
+	 
+	 $("#edOpportunityID").val(data[0]);
+	 $("#CloseOppID").val(data[0]);
+	 $("#CancelOppID").val(data[0]);
+
+	 $("#edOpportunityName").val(data[1]);
+	 $("#edOrganisation").val(data[4]);
+	 $("#edSalesType").val(data[5]);
+	 $("#edRentalAmount").val(data[6]);
+	 $("#edDescription").val(data[8]);
+	 $("#edContactPerson").val(data[9]);
+	$("#edContactEmail").val(data[10]);
+	 $("#edMobile").val(data[11]);
+	 	 $("#edTelephone").val(data[12]);
+		 	 	 $("#edAddress").val(data[2]);
+				 	 	 $("#edAddress2").val(data[3]);
+						 	 	 $("#edCity").val(data[13]);
+								 	 	 $("#edProvince").val(data[14]);
+	  $("#edLeadSource").val(data[15]);
+	 $("#edMaturityDate").val(data[16]);
+
+	$("#edLaptops").val(data[18]);
+     $("#edDesktops").val(data[19]);
+	  $("#edServers").val(data[20]);
+	   $("#edProjectors").val(data[21]);
+	    $("#edNetworking").val(data[22]);
+		  $("#edMonitors").val(data[23]);
+
+
+      if(this.checked){
+         $row.addClass('selected');
+      } else {
+         $row.removeClass('selected');
+      }
+
+      // Update state of "Select all" control
+      updateDataTableSelectAllCtrl(table);
+
+      // Prevent click event from propagating to parent
+      e.stopPropagation();
+
+
+   });
+   
+$('#example3 tbody').on('click', '.select-checkbox', function(e){
+
+      var $row = $(this).closest('tr');
+
+	  var table=$('#example3').DataTable();
+
+      // Get row data
+      var data = table.row($row).data();
+
+      // Get row ID and Record Data TO use in Opportunities Edit Modal Form
+     var rowId = data[0];
+	 
+	 //Get the Document Number of Selected Proforma Number for Viewing Items
+	 
+
+	 
+	 viewMeetingNo=data[0];
+	 
+});
+	//Get Id of Selected DataTable Row
+ $('#example3 tbody').on('click', '.select-checkbox', function(e){
+
+      var $row = $(this).closest('tr');
+
+	  var table=$('#example3').DataTable();
 
       // Get row data
       var data = table.row($row).data();
@@ -166,6 +288,10 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
 	   
  
 });
+
+//
+
+
 
    ///THIS IS FOR THE PROCESS PROFORMA ADD ITEMS SCRIPT
 			var vatTotal=0;
@@ -439,9 +565,9 @@ alert(monthlyrental);
 			//  var theData=pad(datafill,4);
 			theData=data;
 			
-			//alert(data);
-			//alert(response);
-			window.location.href=viewresultstring;
+			alert(data);
+			alert(response);
+			//window.location.href=viewresultstring;
 
 
 		
@@ -481,6 +607,65 @@ $("#granddeposit").html("");
 
 
 
+});
+
+//Add Meeting Scripts
+$("#btnAddMeeting" ).on( "click", function(event) {
+
+//alert("Add Meeting button pressed");
+//var MeetingSubject="Subject";
+//var MeetingLocation="Location";
+//var StartDate;
+//var EndDate;
+//var ReminderStart;
+//var MeetingCUstomer="Customer";
+//var MeetingContact="ContactPerson";
+//var MeetingDescription="Description";
+
+$("#addMeetingForm").submit();
+
+//alert("Passed form submit stage");
+/*
+
+var Nothing="Nothing";
+
+var MeetingSubject=$("#Subject").val();
+var MeetingCUstomer=$("#Customer").val();
+var MeetingContact=$("#Contact").val();
+var StartDate=date($("#StartTime").val());
+var EndDate=date($("#EndDate").val());
+var ReminderStartdate($("#ReminderDate").val());
+var MeetingLocation=$("#Location").val();
+var MeetingDescription=$("#Description").val();
+
+
+var actionstring="process.php?Subject="+MeetingSubject+"&Customer="+MeetingCUstomer+"&MeetingContact="+MeetingContact+"&MeetingStartDate="+StartDate+"&EndDate="+EndDate+"&ReminderStart="+ReminderStart+"&Location="+MeetingLocation+"&Description="+MeetingDescription+"&action=addMeetingForm&SomethingElse="+Nothing;
+
+window.location.href=actionstring;
+    //var url = "path/to/your/script.php"; // the script where you handle the form input.
+
+	/*
+$.ajax({
+           type: "POST",
+	       url: url,
+           data: $("#addMeetingForm").serialize(), // serializes the form's elements.
+           success: function(data,response)
+           { window.location.href=url;
+              //alert(data); // show response from the php script.
+		
+			 // var datafill=Number(data)+1;
+			//  var theData=pad(datafill,4);
+			
+		alert(response);
+		
+           },
+		   async:false
+		   
+
+         });
+
+   // event.preventDefault(); 
+   */
 });
 
 //Allow Multiple Modal Dialogs on same page

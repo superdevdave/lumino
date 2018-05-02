@@ -8,7 +8,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   exit;
 }
 
-$action = $_REQUEST['action'];
+ $action = $_REQUEST['action'];
 //echo $_REQUEST['itemdesc'];
 //echo $_REQUEST['qty'];
 //echo $_REQUEST['total'];
@@ -56,19 +56,82 @@ switch($action) {
 	case'viewIndividualReport':
 	ViewIndividualReport();
 	break;
+	case'addMeeting':
+	addNewMeeting();
+	break;
+	case'editMeeting':
+	editNewMeeting();
+	break;
 	case 'logOut':
 		logOut();
 	break;		
 
 }//switch
 
-function ViewIndividualReport()
+function addNewMeeting()
+
 {
 	include("dbconn.php");
 	include("dbconn3.php");
 	
+echo $Subject=$_REQUEST['Subject'];
+echo $Location=$_REQUEST['Location'];
+echo $Customer=$_REQUEST['Customer'];
+echo $Contact=$_REQUEST['ContactPerson'];
+echo $StartDate=$_REQUEST['StartTime'];
+echo $EndDate=$_REQUEST['EndDate'];
+echo $ReminderStart=$_REQUEST['ReminderDate'];
+echo $Description=$_REQUEST['Description'];
+echo $status="Pending";
+
+echo $user=$_SESSION['salesrep'];
+
+$sql33="insert into meetings(Title,Location,Customer,Contact,StartDate,EndDate,ReminderStart,Status,user,Description)
+VALUES ('$Subject','$Location', '$Customer','$Contact','$StartDate','$EndDate','$ReminderStart','$status','$user','$Description')";
+
+
+mysql_query($sql33);
+
+ echo $connection;
+echo mysql_error($connection);
+
+Header('Location: meetings.php');
+
 	
 }
+
+
+function editMeeting()
+
+{
+	include("dbconn.php");
+	include("dbconn3.php");
+	
+echo $MeetingID=$_REQUEST['MeetingID'];
+echo $Subject=$_REQUEST['edSubject'];
+echo $Location=$_REQUEST['edLocation'];
+echo $Customer=$_REQUEST['edCustomer'];
+echo $Contact=$_REQUEST['edContact'];
+echo $StartDate=$_REQUEST['edStartDate'];
+echo $EndDate=$_REQUEST['edEndDate'];
+echo $ReminderStart=$_REQUEST['edReminderStart'];
+echo $Description=$_REQUEST['edDescription'];
+echo $status="Open";
+echo $user=$_SESSION['salesrep'];
+
+$sql34="update meetings set Title='$Subject',Location='$Location',Customer='$Customer',Contact='$Contact',StartDate='$StartDate',EndDate='$EndDate',ReminderStart='$ReminderStart',Status='$Status',user='$user' where ID='$MeetingID'";
+
+
+mysql_query($sql34);
+
+ echo $connection;
+echo mysql_error($connection);
+
+Header('Location: meetings.php');
+
+	
+}
+
 
 function GetProformaNo()
 {
@@ -121,13 +184,15 @@ echo $rentalterm=$_REQUEST['rentalterm'];
 echo $rentaldesc=$_REQUEST['rentaldesc'];
 echo $terms=$_REQUEST['terms'];
 echo $monthlyrental=$_REQUEST['monthlyrental'];
+$dateinitiated=date("Y/m/d");
 
 
-$sql = "INSERT INTO invserialsheader(docno,description,tax,total,subtotal,custid,cashname,customer,phone,telephone,address,address2,province,city,email,depositcash,depositperiod,discount,remarks,rentalterm,rentaldesc,sales_rep,username,Terms,MonthlyRental)
-VALUES ('$docno', '$description','$tax','$total','$subtotal','$custid','$cashname','$customer','$phone','$telephone','$address','$address2','$province','$city','$email','$depositcash','$depositperiod','$discountamount','$remarks','$rentalterm','$rentaldesc','$salesrep','$username','$terms','$monthlyrental')";
 
-$sql2="INSERT INTO customer(name,email,mobile,telephone,organisationname,address,address2,city,province,sales_rep,username)
-VALUES ('$cashname', '$email','$phone','$telephone','$customer','$address','$address2','$city','$province','$salesrep','$username')";
+$sql = "INSERT INTO invserialsheader(docno,ddate,description,tax,total,subtotal,custid,cashname,customer,phone,telephone,address,address2,province,city,email,depositcash,depositperiod,discount,remarks,rentalterm,rentaldesc,sales_rep,username,Terms,MonthlyRental)
+VALUES ('$docno','$dateinitiated', '$description','$tax','$total','$subtotal','$custid','$cashname','$customer','$phone','$telephone','$address','$address2','$province','$city','$email','$depositcash','$depositperiod','$discountamount','$remarks','$rentalterm','$rentaldesc','$salesrep','$username','$terms','$monthlyrental')";
+
+$sql2="INSERT INTO customer(name,datecreated,email,mobile,telephone,organisationname,address,address2,city,province,sales_rep,username)
+VALUES ('$cashname','$dateinitiated', '$email','$phone','$telephone','$customer','$address','$address2','$city','$province','$salesrep','$username')";
 
 //$sql = "INSERT INTO invserialsheader(docno) VALUES ('$docno')";
 mysql_query($sql);
@@ -162,9 +227,10 @@ echo $qty=$_REQUEST['qty'];
 
 echo $_REQUEST['description'];
 echo $unitprice=$_REQUEST['unitprice'];
+$dateinitiated=date("Y/m/d");
 
-$sql = "INSERT INTO invserialslines(docno,description,storecode,itemcode,Qty,unitcost,tax,lntotal,extdescription)
-VALUES ('$docno', '$description','$store','$item','$qty','$unitprice','$vat','$total','$description')";
+$sql = "INSERT INTO invserialslines(docno,ddate,description,storecode,itemcode,Qty,unitcost,tax,lntotal,extdescription)
+VALUES ('$docno', '$dateinitiated','$description','$store','$item','$qty','$unitprice','$vat','$total','$description')";
 
 mysql_query($sql);
 

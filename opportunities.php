@@ -217,7 +217,7 @@ echo "</tbody></table>"; //Close the table in HTML
   </div>
    <div class="form-group">
     <label for="Description">Description & Notes</label>
-<textarea class="form-control" rows="3" name="Description id="Description">
+<textarea class="form-control" rows="3" name="Description" id="Description">
  </textarea>
  </div>
 
