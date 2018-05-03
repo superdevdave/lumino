@@ -589,7 +589,7 @@ $connection;
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
+       
     		<div class="invoice-title">
     		<img src="http://qrent.co.zw/wp-content/uploads/2016/05/Qrent-Logo-75x.jpg">     <h2>Individual Sales Report</h2><h4 class="pull-right"> For:<?php echo $username; ?></h2>
     		</div>
@@ -635,7 +635,7 @@ $connection;
     				</address>
     			</div>
     		</div>
-    	</div>
+    
     </div>
     
     <div class="row">
