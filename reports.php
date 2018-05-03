@@ -43,9 +43,9 @@ include("dbconn3.php");
                            
                 <h5><label for="Choose Report" style="color:#E74C3C"> Time :</label>
                              <input id="a" type="radio" name="reporttype" value="Daily">Daily 
-                             <input id="b" type="radio" name="reporttype" value="Weekly">Weekly
-                             <input id="c" type="radio" name="reporttype" value="Monthly">Monthly
-							  <input id="d" type="radio" name="reporttype" value="Monthly">Custom Range</h5>
+                             <input id="b" type="radio" name="reporttype" value="Weekly">Weekly(This Week)
+                             <input id="c" type="radio" name="reporttype" value="Monthly">Monthly(This Month)
+							  <input id="d" type="radio" name="reporttype" value="Custom">Custom Range</h5>
                                 
                                 <div class="customer">
                                     <div class="input-group">
@@ -90,7 +90,7 @@ var todate=$("#todate").val();
 
  $('#individualreportform .submit').click();
 	//alert("Testing Tesing 12");
-	 var actionstring="viewindividualreport.php?reporttype="+reportType+"&ddate="+dailydate;
+	 var actionstring="viewindividualreport.php?reporttype="+reportType+"&ddate="+dailydate+"&fromdate="+fromdate+"&todate="+todate;
 	 window.location.href=actionstring;
 /*$.ajax({
            type: "GET",

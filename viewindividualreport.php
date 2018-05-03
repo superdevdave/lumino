@@ -18,6 +18,8 @@ $username=$_SESSION["username"];
 
 $dailydate=$_REQUEST['ddate'];
 
+$currentDate=date("Y-m-d");
+
 
 $dailydate2meetings=$dailydate;
 
@@ -41,15 +43,15 @@ switch($reporttype) {
 	break;
 	
 	case 'Weekly':
-	EditOpportunityData();
+	viewWeeklyReport();
 	break;
 	
 	case 'Monthly':
-		CancelOpportunity();
+	viewMonthlyReport();
 	break;
 	
 	case 'Custom':
-		CloseOpportunity();
+			viewCustomReport();
 	break;
     	case 'addProformaItem':
 	 AddProformaItem();
@@ -83,9 +85,345 @@ $connection;
 echo mysql_error($connection);
 
 
-function EditOpportunityData()
+
+function viewCustomReport(){
+	
+	include ("dbconn.php");
+include ("dbconn3.php");
+echo "Tapinda MuCustom";
+
+echo $salesrep=$_SESSION['salesrep'];
+
+$username=$_SESSION["username"];
+
+echo $startdate=$_REQUEST["fromdate"];
+
+echo $enddate=$_REQUEST["todate"];
+
+
+
+//Get Number of laptops Hired
+$query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and status='Closed' and DateClosed between '$startdate' and '$enddate'"; //You don't need a ; like you do in SQL
+$result11 = mysql_query($query11);
+$row=mysql_fetch_row($result11);
+$laptopshired=$row[0];
+$_SESSION['laptopshired']=$laptopshired;
+$connection;
+echo mysql_error($connection);
+ $query11;
+
+//Get Number of desktops Hired
+$query12 = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep' and status='Closed' and DateClosed between '$startdate' and '$enddate'"; //You don't need a ; like you do in SQL
+$result12 = mysql_query($query12);
+$row=mysql_fetch_row($result12);
+$desktopshired=$row[0];
+$_SESSION['desktopshired']=$desktopshired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of servers Hired
+$query13 = "SELECT sum(servers) FROM opportunity where sales_rep='$salesrep' and status='Closed' and DateClosed between '$startdate' and '$enddate'"; //You don't need a ; like you do in SQL
+$result13 = mysql_query($query13);
+$row=mysql_fetch_row($result13);
+$servershired=$row[0];
+$_SESSION['servershired']=$servershired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of projectors Hired
+$query14 = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep' and status='Closed' and and DateClosed between '$startdate' and '$enddate''"; //You don't need a ; like you do in SQL
+$result14 = mysql_query($query14);
+$row=mysql_fetch_row($result14);
+$projectorshired=$row[0];
+$_SESSION['projectorshired']=$projectorshired;
+$connection;
+
+echo mysql_error($connection);
+//Get Total Revenue Generated
+$query15 = "SELECT sum(rental_amount) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and DateClosed between '$startdate' and '$enddate'"; //You don't need a ; like you do in SQL
+$result15 = mysql_query($query15);
+$row=mysql_fetch_row($result15);
+$totalrevenue=$row[0];
+$_SESSION['totalrevenue']=$totalrevenue;
+$connection;
+echo mysql_error($connection);
+
+//Get New Opportunities
+$query15 = "SELECT * FROM opportunity where sales_rep='$salesrep' and DateInitiated between '$startdate' and '$enddate'"; //You don't need a ; like you do in SQL
+$_SESSION['result15'] = mysql_query($query15);
+$newopportunitiesrow = mysql_fetch_array($result15);
+$connection;
+
+echo mysql_error($connection);
+
+//Get Open Opportunities
+$query16 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Open'"; //You don't need a ; like you do in SQL
+$_SESSION['result16']= mysql_query($query16);
+$opportunitiesrow = mysql_fetch_array($result16);
+$connection;
+
+echo mysql_error($connection);
+
+//Get Closed Deals
+$query20 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Closed' and DateClosed='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result20']= mysql_query($query20);
+$opportunitiesrow = mysql_fetch_array($result20);
+$connection;
+
+echo mysql_error($connection);
+
+//Get Generated  Proformas
+$query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and DDate='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result17'] = mysql_query($query17);
+$proformasrow = mysql_fetch_array($result17);
+$connection;
+
+//echo mysql_error($connection);
+
+
+//Get Lost Opportunities/$query18 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Cancelled' and DateCancelled='$dailydate'"; //You don't need a ; like you do in SQL
+$result18 = mysql_query($query18);
+$lostopportunitiesrow = mysql_fetch_array($result18);
+$connection;
+
+
+
+//Get Daily Meetings Started Today 
+echo $query19 = "SELECT * FROM meetings where User='$salesrep' and StartDate like '%$startdate2%' or EndDate like '%$ehddated%'"; //You don't need a ; like you do in SQL
+$_SESSION['result19'] = mysql_query($query19);
+$meetingsrow = mysql_fetch_array($result19);
+$connection;
+echo mysql_error($connection);
+
+	
+}
+
+
+
+function viewMonthlyReport()
+
 {
-	echo "hatina kupinda";
+include ("dbconn.php");
+include ("dbconn3.php");
+
+
+
+echo $salesrep=$_SESSION['salesrep'];
+
+$username=$_SESSION["username"];
+
+echo $dailydate2=date("n");
+
+//Get Number of laptops Hired
+$query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and status='Closed' and MONTH(DateClosed)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result11 = mysql_query($query11);
+$row=mysql_fetch_row($result11);
+$laptopshired=$row[0];
+$_SESSION['laptopshired']=$laptopshired;
+$connection;
+echo mysql_error($connection);
+echo  $query11;
+
+//Get Number of desktops Hired
+$query12 = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep' and status='Closed' and MONTH(DateClosed)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result12 = mysql_query($query12);
+$row=mysql_fetch_row($result12);
+$desktopshired=$row[0];
+$_SESSION['desktopshired']=$desktopshired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of servers Hired
+$query13 = "SELECT sum(servers) FROM opportunity where sales_rep='$salesrep' and status='Closed' and MONTH(DateClosed)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result13 = mysql_query($query13);
+$row=mysql_fetch_row($result13);
+$servershired=$row[0];
+$_SESSION['servershired']=$servershired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of projectors Hired
+$query14 = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep' and status='Closed' and MONTH(DateClosed)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result14 = mysql_query($query14);
+$row=mysql_fetch_row($result14);
+$projectorshired=$row[0];
+$_SESSION['projectorshired']=$projectorshired;
+$connection;
+
+echo mysql_error($connection);
+//Get Total Revenue Generated
+$query15 = "SELECT sum(rental_amount) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result15 = mysql_query($query15);
+$row=mysql_fetch_row($result15);
+$totalrevenue=$row[0];
+$_SESSION['totalrevenue']=$totalrevenue;
+$connection;
+echo mysql_error($connection);
+
+//Get New Opportunities
+$query15 = "SELECT * FROM opportunity where sales_rep='$salesrep' and MONTH(DateInitiated)='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result15'] = mysql_query($query15);
+$newopportunitiesrow = mysql_fetch_array($result15);
+$connection;
+
+//echo mysql_error($connection);
+
+//Get Open Opportunities
+$query16 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Open'"; //You don't need a ; like you do in SQL
+$_SESSION['result16']= mysql_query($query16);
+$opportunitiesrow = mysql_fetch_array($result16);
+$connection;
+
+//echo mysql_error($connection);
+
+//Get Generated  Proformas
+$query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and MONTH(DDate)='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result17'] = mysql_query($query17);
+$proformasrow = mysql_fetch_array($result17);
+$connection;
+
+//echo mysql_error($connection);
+
+
+//Get Lost Opportunities/$query18 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Cancelled' and DateCancelled='$dailydate'"; //You don't need a ; like you do in SQL
+$result18 = mysql_query($query18);
+$lostopportunitiesrow = mysql_fetch_array($result18);
+$connection;
+
+
+
+//Get Daily Meetings Started Today 
+echo $query19 = "SELECT * FROM meetings where User='$salesrep' and MONTH(StartDate) like '%$dailydate2%' or MONTH(EndDate) like '%$dailydate2%'"; //You don't need a ; like you do in SQL
+$_SESSION['result19'] = mysql_query($query19);
+$meetingsrow = mysql_fetch_array($result19);
+$connection;
+//echo mysql_error($connection);
+
+//Get Closed Deals
+$query20 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Closed' and MONTH(DateClosed)='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result20']= mysql_query($query20);
+$opportunitiesrow = mysql_fetch_array($result20);
+$connection;
+
+echo mysql_error($connection);
+
+
+
+
+}
+
+function viewWeeklyReport()
+{
+
+include ("dbconn.php");
+include ("dbconn3.php");
+echo "Tapinda Muweek";
+
+echo $dailydate2=date("W");
+
+echo $salesrep=$_SESSION['salesrep'];
+
+$username=$_SESSION["username"];
+
+echo $salesrep=$_SESSION['salesrep'];
+
+$username=$_SESSION["username"];
+
+
+//Get Number of laptops Hired
+$query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and status='Closed' and WEEK(DateClosed,3)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result11 = mysql_query($query11);
+$row=mysql_fetch_row($result11);
+$laptopshired=$row[0];
+$_SESSION['laptopshired']=$laptopshired;
+$connection;
+echo mysql_error($connection);
+echo  $query11;
+
+//Get Number of desktops Hired
+$query12 = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep' and status='Closed' and WEEK(DateClosed,3)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result12 = mysql_query($query12);
+$row=mysql_fetch_row($result12);
+$desktopshired=$row[0];
+$_SESSION['desktopshired']=$desktopshired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of servers Hired
+$query13 = "SELECT sum(servers) FROM opportunity where sales_rep='$salesrep' and status='Closed' and WEEK(DateClosed,3)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result13 = mysql_query($query13);
+$row=mysql_fetch_row($result13);
+$servershired=$row[0];
+$_SESSION['servershired']=$servershired;
+$connection;
+echo mysql_error($connection);
+
+//Get Number of projectors Hired
+$query14 = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep' and status='Closed' and WEEK(DateClosed,3)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result14 = mysql_query($query14);
+$row=mysql_fetch_row($result14);
+$projectorshired=$row[0];
+$_SESSION['projectorshired']=$projectorshired;
+$connection;
+
+echo mysql_error($connection);
+//Get Total Revenue Generated
+$query15 = "SELECT sum(rental_amount) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and WEEK(DateClosed,3)='$dailydate2'"; //You don't need a ; like you do in SQL
+$result15 = mysql_query($query15);
+$row=mysql_fetch_row($result15);
+$totalrevenue=$row[0];
+$_SESSION['totalrevenue']=$totalrevenue;
+$connection;
+echo mysql_error($connection);
+
+//Get New Opportunities
+$query15 = "SELECT * FROM opportunity where sales_rep='$salesrep' and WEEK(DateInitiated,3)='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result15'] = mysql_query($query15);
+$newopportunitiesrow = mysql_fetch_array($result15);
+$connection;
+
+//echo mysql_error($connection);
+
+//Get Open Opportunities
+$query16 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Open'"; //You don't need a ; like you do in SQL
+$_SESSION['result16']= mysql_query($query16);
+$opportunitiesrow = mysql_fetch_array($result16);
+$connection;
+
+//echo mysql_error($connection);
+
+//Get Generated  Proformas
+$query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and WEEK(DDate,3)='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result17'] = mysql_query($query17);
+$proformasrow = mysql_fetch_array($result17);
+$connection;
+
+//echo mysql_error($connection);
+
+
+//Get Lost Opportunities/$query18 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Cancelled' and DateCancelled='$dailydate'"; //You don't need a ; like you do in SQL
+$result18 = mysql_query($query18);
+$lostopportunitiesrow = mysql_fetch_array($result18);
+$connection;
+
+
+
+//Get Daily Meetings Started Today 
+echo $query19 = "SELECT * FROM meetings where User='$salesrep' and WEEK(StartDate,3) like '%$dailydate2%' or WEEK(EndDate,3) like '%$dailydate2%'"; //You don't need a ; like you do in SQL
+$_SESSION['result19'] = mysql_query($query19);
+$meetingsrow = mysql_fetch_array($result19);
+$connection;
+//echo mysql_error($connection);
+
+//Get Closed Deals
+$query20 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Closed' and WEEK(DateClosed,3)='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result20']= mysql_query($query20);
+$opportunitiesrow = mysql_fetch_array($result20);
+$connection;
+
+echo mysql_error($connection);
+
+
 }
 
 function viewDailyReport()
@@ -169,6 +507,14 @@ $connection;
 
 echo mysql_error($connection);
 
+//Get Closed Deals
+$query20 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Closed' and DateClosed='$dailydate2'"; //You don't need a ; like you do in SQL
+$_SESSION['result20']= mysql_query($query20);
+$opportunitiesrow = mysql_fetch_array($result20);
+$connection;
+
+echo mysql_error($connection);
+
 //Get Generated  Proformas
 $query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and DDate='$dailydate2'"; //You don't need a ; like you do in SQL
 $_SESSION['result17'] = mysql_query($query17);
@@ -238,7 +584,7 @@ echo mysql_error($connection);
     					<strong>Generated By:</strong>
     					<?php echo $username; ?><br>
     				<strong>Date Generated :</strong>
-    					<?php echo $dailydate; ?><br>
+    					<?php echo $currentDate; ?><br>
     				
     				</address>
     			</div>
@@ -311,7 +657,44 @@ echo mysql_error($connection);
 					</div>
     			</div>
 						  		</div>
-			
+			 	
+    <div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Closed Deals</strong></h3>
+    			</div>    							
+				<div class="panel-body">
+    				<div class="table-responsive">
+    					<table id="proformaInvoiceTable1" class="table table-condensed">
+    						<thead>
+                                <tr>
+        							<td><strong>Title</strong></td>
+        							<td class="text-center"><strong>Customer</strong></td>
+        							<td class="text-center"><strong>Expected Maturity Date</strong></td>
+									<td class="text-center"><strong>Rental Type</strong></td>
+									<td class="text-center"><strong>Total units</strong></td>
+									<td class="text-center"><strong>Expected Revenue</strong></td>
+        							<td class="text-right"><strong>Notes</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+							<?php
+							while($row = mysql_fetch_array($_SESSION['result20'])){   //Creates a loop to loop through results
+		echo "<tr><td>".$row['opportunity_name']."</td><td class=\"text-left\">".$row['customer']."</td><td class=\"text-center\"> ".$row['MaturityDate']."</td><td class=\"text-center\">".$row['sales_type']."</td><td class=\"text-center\">".$row['units_sold']."</td><td class=\"text-center\">".$row['rental_amount']."</td><td class=\"text-right\"> ".$row['description']."</td></tr>";  //$row['index'] the index here is a field name
+}
+							?>
+    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							
+    							
+									
+    						</tbody>
+    					</table>
+						
+    				</div>
+					<div>
+					
+					</div>
+    			</div>
+						  		</div>
     	
     <div class="panel panel-default">
     			<div class="panel-heading">
