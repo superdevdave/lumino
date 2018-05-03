@@ -100,7 +100,9 @@ echo $startdate=$_REQUEST["fromdate"];
 
 echo $enddate=$_REQUEST["todate"];
 
+$_SESSION['startdate']=$startdate;
 
+$_SESSION['enddate']=$enddate;
 
 //Get Number of laptops Hired
 $query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and status='Closed' and DateClosed between '$startdate' and '$enddate'"; //You don't need a ; like you do in SQL
@@ -165,7 +167,7 @@ $connection;
 echo mysql_error($connection);
 
 //Get Closed Deals
-$query20 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Closed' and DateClosed='$dailydate2'"; //You don't need a ; like you do in SQL
+$query20 = "SELECT * FROM opportunity where sales_rep='$salesrep' and Status='Closed' and DateClosed between'$startdate' and '$enddate'"; //You don't need a ; like you do in SQL
 $_SESSION['result20']= mysql_query($query20);
 $opportunitiesrow = mysql_fetch_array($result20);
 $connection;
@@ -173,7 +175,7 @@ $connection;
 echo mysql_error($connection);
 
 //Get Generated  Proformas
-$query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and DDate='$dailydate2'"; //You don't need a ; like you do in SQL
+$query17 = "SELECT * FROM invserialsheader where sales_rep='$salesrep' and DDate between '$startdate' and '$enddate'"; //You don't need a ; like you do in SQL
 $_SESSION['result17'] = mysql_query($query17);
 $proformasrow = mysql_fetch_array($result17);
 $connection;
@@ -189,7 +191,7 @@ $connection;
 
 
 //Get Daily Meetings Started Today 
-echo $query19 = "SELECT * FROM meetings where User='$salesrep' and StartDate like '%$startdate2%' or EndDate like '%$ehddated%'"; //You don't need a ; like you do in SQL
+echo $query19 = "SELECT * FROM meetings where User='$salesrep' and StartDate like '%$startdate%' or EndDate like '%$enddate%'"; //You don't need a ; like you do in SQL
 $_SESSION['result19'] = mysql_query($query19);
 $meetingsrow = mysql_fetch_array($result19);
 $connection;
@@ -206,6 +208,12 @@ function viewMonthlyReport()
 include ("dbconn.php");
 include ("dbconn3.php");
 
+$startdate=date('m-01-Y');
+$enddate=date('m-t-Y');
+
+$_SESSION['startdate']=$startdate;
+
+$_SESSION['enddate']=$enddate;
 
 
 echo $salesrep=$_SESSION['salesrep'];
@@ -330,6 +338,15 @@ echo $salesrep=$_SESSION['salesrep'];
 $username=$_SESSION["username"];
 
 
+$startdate=date("Y-m-d", strtotime('monday this week'));
+
+$enddate=date("Y-m-d", strtotime('sunday this week'));
+
+$_SESSION['startdate']=$startdate;
+
+$_SESSION['enddate']=$enddate;
+
+
 //Get Number of laptops Hired
 $query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and status='Closed' and WEEK(DateClosed,3)='$dailydate2'"; //You don't need a ; like you do in SQL
 $result11 = mysql_query($query11);
@@ -444,6 +461,8 @@ $dailydate2=$_REQUEST['ddate'];
 $_SESSION['startdate']=$dailydate2;
 
 $_SESSION['enddate']=$dailydate2;
+
+
 
 //Get Number of laptops Hired
 $query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and status='Closed' and DateClosed='$dailydate2'"; //You don't need a ; like you do in SQL
@@ -815,8 +834,8 @@ echo mysql_error($connection);
     </div>
 	<div class="row">
     			<div class="col-xs-6">
-				<strong>Remarks</strong><br>
-				<?php echo $headerrow['Remarks']; ?>
+			
+			
 				</div>
 				</div>
 				<div class="pull-right hidden-print">        
