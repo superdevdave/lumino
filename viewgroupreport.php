@@ -450,7 +450,7 @@ include ("dbconn.php");
 include ("dbconn3.php");
 //echo "Tapinda";
 
-echo $salesrep=$_SESSION['salesrep'];
+echo $salesrep=$_REQUEST['salesrepwacho'];
 
 $username=$_SESSION["username"];
 //echo $fromdate=$_REQUEST['fromdate'];
@@ -591,7 +591,7 @@ $connection;
     <div class="row">
        
     		<div class="invoice-title">
-    		<img src="http://qrent.co.zw/wp-content/uploads/2016/05/Qrent-Logo-75x.jpg">     <h2>Individual Sales Report</h2><h4 class="pull-right"> For:<?php echo $username; ?></h2>
+    		<img src="http://qrent.co.zw/wp-content/uploads/2016/05/Qrent-Logo-75x.jpg">     <h2>Group Sales Report</h2><h4 class="pull-right"> For:<?php echo $username; ?></h2>
     		</div>
     		<hr>
     		<div class="row">
@@ -854,7 +854,7 @@ $connection;
 				</div>
 				<div class="pull-right hidden-print">        
         <button class="btn btn-danger" onclick="window.print();">Print & Save Document</button>
-        <button class="btn btn-danger" onclick="window.open('reports.php');">Back To Reports Menu</button>
+        <button class="btn btn-danger" onclick="window.open('reports.php');">Back To Group Reports Menu</button>
     </div>    
 </div>
 </div>

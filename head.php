@@ -71,11 +71,15 @@ echo $_SESSION['username'];
 			<li class="color-red"><a href="dashboard.php"><em class="fa fa-dashboard color-red">&nbsp;</em> Dashboard</a></li>
 	<li class="color-red"><?php if ($_SESSION['role']=="Administrator"||$_SESSION['role']=="Manager")
 	echo "
-	<a href=\"groupdashboard.php\"><em class=\"fa fa-group\">&nbsp;</em>Group Dashboard</a> 
+	<a href=\"groupdashboard.php\"><em class=\"fa fa-group color-red\">&nbsp;</em>Group Dashboard</a> 
 	";?></li>
 	<li class="color-red"><?php if ($_SESSION['role']=="Administrator"||$_SESSION['role']=="Manager")
 	echo "
-	<a href=\"groupdashboard.php\"><em class=\"fa fa-university\">&nbsp;</em>Group Parameters</a> 
+	<a href=\"groupdashboard.php\"><em class=\"fa fa-university color-red\">&nbsp;</em>Group Parameters</a> 
+	";?></li>
+	<li class="color-red"><?php if ($_SESSION['role']=="Administrator"||$_SESSION['role']=="Manager")
+	echo "
+	<a href=\"groupreports.php\"><em class=\"fa fa-file color-red\">&nbsp;</em>Group Reports</a> 
 	";?></li>
 			<li class="color-red"><a href="opportunities.php"><em class="fa fa-link color-red">&nbsp;</em> Opportunities</a></li>
 						<li class="color-red"><a href="meetings.php"><em class="fa fa-calendar color-red">&nbsp;</em> Meetings</a></li>
