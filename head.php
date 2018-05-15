@@ -17,6 +17,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 	<title>QRENT CRM</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
 	<link href="css/datepicker3.css" rel="stylesheet">
 
 	<link href="css/styles.css" rel="stylesheet">

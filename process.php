@@ -62,11 +62,18 @@ switch($action) {
 	case'editMeeting':
 	editNewMeeting();
 	break;
+	case'finishMeeting':
+	finishNewMeeting();
+	break;
+	case'cancelMeeting':
+	cancelNewMeeting();
+	break;
 	case 'logOut':
 		logOut();
 	break;		
 
 }//switch
+
 
 function addNewMeeting()
 
@@ -101,7 +108,7 @@ Header('Location: meetings.php');
 }
 
 
-function editMeeting()
+function editNewMeeting()
 
 {
 	include("dbconn.php");
@@ -127,12 +134,56 @@ mysql_query($sql34);
  echo $connection;
 echo mysql_error($connection);
 
+//Header('Location: meetings.php');
+
+	
+}
+
+function cancelNewMeeting()
+
+{
+	include("dbconn.php");
+	include("dbconn3.php");
+	
+echo $MeetingID=$_REQUEST['MeetingID'];
+echo $Reason=$_REQUEST['canDescription'];
+
+
+$sql35="update meetings set Reason='$Reason',Status='Cancelled' where ID='$MeetingID'";
+
+
+mysql_query($sql35);
+
+ echo $connection;
+echo mysql_error($connection);
+
 Header('Location: meetings.php');
 
 	
 }
 
+function finishNewMeeting()
 
+{
+	include("dbconn.php");
+	include("dbconn3.php");
+	
+echo $MeetingID=$_REQUEST['MeetingID'];
+echo $Outcome=$_REQUEST['fnDescription'];
+
+
+$sql35="update meetings set Outcome='$Outcome',Status='Completed' where ID='$MeetingID'";
+
+
+mysql_query($sql35);
+
+ echo $connection;
+echo mysql_error($connection);
+
+Header('Location: meetings.php');
+
+	
+}
 function GetProformaNo()
 {
 	 	include("dbconn.php");

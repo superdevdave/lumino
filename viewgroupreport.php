@@ -92,7 +92,7 @@ function viewCustomReport(){
 include ("dbconn3.php");
 //echo "Tapinda MuCustom";
 
- $salesrep=$_SESSION['salesrep'];
+ $salesrep=$_REQUEST['salesrepwacho'];
 
 $username=$_SESSION["username"];
 
@@ -216,7 +216,7 @@ $_SESSION['startdate']=$startdate;
 $_SESSION['enddate']=$enddate;
 
 
- $salesrep=$_SESSION['salesrep'];
+ $salesrep=$_REQUEST['salesrepwacho'];
 
 $username=$_SESSION["username"];
 
@@ -328,8 +328,8 @@ include ("dbconn3.php");
 //echo "Tapinda Muweek";
 
  $dailydate2=date("W");
-
- $salesrep=$_SESSION['salesrep'];
+ 
+ $salesrep=$_REQUEST['salesrepwacho'];
 
 $username=$_SESSION["username"];
 
@@ -450,7 +450,7 @@ include ("dbconn.php");
 include ("dbconn3.php");
 //echo "Tapinda";
 
-echo $salesrep=$_REQUEST['salesrepwacho'];
+ $salesrep=$_REQUEST['salesrepwacho'];
 
 $username=$_SESSION["username"];
 //echo $fromdate=$_REQUEST['fromdate'];
@@ -466,7 +466,7 @@ $_SESSION['enddate']=$dailydate2;
 
 
 //Get Number of laptops Hired
-$query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and status='Closed' and DateClosed='$dailydate2'"; //You don't need a ; like you do in SQL
+echo $query11 = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and status='Closed' and DateClosed='$dailydate2'"; //You don't need a ; like you do in SQL
 $result11 = mysql_query($query11);
 $row=mysql_fetch_row($result11);
 $laptopshired=$row[0];
@@ -854,7 +854,7 @@ $connection;
 				</div>
 				<div class="pull-right hidden-print">        
         <button class="btn btn-danger" onclick="window.print();">Print & Save Document</button>
-        <button class="btn btn-danger" onclick="window.open('reports.php');">Back To Group Reports Menu</button>
+        <button class="btn btn-danger" onclick="window.open('groupreports.php');">Back To Group Reports Menu</button>
     </div>    
 </div>
 </div>

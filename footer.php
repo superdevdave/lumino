@@ -30,6 +30,38 @@
 
 	//Load Datatables
 $(window).load(function() {
+	
+	var chart1 = document.getElementById("line-chart").getContext("2d");
+	window.myLine = new Chart(chart1).Line(lineChartData, {
+	responsive: true,
+	scaleLineColor: "rgba(0,0,0,.2)",
+	scaleGridLineColor: "rgba(0,0,0,.05)",
+	scaleFontColor: "#c5c7cc"
+
+	});
+	
+	
+	$('#example3').DataTable({
+			    dom: 'Bfrtip',
+          buttons: [
+              'copy', 'excel', 'pdf', 'print'
+          ],
+		  select:false,
+	columnDefs: [ {
+            orderable: true,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]]
+
+
+	});
+} );
+
  $('#example').DataTable({
 			    dom: 'Bfrtip',
           buttons: [
@@ -50,27 +82,7 @@ $(window).load(function() {
 
 	});
 
-	
-	$('#example3').DataTable({
-			    dom: 'Bfrtip',
-          buttons: [
-              'copy', 'excel', 'pdf', 'print'
-          ],
-		  select:true,
-	columnDefs: [ {
-            orderable: true,
-            className: 'select-checkbox',
-            targets:   0
-        } ],
-        select: {
-            style:    'os',
-            selector: 'td:first-child'
-        },
-        order: [[ 1, 'asc' ]]
 
-
-	});
-} );
 
 $(document).ready(function (){
 var chektable;
@@ -107,6 +119,7 @@ $('#CloseOppForm input[type="checkbox"]').change(function() {
     alert("You just clicked checkbox with the name " + this.name)
 });
 
+/*
 
 $('#example tbody').on('click', '.select-checkbox', function(e){
 
@@ -127,6 +140,8 @@ $('#example tbody').on('click', '.select-checkbox', function(e){
 	 viewMeetingNo=data[0];
 	 
 });
+
+**/
 $('#example tbody').on('click', '.select-checkbox', function(e){
 
       var $row = $(this).closest('tr');
@@ -138,7 +153,7 @@ $('#example tbody').on('click', '.select-checkbox', function(e){
 
       // Get row ID and Record Data TO use in Opportunities Edit Modal Form
      var rowId = data[0];
-	 
+
 	 //Get the Document Number of Selected Proforma Number for Viewing Items
 	 
 
@@ -199,7 +214,15 @@ $('#example3 tbody').on('click', '.select-checkbox', function(e){
       var data = table.row($row).data();
 
       // Get row ID and Record Data TO use in Opportunities Edit Modal Form
-     var rowId = data[0];
+     var rowId2 = data[0];
+			$("#MeetingID").val(rowId2);
+	 	 $("#edSubject").val(data[1]);
+	 	 $("#eddDescription").text(data[2]);
+		 	 $("#edCustomer").val(data[3]);
+			  $("#edLocation").val(data[4]);
+			 	 $("#edStartTime").val(data[5]);
+				 	 $("#edEndDate").val(data[6]);
+					  $("#edReminderDate").val(data[9]);
 	 
 	 //Get the Document Number of Selected Proforma Number for Viewing Items
 	 
@@ -609,6 +632,17 @@ $("#granddeposit").html("");
 
 });
 
+
+//Add Meeting Scripts
+$("#btnEditMeeting" ).on( "click", function(event) {
+	$("#editMeetingForm").submit();
+	
+	});
+	
+$("#btnCancelMeeting" ).on( "click", function(event) {
+	$("#cancelMeetingForm").submit();
+	
+	});
 //Add Meeting Scripts
 $("#btnAddMeeting" ).on( "click", function(event) {
 

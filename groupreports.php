@@ -47,7 +47,7 @@ include("dbconn3.php");
 <?php 
 include ("dbconn.php");
 include ("dbconn3.php");
-$queryuser = "SELECT Fullname,Username FROM users where id>0"; //You don't need a ; like you do in SQL
+$queryuser = "SELECT Fullname,username FROM users where id>0"; //You don't need a ; like you do in SQL
 $_SESSION['resultReportUser'] = mysql_query($queryuser);
 $connection;
 
@@ -110,10 +110,11 @@ var reportType=$('input[name=reporttype]:checked').val();
 var dailydate=$("#date").val();
 var fromdate=$("#fromdate").val();
 var todate=$("#todate").val();
+var thesalesrep=$("#salesrepwacho").val();
 
  $('#groupreportform .submit').click();
 	//alert("Testing Tesing 12");
-	 var actionstring="viewgroupreport.php?reporttype="+reportType+"&ddate="+dailydate+"&fromdate="+fromdate+"&todate="+todate;
+	 var actionstring="viewgroupreport.php?reporttype="+reportType+"&ddate="+dailydate+"&fromdate="+fromdate+"&todate="+todate+"&salesrepwacho="+thesalesrep;
 	 window.location.href=actionstring;
 /*$.ajax({
            type: "GET",
