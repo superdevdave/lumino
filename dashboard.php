@@ -52,7 +52,7 @@ $connection;
 
 //Get  Meetings Scheduled This Week Today 
  $dailydate3=date("W");
- $query29 = "SELECT * FROM meetings where User='$salesrep' and WEEK(StartDate,3) like '%$dailydate3%' or WEEK(EndDate,3) like '%$dailydate3%'"; //You don't need a ; like you do in SQL
+ $query29 = "SELECT * FROM meetings where User='$salesrep' and WEEK(StartDate,3) like '%$dailydate3%' or WEEK(EndDate,3) like '%$dailydate3%' order by StartDate asc"; //You don't need a ; like you do in SQL
 $_SESSION['result29'] = mysql_query($query29);
 $meetingsrow = mysql_fetch_array($result29);
 $connection;
@@ -99,7 +99,7 @@ $connection;
 					<div class="panel panel-teal panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-gavel color-red"></em>
 							<div class="large"><?php echo $_SESSION['dealsclosed'];  ?></div>
-							<div class="text-muted">Deals Closed</div>
+							<div class="text-muted color-red">Deals Closed</div>
 						</div>
 					</div>
 				</div>
@@ -107,7 +107,7 @@ $connection;
 					<div class="panel panel-blue panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-link color-red"></em>
 							<div class="large"><?php echo $_SESSION['openopportunities'];  ?></div>
-							<div class="text-muted">Open Opportuinities</div>
+							<div class="text-muted color-red">Open Opportuinities</div>
 						</div>
 					</div>
 				</div>
@@ -115,7 +115,7 @@ $connection;
 					<div class="panel panel-blue panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-desktop color-red"></em>
 							<div class="large"><?php echo $_SESSION['desktopshired']; ?></div>
-							<div class="text-muted">Desktop Hired</div>
+							<div class="text-muted color-red">Desktop Hired</div>
 						</div>
 					</div>
 				</div>
@@ -123,7 +123,7 @@ $connection;
 					<div class="panel panel-orange panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-laptop color-red"></em>
 							<div class="large"><?php echo $_SESSION['laptopshired']; ?></div>
-							<div class="text-muted">Laptops Hired</div>
+							<div class="text-muted color-red">Laptops Hired</div>
 						</div>
 					</div>
 				</div>
@@ -131,7 +131,7 @@ $connection;
 					<div class="panel panel-orange panel-widget border-right">
 						<div class="row no-padding"><img src="images/video-projector-32.png">
 							<div class="large"><?php echo $_SESSION['projectorshired']; ?></div>
-							<div class="text-muted">Projectors Hired</div>
+							<div class="text-muted color-red">Projectors Hired</div>
 						</div>
 					</div>
 				</div>
@@ -139,7 +139,7 @@ $connection;
 					<div class="panel panel-red panel-widget ">
 						<div class="row no-padding"><em class="fa fa-xl fa-file color-red"></em>
 							<div class="large">2</div>
-							<div class="text-muted">New Contracts</div>
+							<div class="text-muted color-red">New Contracts</div>
 						</div>
 					</div>
 				</div>
@@ -147,7 +147,7 @@ $connection;
 					<div class="panel panel-red panel-widget ">
 						<div class="row no-padding"><em class="fa fa-xl fa-dollar color-red"></em>
 							<div class="large"><?php echo $_SESSION['totalrevenue']; ?></div>
-							<div class="text-muted">Revenue Generated</div>
+							<div class="text-muted color-red">Revenue Generated</div>
 						</div>
 					</div>
 				</div>
@@ -155,7 +155,7 @@ $connection;
 					<div class="panel panel-red panel-widget ">
 						<div class="row no-padding"><em class="fa fa-xl fa-exclamation color-red"></em>
 							<div class="large">11</div>
-							<div class="text-muted">Pending Action Items</div>
+							<div class="text-muted color-red">Pending Action Items</div>
 						</div>
 					</div>
 				</div>
@@ -166,8 +166,11 @@ $connection;
 		
 		</div>
 		
+		
+					
+		
 			<div class="col-md-12">
-				<div class="panel panel-default ">
+				<div class="panel panel-default articles">
 					<div class="panel-heading">
 						Meetings & Appointments
 						<ul class="pull-right panel-settings panel-button-tab-right">
@@ -176,30 +179,46 @@ $connection;
 							</a>
 								
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"></span></div>
-					<div class="panel-body timeline-container">
-						<ul class="timeline">
+						</ul>
 						<?php
 						while($rowt = mysql_fetch_array($_SESSION['result29'])){
-						echo"	<li>
-								<div class=\"timeline-badge color-red\"><em class=\"glyphicon glyphicon-pushpin \"></em></div>
-								<div class=\"timeline-panel\">
-				
-									<div class=\"timeline-heading\">
-										<strong><h4 class=\"timeline-title\">".$rowt['Title']."</strong> (".$rowt['Customer'].")</h4>
+							$date1 = strtr($rowt['StartDate'], '/', '-');
+							
+						echo"
+					<div class=\"panel-body articles-container\">
+						<div class=\"article border-bottom\">
+							<div class=\"col-xs-12\">
+								<div class=\"row\">
+									<div class=\"col-xs-2 col-md-2 date\">
+										<div class=\"large\">".date('d',strtotime($date1))."</div>
+										<div class=\"text-muted\">".date('M',strtotime($date1))."</div>
+	                                    	<div class=\"text-muted\">".date('H:i',strtotime($date1))."</div>
+									
 									</div>
-									<div class=\"timeline-body\">
-										<p>Scheduled Date & Time:".$rowt['Location']."</p>
-										<p>Location:".$rowt['Location']."</p>
-										
+									<div class=\"col-xs-10 col-md-10\">
+										<h4><strong><a href=\"#\" class=\"color-red\">".$rowt['Title']."</a></strong></h4>
+										<p>Location: ".$rowt['Location']." </p>
+										<p>Contact: ".$rowt['Contact']."(".$rowt['Customer'].")</p>
 									</div>
 								</div>
-							</li>";
+							</div>
+							<div class=\"clear\"></div>
+						</div><!--End .article-->
+						";
 						}
-							?>
-						</ul>
+						
+						?>
+					
+						
+						
 					</div>
 				</div>
 			</div><!--/.col-->
+			
+			
+			
+			
+			
 		
 		
 		
@@ -224,7 +243,7 @@ $connection;
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
 						<h4>Monthly Target</h4>
-						<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span></div>
+						<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">200</span></div>
 					</div>
 				</div>
 			</div>
@@ -288,3 +307,34 @@ include("footer.php");
 
 ?>
 	
+//LINE CHART SECTION
+<script type="text/javascript">
+var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
+	
+	var lineChartData = {
+		labels : ["January","February","March","April","May","June","July","August","September","October","November","December"],
+		datasets : [
+			{
+				label: "Revenue",
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "rgba(220,220,220,1)",
+				pointColor : "rgba(220,220,220,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+			},
+			{
+				label: "Units",
+				fillColor : "rgba(48, 164, 255, 0.2)",
+				strokeColor : "rgba(48, 164, 255, 1)",
+				pointColor : "rgba(48, 164, 255, 1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(48, 164, 255, 1)",
+				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+			}
+		]
+
+	}
+</script>

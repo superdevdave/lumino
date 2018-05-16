@@ -15,7 +15,7 @@
 <script type="text/javascript" src="js/knockout-3.4.2.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/chart.min.js"></script>
-	<script type="text/javascript" src="js/chart-data.js"></script>
+
 	<script type="text/javascript" src="js/easypiechart.js"></script>
 	<script type="text/javascript" src="js/easypiechart-data.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
