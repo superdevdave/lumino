@@ -62,7 +62,19 @@ $connection;
 //GET JANUARY REVENUE AND UNITS FOR LINE GRAPH
 $yearlydate=date("Y");
 $getjanuaryunits = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getjanuarylaptops="SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getjanuarydesktops = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getjanuaryprojectors = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getjanuaryservers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getjanuarymonitors="SELECT sum(monitors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getjanuarynetworking="SELECT sum(networking) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getjanuaryothers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+
+
+
 $resultJ1 = mysql_query($getjanuaryunits);
+
+
 $jrow=mysql_fetch_row($resultJ1);
 if ($jrow[0]=="")
 {
@@ -72,6 +84,64 @@ else
 {
 	$_SESSION['JanuaryUnits']=$jrow[0];
 }
+
+$resultJ1d=mysql_query($getjanuarydesktops);
+$j1row=mysql_fetch_row($resultJ1d);
+if ($j1row[0]=="")
+{
+$_SESSION['JanuaryDesktops']=0;
+}
+else
+{
+	$_SESSION['JanuaryDesktops']=$j1row[0];
+}
+
+
+$resultJ1l=mysql_query($getjanuarylaptops);
+$j2row=mysql_fetch_row($resultJ1l);
+if ($j2row[0]=="")
+{
+$_SESSION['JanuaryLaptops']=0;
+}
+else
+{
+	$_SESSION['JanuaryLaptops']=$j2row[0];
+}
+
+$resultJ1p=mysql_query($getjanuaryprojectors);
+$j3row=mysql_fetch_row($resultJ1p);
+if ($j3row[0]=="")
+{
+$_SESSION['JanuaryProjectors']=0;
+}
+else
+{
+	$_SESSION['JanuaryProjectors']=$j3row[0];
+}
+
+$resultJ1s=mysql_query($getjanuaryservers);
+$j4row=mysql_fetch_row($resultJ1s);
+if ($j4row[0]=="")
+{
+$_SESSION['JanuaryServers']=0;
+}
+else
+{
+	$_SESSION['JanuaryServers']=$j4row[0];
+}
+
+$resultJ1n=mysql_query($getjanuarynetworking);
+$j5row=mysql_fetch_row($resultJ1n);
+if ($j3row[0]=="")
+{
+$_SESSION['JanuaryNetworking']=0;
+}
+else
+{
+	$_SESSION['JanuaryNetworking']=$j5row[0];
+}
+
+
 
 
 $getjanuaryREVENUE="SELECT sum(rental_amount) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
@@ -91,6 +161,23 @@ $connection;
 //GET FEBRUARY REVENUE AND UNITS FOR LINE GRAPH
 $yearlydate=date("Y");
 $getfebruaryunits = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getfebruarylaptops="SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getfebruarydesktops = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getfebruaryprojectors = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getfebruaryservers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getfebruarymonitors="SELECT sum(monitors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getfebruarynetworking="SELECT sum(networking) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getfebruaryothers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+
+
+
+
+
+
+
+
+
+
 $resultF1 = mysql_query($getfebruaryunits);
 $frow=mysql_fetch_row($resultF1);
 $connection;
@@ -157,14 +244,13 @@ $yearlydate=date("Y");
 $getAPRILunits = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 $resultA1 = mysql_query($getAPRILunits);
 $arow=mysql_fetch_row($resultA1);
-
 if ($arow[0]=="")
 {
 $_SESSION['AprilUnits']=0;
 }
 else
 {
-	$_SESSION['MarchUnits']=$arow[0];
+	$_SESSION['AprilUnits']=$arow[0];
 }
 
 
@@ -621,7 +707,7 @@ else
 			<div class="col-md-12">
 				<div class="panel panel-danger">
 					<div class="panel-heading">
-				Units Sold
+				Total Units Hired (Combined Laptops & Desktops,Servers,Projectors)
 						
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
@@ -633,11 +719,27 @@ else
 			</div>
 	</div>	<!--/.row-->
 	
+	<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-danger">
+					<div class="panel-heading">
+				Total Units Hired 
+						
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<canvas class="main-chart" id="line-chart3" height="200" width="600"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>	<!--/.row-->
+	
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-danger">
 					<div class="panel-heading">
-				Revenue Generated
+				Revenue Generated (Month on Month)
 						
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
