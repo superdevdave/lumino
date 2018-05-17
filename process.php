@@ -56,18 +56,23 @@ switch($action) {
 	case'viewIndividualReport':
 	ViewIndividualReport();
 	break;
+	
 	case'addMeeting':
 	addNewMeeting();
 	break;
+	
 	case'editMeeting':
 	editNewMeeting();
 	break;
+	
 	case'finishMeeting':
 	finishNewMeeting();
 	break;
+	
 	case'cancelMeeting':
 	cancelNewMeeting();
 	break;
+	
 	case 'logOut':
 		logOut();
 	break;		
@@ -138,6 +143,7 @@ echo mysql_error($connection);
 
 	
 }
+
 
 function cancelNewMeeting()
 

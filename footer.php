@@ -40,6 +40,15 @@ $(window).load(function() {
 
 	});
 	
+	var chart2 = document.getElementById("line-chart2").getContext("2d");
+	window.myLine = new Chart(chart2).Line(lineChartData2, {
+	responsive: true,
+	scaleLineColor: "rgba(0,0,0,.2)",
+	scaleGridLineColor: "rgba(0,0,0,.05)",
+	scaleFontColor: "#c5c7cc"
+
+	});
+	
 	
 	$('#example3').DataTable({
 			    dom: 'Bfrtip',

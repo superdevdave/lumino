@@ -1,4 +1,7 @@
 BUGS
 --------------
 1.Wrong Totals Proforma
-2.Select CHekcbox under Meetings is not appearing on all entries
+2.Select CHekcbox under Meetings is not appearing on all entries[
+3.Inability to display None when reports receive null results
+
+2:28

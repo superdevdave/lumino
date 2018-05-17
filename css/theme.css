@@ -1613,6 +1613,9 @@ pre code {
 .col-xs-12 {
   width: 100%;
 }
+ .navbar-danger {
+  background: #a94442;
+  height: 60px; }
 .col-xs-11 {
   width: 91.66666667%;
 }

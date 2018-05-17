@@ -82,6 +82,10 @@ input.form-control {
   background: #222;
   height: 60px; }
 
+  .navbar-danger {
+  background: #a94442;
+  height: 60px; }
+
 .navbar-header .navbar-brand {
   color: #fff;
   font-size: 20px;
