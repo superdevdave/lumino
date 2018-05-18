@@ -68,7 +68,7 @@ $getjanuaryprojectors = "SELECT sum(projectors) FROM opportunity where sales_rep
 $getjanuaryservers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 $getjanuarymonitors="SELECT sum(monitors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 $getjanuarynetworking="SELECT sum(networking) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
-$getjanuaryothers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getjanuaryothers="SELECT sum(others) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 
 
 
@@ -141,6 +141,17 @@ else
 	$_SESSION['JanuaryNetworking']=$j5row[0];
 }
 
+$resultJ10=mysql_query($getjanuaryothers);
+$j6row=mysql_fetch_row($resultJ1o);
+if ($j6row[0]=="")
+{
+$_SESSION['JanuaryOthers']=0;
+}
+else
+{
+	$_SESSION['JanuaryOthers']=$j6row[0];
+}
+
 
 
 
@@ -167,14 +178,7 @@ $getfebruaryprojectors = "SELECT sum(projectors) FROM opportunity where sales_re
 $getfebruaryservers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 $getfebruarymonitors="SELECT sum(monitors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 $getfebruarynetworking="SELECT sum(networking) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
-$getfebruaryothers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
-
-
-
-
-
-
-
+$getfebruaryothers="SELECT sum(others) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 
 
 
@@ -188,6 +192,69 @@ $_SESSION['FebruaryUnits']=0;
 else
 {
 	$_SESSION['FebruaryUnits']=$jrow[0];
+}
+
+
+$resultF1l = mysql_query($getfebruarylaptops);
+$f1row=mysql_fetch_row($resultF1l);
+$connection;
+if ($f1row[0]=="")
+{
+$_SESSION['FebruaryLaptops']=0;
+}
+else
+{
+	$_SESSION['FebruaryLaptops']=$f1row[0];
+}
+
+
+$resultF1d = mysql_query($getfebruarydesktops);
+$f2row=mysql_fetch_row($resultF1d);
+$connection;
+if ($f2row[0]=="")
+{
+$_SESSION['FebruaryDesktops']=0;
+}
+else
+{
+	$_SESSION['FebruaryDesktops']=$f2row[0];
+}
+
+
+$resultF1s = mysql_query($getfebruaryservers);
+$f3row=mysql_fetch_row($resultF1s);
+$connection;
+if ($f3row[0]=="")
+{
+$_SESSION['FebruaryServers']=0;
+}
+else
+{
+	$_SESSION['FebruaryServers']=$f3row[0];
+}
+
+$resultF1p = mysql_query($getfebruaryprojectors);
+$f4row=mysql_fetch_row($resultF1p);
+$connection;
+if ($f4row[0]=="")
+{
+$_SESSION['FebruaryProjectors']=0;
+}
+else
+{
+	$_SESSION['FebruaryProjectors']=$f4row[0];
+}
+
+$resultF1n = mysql_query($getfebruarynetworking);
+$f5row=mysql_fetch_row($resultF1n);
+$connection;
+if ($f5row[0]=="")
+{
+$_SESSION['FebruaryNetworking']=0;
+}
+else
+{
+	$_SESSION['FebruaryNetworking']=$f5row[0];
 }
 
 
@@ -211,6 +278,15 @@ else
 //GET MARCH REVENUE AND UNITS FOR LINE GRAPH
 $yearlydate=date("Y");
 $getmarchunits = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getmarchlaptops="SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getmarchdesktops = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getmarchprojectors = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getmarchservers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getmarchmonitors="SELECT sum(monitors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getmarchnetworking="SELECT sum(networking) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getmarchothers="SELECT sum(others) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+
+
 $resultM1 = mysql_query($getmarchunits);
 $mrow=mysql_fetch_row($resultM1);
 
@@ -223,6 +299,78 @@ else
 	$_SESSION['MarchUnits']=$mrow[0];
 }
 
+$resultM1l = mysql_query($getmarchlaptops);
+$m1row=mysql_fetch_row($resultM1l);
+
+if ($m1row[0]=="")
+{
+$_SESSION['MarchLaptops']=0;
+}
+else
+{
+	$_SESSION['MarchLaptops']=$m1row[0];
+}
+
+$resultM1d = mysql_query($getmarchdesktops);
+$m2row=mysql_fetch_row($resultM1d);
+
+if ($m2row[0]=="")
+{
+$_SESSION['MarchDesktops']=0;
+}
+else
+{
+	$_SESSION['MarchDesktops']=$m2row[0];
+}
+
+$resultM1s = mysql_query($getmarchservers);
+$m3row=mysql_fetch_row($resultM1s);
+
+if ($m3row[0]=="")
+{
+$_SESSION['MarchServers']=0;
+}
+else
+{
+	$_SESSION['MarchServers']=$m3row[0];
+}
+
+$resultM1p = mysql_query($getmarchprojectors);
+$m4row=mysql_fetch_row($resultM1p);
+
+if ($m4row[0]=="")
+{
+$_SESSION['MarchProjectors']=0;
+}
+else
+{
+	$_SESSION['MarchProjectors']=$m4row[0];
+}
+
+
+$resultM1n = mysql_query($getmarchnetworking);
+$m5row=mysql_fetch_row($resultM1n);
+
+if ($m5row[0]=="")
+{
+$_SESSION['MarchNetworking']=0;
+}
+else
+{
+	$_SESSION['MarchNetworking']=$m5row[0];
+}
+
+$resultM1o = mysql_query($getmarchothers);
+$m6row=mysql_fetch_row($resultM1o);
+
+if ($m6row[0]=="")
+{
+$_SESSION['MarchOthers']=0;
+}
+else
+{
+	$_SESSION['MarchOthers']=$m6row[0];
+}
 
 $getmarchREVENUE="SELECT sum(rental_amount) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='3' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 $resultM2 = mysql_query($getmarchREVENUE);
@@ -242,6 +390,15 @@ else
 //GET APRIL REVENUE AND UNITS FOR LINE GRAPH
 $yearlydate=date("Y");
 $getAPRILunits = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getaprillaptops="SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getaprildesktops = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getaprilprojectors = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getaprilservers="SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getaprilmonitors="SELECT sum(monitors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getaprilnetworking="SELECT sum(networking) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$getaprilothers="SELECT sum(others) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='4' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+
+
 $resultA1 = mysql_query($getAPRILunits);
 $arow=mysql_fetch_row($resultA1);
 if ($arow[0]=="")
@@ -251,6 +408,78 @@ $_SESSION['AprilUnits']=0;
 else
 {
 	$_SESSION['AprilUnits']=$arow[0];
+}
+
+
+$resultA1l = mysql_query($getaprillaptops);
+$a1row=mysql_fetch_row($resultA1l);
+if ($a1row[0]=="")
+{
+$_SESSION['AprilLaptops']=0;
+}
+else
+{
+	$_SESSION['AprilLaptops']=$a1row[0];
+}
+
+
+$resultA1d = mysql_query($getaprildesktops);
+$a2row=mysql_fetch_row($resultA1d);
+if ($a2row[0]=="")
+{
+$_SESSION['AprilDesktops']=0;
+}
+else
+{
+	$_SESSION['AprilDesktops']=$a2row[0];
+}
+
+
+$resultA1s = mysql_query($getaprilservers);
+$a3row=mysql_fetch_row($resultA1s);
+if ($a3row[0]=="")
+{
+$_SESSION['AprilServers']=0;
+}
+else
+{
+	$_SESSION['AprilServers']=$a3row[0];
+}
+
+
+$resultA1p = mysql_query($getaprilprojectors);
+$a4row=mysql_fetch_row($resultA1p);
+if ($a4row[0]=="")
+{
+$_SESSION['AprilProjectors']=0;
+}
+else
+{
+	$_SESSION['Aprilprojectors']=$a4row[0];
+}
+
+
+$resultA1n = mysql_query($getaprilnetworking);
+$a5row=mysql_fetch_row($resultA1n);
+if ($a5row[0]=="")
+{
+$_SESSION['AprilNetworking']=0;
+}
+else
+{
+	$_SESSION['AprilNetworking']=$a5row[0];
+}
+
+
+$resultA1o = mysql_query($getaprilothers);
+$a6row=mysql_fetch_row($resultA1o);
+if ($a6row[0]=="")
+{
+$_SESSION['AprilOthers']=0;
+}
+else
+{
+	$_SESSION['AprilOthers']=$a6row[0];
 }
 
 
