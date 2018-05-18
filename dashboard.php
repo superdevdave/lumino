@@ -258,6 +258,19 @@ else
 }
 
 
+$resultF10 = mysql_query($getfebruaryothers);
+$f6row=mysql_fetch_row($resultF1o);
+$connection;
+if ($f6row[0]=="")
+{
+$_SESSION['FebruaryOthers']=0;
+}
+else
+{
+	$_SESSION['FebruaryOthers']=$f6row[0];
+}
+
+
 $getfebruaryREVENUE="SELECT sum(rental_amount) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='2' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 $resultF2 = mysql_query($getfebruaryREVENUE);
 $frrow=mysql_fetch_row($resultF2);
@@ -455,7 +468,7 @@ $_SESSION['AprilProjectors']=0;
 }
 else
 {
-	$_SESSION['Aprilprojectors']=$a4row[0];
+	$_SESSION['AprilProjectors']=$a4row[0];
 }
 
 
@@ -699,11 +712,11 @@ $connection;
 
 if ($j5urow[0]=="")
 {
-$_SESSION['JuneLaptops']=0;
+$_SESSION['JuneNetworking']=0;
 }
 else
 {
-	$_SESSION['JuneLaptops']=$j5urow[0];
+	$_SESSION['JuneNetworking']=$j5urow[0];
 }
 
 $resultJU1o = mysql_query($getjuneothers);
@@ -1013,6 +1026,85 @@ else
 {
 	$_SESSION['SeptemberUnits']=$srow[0];
 }
+
+$resultS1l = mysql_query($getseptemberlaptops);
+$s1row=mysql_fetch_row($resultS1l);
+$connection;
+
+if ($s1row[0]=="")
+{
+$_SESSION['SeptemberLaptops']=0;
+}
+else
+{
+	$_SESSION['SeptemberLaptops']=$s1row[0];
+}
+
+$resultS1d = mysql_query($getseptemberdesktops);
+$s2row=mysql_fetch_row($resultS1d);
+$connection;
+
+if ($s2row[0]=="")
+{
+$_SESSION['SeptemberDesktops']=0;
+}
+else
+{
+	$_SESSION['SeptemberDesktops']=$s2row[0];
+}
+
+$resultS1p = mysql_query($getseptemberprojectors);
+$s3row=mysql_fetch_row($resultS1p);
+$connection;
+
+if ($s3row[0]=="")
+{
+$_SESSION['SeptemberProjectors']=0;
+}
+else
+{
+	$_SESSION['SeptemberProjectors']=$s3row[0];
+}
+
+$resultS1s = mysql_query($getseptemberservers);
+$s4row=mysql_fetch_row($resultS1s);
+$connection;
+
+if ($s4row[0]=="")
+{
+$_SESSION['SeptemberServers']=0;
+}
+else
+{
+	$_SESSION['SeptemberServers']=$s4row[0];
+}
+
+$resultS1n = mysql_query($getseptembernetworking);
+$s5row=mysql_fetch_row($resultS1s);
+$connection;
+
+if ($s5row[0]=="")
+{
+$_SESSION['SeptemberNetworking']=0;
+}
+else
+{
+	$_SESSION['SeptemberNetworking']=$s5row[0];
+}
+
+$resultS1o = mysql_query($getseptemberothers);
+$s6row=mysql_fetch_row($resultS1o);
+$connection;
+
+if ($s6row[0]=="")
+{
+$_SESSION['SeptemberOthers']=0;
+}
+else
+{
+	$_SESSION['SeptemberOthers']=$s6row[0];
+}
+
 
 
 $getSEPTREVENUE="SELECT sum(rental_amount) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='9' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
@@ -1771,6 +1863,108 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 				pointHighlightFill : "#fff",
 				pointHighlightStroke : "rgba(220,220,220,1)",
 				data : [<?php echo $_SESSION['JanuaryRevenue']; ?>,<?php echo $_SESSION['FebruaryRevenue']; ?>,<?php echo $_SESSION['MarchRevenue']; ?>,<?php echo $_SESSION['AprilRevenue']; ?>,<?php echo $_SESSION['MayRevenue']; ?>,<?php echo $_SESSION['JuneRevenue']; ?>,<?php echo $_SESSION['JulyRevenue']; ?>,<?php echo $_SESSION['AugustRevenue']; ?>,<?php echo $_SESSION['SeptemberRevenue']; ?>,<?php echo $_SESSION['OctoberRevenue']; ?>,<?php echo $_SESSION['NovemberRevenue']; ?>,<?php echo $_SESSION['DecemberRevenue']; ?>]
+			}
+			],
+			  
+        options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Chart.js Line Chart2'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Month'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Value'
+						}
+					}]
+				}
+			}
+        
+
+
+	
+	}
+	var lineChartData3 = {
+		labels : ["January","February","March","April","May","June","July","August","September","October","November","December"],
+		datasets : [
+			
+			{
+				label: "Laptops",
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "rgb(255, 51, 51)",
+				pointColor : "rgba(220,220,220,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : [<?php echo $_SESSION['JanuaryLaptops']; ?>,<?php echo $_SESSION['FebruaryLaptops']; ?>,<?php echo $_SESSION['MarchLaptops']; ?>,<?php echo $_SESSION['AprilLaptops']; ?>,<?php echo $_SESSION['MayLaptops']; ?>,<?php echo $_SESSION['JuneLaptops']; ?>,<?php echo $_SESSION['JulyLaptops']; ?>,<?php echo $_SESSION['AugustLaptops']; ?>,<?php echo $_SESSION['SeptemberLaptops']; ?>,<?php echo $_SESSION['OctoberLaptops']; ?>,<?php echo $_SESSION['NovemberLaptops']; ?>,<?php echo $_SESSION['DecemberLaptops']; ?>]
+			},
+			{
+				label: "Desktops",
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "rgb(255, 51, 51)",
+				pointColor : "rgba(220,220,220,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : [<?php echo $_SESSION['JanuaryDesktops']; ?>,<?php echo $_SESSION['FebruaryDesktops']; ?>,<?php echo $_SESSION['MarchDesktops']; ?>,<?php echo $_SESSION['AprilDesktops']; ?>,<?php echo $_SESSION['MayDesktops']; ?>,<?php echo $_SESSION['JuneDesktops']; ?>,<?php echo $_SESSION['JulyDesktops']; ?>,<?php echo $_SESSION['AugustDesktops']; ?>,<?php echo $_SESSION['SeptemberDesktops']; ?>,<?php echo $_SESSION['OctoberDesktops']; ?>,<?php echo $_SESSION['NovemberDesktops']; ?>,<?php echo $_SESSION['DecemberDesktops']; ?>]
+			},
+			{
+				label: "Servers",
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "rgb(255, 51, 51)",
+				pointColor : "rgba(220,220,220,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : [<?php echo $_SESSION['JanuaryServers']; ?>,<?php echo $_SESSION['FebruaryServers']; ?>,<?php echo $_SESSION['MarchServers']; ?>,<?php echo $_SESSION['AprilServers']; ?>,<?php echo $_SESSION['MayServers']; ?>,<?php echo $_SESSION['JuneServers']; ?>,<?php echo $_SESSION['JulyServers']; ?>,<?php echo $_SESSION['AugustServers']; ?>,<?php echo $_SESSION['SeptemberServers']; ?>,<?php echo $_SESSION['OctoberServers']; ?>,<?php echo $_SESSION['NovemberServers']; ?>,<?php echo $_SESSION['DecemberSevers']; ?>]
+			},
+			{
+				label: "Projectors",
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "rgb(255, 51, 51)",
+				pointColor : "rgba(220,220,220,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : [<?php echo $_SESSION['JanuaryProjectors']; ?>,<?php echo $_SESSION['FebruaryProjectors']; ?>,<?php echo $_SESSION['MarchProjectors']; ?>,<?php echo $_SESSION['AprilProjectors']; ?>,<?php echo $_SESSION['MayProjectors']; ?>,<?php echo $_SESSION['JuneProjectors']; ?>,<?php echo $_SESSION['JulyProjectors']; ?>,<?php echo $_SESSION['AugustProjectors']; ?>,<?php echo $_SESSION['SeptemberProjectors']; ?>,<?php echo $_SESSION['OctoberProjectors']; ?>,<?php echo $_SESSION['NovemberProjectors']; ?>,<?php echo $_SESSION['DecemberProjectors']; ?>]
+			},
+			{
+				label: "Networking",
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "rgb(255, 51, 51)",
+				pointColor : "rgba(220,220,220,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : [<?php echo $_SESSION['JanuaryNetworking']; ?>,<?php echo $_SESSION['FebruaryNetworking']; ?>,<?php echo $_SESSION['MarchNetworking']; ?>,<?php echo $_SESSION['AprilNetworking']; ?>,<?php echo $_SESSION['MayNetworking']; ?>,<?php echo $_SESSION['JuneNetworking']; ?>,<?php echo $_SESSION['JulyNetworking']; ?>,<?php echo $_SESSION['AugustNetworking']; ?>,<?php echo $_SESSION['SeptemberNetworking']; ?>,<?php echo $_SESSION['OctoberNetworking']; ?>,<?php echo $_SESSION['NovemberNetworking']; ?>,<?php echo $_SESSION['DecemberNetworking']; ?>]
+			},
+			{
+				label: "Others",
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "rgb(255, 51, 51)",
+				pointColor : "rgba(220,220,220,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : [<?php echo $_SESSION['JanuaryOthers']; ?>,<?php echo $_SESSION['FebruaryOthers']; ?>,<?php echo $_SESSION['MarchOthers']; ?>,<?php echo $_SESSION['AprilOthers']; ?>,<?php echo $_SESSION['MayOthers']; ?>,<?php echo $_SESSION['JuneOthers']; ?>,<?php echo $_SESSION['JulyOthers']; ?>,<?php echo $_SESSION['AugustOthers']; ?>,<?php echo $_SESSION['SeptemberOthers']; ?>,<?php echo $_SESSION['OctoberOthers']; ?>,<?php echo $_SESSION['NovemberOthers']; ?>,<?php echo $_SESSION['DecemberOthers']; ?>]
 			}
 			],
 			  

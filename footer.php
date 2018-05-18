@@ -49,6 +49,14 @@ $(window).load(function() {
 
 	});
 	
+		var chart3 = document.getElementById("line-chart3").getContext("2d");
+	window.myLine = new Chart(chart3).Line(lineChartData3, {
+	responsive: true,
+	scaleLineColor: "rgba(0,0,0,.2)",
+	scaleGridLineColor: "rgba(0,0,0,.05)",
+	scaleFontColor: "#c5c7cc"
+
+	});
 	
 	$('#example3').DataTable({
 			    dom: 'Bfrtip',
