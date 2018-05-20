@@ -59,6 +59,18 @@ $meetingsrow = mysql_fetch_array($result29);
 $connection;
 //echo mysql_error($connection);
 
+
+
+//Get Activites from This Week Today 
+$dailydate3=date("W");
+$_SESSION['result49'] ="";
+$query49 = "SELECT * FROM activities where SalesRep='$salesrep' and WEEK(Date,3) like '%$dailydate3%'  order by Date asc"; //You don't need a ; like you do in SQL
+$_SESSION['result49'] = mysql_query($query49);
+$activitesrow = mysql_fetch_array($result49);
+$connection;
+//echo mysql_error($connection);
+
+
 //GET JANUARY REVENUE AND UNITS FOR LINE GRAPH
 $yearlydate=date("Y");
 $getjanuaryunits = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
@@ -1672,7 +1684,9 @@ else
 						
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
+
 						<div class="canvas-wrapper">
+									
 							<canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
 						</div>
 					</div>
@@ -1688,6 +1702,9 @@ else
 						
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
+					<div class="Units Hired Legend">
+						<p>Desktops <span class="color-blue"><strong><em class="fa fa-square"></em></strong></span> |    Laptops <span style="color:green;"><strong><em class="fa fa-square"></em></strong></span>  | Servers <span style="color:red;"><strong><em class="fa fa-square"></em></strong></span>  |  Projectors <span style="color:orange;"><strong><em class="fa fa-square"></em></strong></span> |  Networking Equipment <span style="color:brown;"><strong><em class="fa fa-square"></em></strong></span>  | Accesories & Other Equipment <span style="color:purple;"><strong><em class="fa fa-square"></em></strong></span> |</p>
+						</div>
 						<div class="canvas-wrapper">
 							<canvas class="main-chart" id="line-chart3" height="200" width="600"></canvas>
 						</div>
@@ -1764,18 +1781,23 @@ else
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"></span></div>
 					<div class="panel-body timeline-container">
 						<ul class="timeline">
-							<li>
-								<div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
-								<div class="timeline-panel">
-									<div class="timeline-heading">
-										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
+						<?php
+						while($rowf = mysql_fetch_array($_SESSION['result49'])){
+						echo "
+						<li>
+				
+								<div class=\"timeline-badge\"><em class=\"glyphicon glyphicon-pushpin\"></em></div>
+								<div class=\"timeline-panel\">
+									<div class=\"timeline-heading\">
+										<h4 class=\"timeline-title\">".$rowf['Date']."</h4>
 									</div>
-									<div class="timeline-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.</p>
+									<div class=\"timeline-body\">
+										<p>".$rowf['Description']."</p>
 									</div>
 								</div>
-							</li>
-							
+							</li>";
+						}
+						?>
 						</ul>
 					</div>
 				</div>
@@ -1811,39 +1833,9 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 				pointHighlightStroke : "rgba(48, 164, 255, 1)",
 				data : [<?php echo $_SESSION['JanuaryUnits']; ?>,<?php echo $_SESSION['FebruaryUnits']; ?>,<?php echo $_SESSION['MarchUnits']; ?>,<?php echo $_SESSION['AprilUnits']; ?>,<?php echo $_SESSION['MayUnits']; ?>,<?php echo $_SESSION['JuneUnits']; ?>,<?php echo $_SESSION['JulyUnits']; ?>,<?php echo $_SESSION['AugustUnits']; ?>,<?php echo $_SESSION['SeptemberUnits']; ?>,<?php echo $_SESSION['OctoberUnits']; ?>,<?php echo $_SESSION['NovemberUnits']; ?>,<?php echo $_SESSION['DecemberUnits']; ?>]
 			}
-			],
+			]
 			  
-        options: {
-				responsive: true,
-				title: {
-					display: true,
-					text: 'Chart.js Line Chart'
-				},
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
-				scales: {
-					xAxes: [{
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Month'
-						}
-					}],
-					yAxes: [{
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Value'
-						}
-					}]
-				}
-			}
+        
         
 
 
@@ -1909,7 +1901,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 			{
 				label: "Laptops",
 				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgb(255, 51, 51)",
+				strokeColor : "green",
 				pointColor : "rgba(220,220,220,1)",
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
@@ -1919,7 +1911,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 			{
 				label: "Desktops",
 				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgb(255, 51, 51)",
+				strokeColor : "blue",
 				pointColor : "rgba(220,220,220,1)",
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
@@ -1929,7 +1921,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 			{
 				label: "Servers",
 				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgb(255, 51, 51)",
+				strokeColor : "red",
 				pointColor : "rgba(220,220,220,1)",
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
@@ -1939,8 +1931,8 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 			{
 				label: "Projectors",
 				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgb(255, 51, 51)",
-				pointColor : "rgba(220,220,220,1)",
+				strokeColor : "orange",
+				pointColor : "rgba(220,220,220,200)",
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
 				pointHighlightStroke : "rgba(220,220,220,1)",
@@ -1949,7 +1941,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 			{
 				label: "Networking",
 				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgb(255, 51, 51)",
+				strokeColor : "brown",
 				pointColor : "rgba(220,220,220,1)",
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
@@ -1959,7 +1951,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 			{
 				label: "Others",
 				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgb(255, 51, 51)",
+				strokeColor : "purple",
 				pointColor : "rgba(220,220,220,1)",
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",

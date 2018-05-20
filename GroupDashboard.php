@@ -287,7 +287,7 @@ $connection;
 			<div class="col-md-12">
 				<div class="panel panel-danger">
 					<div class="panel-heading">
-				Units Sold
+				Units Sold(Combined)
 						
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
@@ -299,6 +299,22 @@ $connection;
 			</div>
 	</div>	<!--/.row-->
 	
+	
+		
+	<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-danger">
+					<div class="panel-heading">
+				Units Sold By Type
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>	<!--/.row-->
 			<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-danger">
