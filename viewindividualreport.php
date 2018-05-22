@@ -702,7 +702,7 @@ $connection;
 							<?php
 							while($row = mysql_fetch_array($_SESSION['result20'])){   //Creates a loop to loop through results
 							
-						echo 	mysql_num_rows($_SESSION['result20']);
+						 	mysql_num_rows($_SESSION['result20']);
 							if (mysql_num_rows($_SESSION['result20'])==0)
 							{
 				echo "None";

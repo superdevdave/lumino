@@ -109,10 +109,12 @@ $result = odbc_exec($connection, $query);
 
   <div class="form-group">
    
-    <label  for="SalesType">Sales Type</label>
+    <label  for="SalesType">Sales Sector</label>
  <select  required class="form-control" id="SalesType">
       <option>Schools</option>
       <option>Corporates</option>
+	  <option>Government</option>
+	  <option>Non Profit</option>
 	   <option>Other</option>
     </select> 
   </div>
@@ -123,6 +125,7 @@ $result = odbc_exec($connection, $query);
    <input  required type="text" class="form-control" name="RentalTerm" id="RentalTerm" placeholder="0">
    <select  required class="form-control" id="RentalDescription">
         <option>Days</option>
+		 <option>Outright Cash Sale</option>
         <option>Weeks</option>
   	   <option>Months</option>
       <option>Years</option>

@@ -441,7 +441,7 @@ if (chektable=='update')
 			  	currentProformaDoc=theData1;
 				plaindocno=theData;
 				grandProformadocno=currentProformaDoc;
-alert (currentProformaDoc);
+//alert (currentProformaDoc);
 }
 else
 {
@@ -450,11 +450,11 @@ else
 			  	currentProformaDoc=theData2;
 					plaindocno=theData;
 						grandProformadocno=currentProformaDoc;
-alert (currentProformaDoc);
+//alert (currentProformaDoc);
 	
 }
 	
-alert(chektable);
+//alert(chektable);
 
 
    
@@ -480,7 +480,7 @@ $.ajax({
 			 // var datafill=Number(data)+1;
 			//  var theData=pad(datafill,4);
 			
-		alert(response);
+	//	alert(response);
 		
            },
 		   async:false
@@ -523,7 +523,7 @@ var grandTot2=Number(total)-Number(granddiscount);
             var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + store + "</td><td>" + itemdescription + "</td><td>" + unitprice + "</td><td>" + qty + "</td><td>" + total + "</td></tr>";
 
 
-alert(monthlyrental);
+//alert(monthlyrental);
 
 			$("#proforma tbody").append(markup);
 		$("#grandtotal").html(grandTotal);
@@ -606,8 +606,8 @@ alert(monthlyrental);
 			//  var theData=pad(datafill,4);
 			theData=data;
 			
-			alert(data);
-			alert(response);
+			//alert(data);
+			//alert(response);
 			//window.location.href=viewresultstring;
 
 
@@ -630,6 +630,7 @@ alert(monthlyrental);
 		$("#granddiscount").html("");
 $("#granddeposit").html("");
 		grandTotal=0;
+	
 			 grandvat=0
 			 granddeposit=0;
 			 vat=0;

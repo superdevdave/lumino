@@ -84,7 +84,7 @@ $connection;
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">My Dashboard</h1>
+				<h1 class="page-header">Group Dashboard</h1>
 			</div>
 		</div><!--/.row-->
 		<div class="row">

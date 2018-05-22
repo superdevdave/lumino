@@ -64,8 +64,16 @@ if ($result->num_rows > 0) {
 	echo mysql_error();
 	echo "test";
 $conn->close(); */
-
+if ($_SESSION['role']=="Administrator"||$_SESSION['role']=="Manager")
+{
 $query = "SELECT * FROM opportunity"; //You don't need a ; like you do in SQL
+}
+else
+{
+	$salesrep=$_SESSION['salesrep'];
+
+	$query = "SELECT * FROM opportunity where sales_rep='$salesrep'";
+}
 $result = mysql_query($query);
 
 echo "<table id=\"example\" class=\"display\" cellspacing=\"0\" width=\"100%\">"; // start a table tag in the HTML
