@@ -30,6 +30,7 @@
 
 	//Load Datatables
 $(window).load(function() {
+
 	
 	var chart1 = document.getElementById("line-chart").getContext("2d");
 	window.myLine = new Chart(chart1).Line(lineChartData, {
@@ -86,6 +87,10 @@ $(window).load(function() {
               'copy', 'excel', 'pdf', 'print'
           ],
 		  select:true,
+			"search": {
+    "search": "<?php echo $_REQUEST['SearchFilter'];?>"
+  },
+
 	columnDefs: [ {
             orderable: true,
             className: 'select-checkbox',
@@ -100,7 +105,8 @@ $(window).load(function() {
 
 	});
 
-
+	
+	
 
 $(document).ready(function (){
 var chektable;
@@ -630,7 +636,7 @@ var grandTot2=Number(total)-Number(granddiscount);
 		$("#granddiscount").html("");
 $("#granddeposit").html("");
 		grandTotal=0;
-	
+		granddiscount=0;
 			 grandvat=0
 			 granddeposit=0;
 			 vat=0;

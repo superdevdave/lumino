@@ -1540,7 +1540,7 @@ else
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 				<div class="panel panel-container">	
 			<div class="row">
-			<a href="#">
+			<a href="opportunities.php?SearchFilter=Closed <?php echo date("m");?>">
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-teal panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-gavel color-red"></em>
@@ -1549,7 +1549,7 @@ else
 						</div>
 					</div>
 				</div></a>
-				<a href="#">
+				<a href="opportunities.php?SearchFilter=Open">
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-blue panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-link color-red"></em>
@@ -1696,7 +1696,7 @@ else
 	
 	<div class="row">
 			<div class="col-md-12">
-				<div class="panel panel-danger">
+				<div class=" col-md-8 panel panel-danger">
 					<div class="panel-heading">
 				Total Units Hired 
 						
