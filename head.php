@@ -25,6 +25,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 		<link href="css/select.dataTables.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+  ll" rel="stylesheet" type="text/css">
+	<link href="css/piechart.css" rel="stylesheet">
+
 
 	<!--Custom Font-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">

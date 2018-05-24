@@ -82,6 +82,90 @@ $getjanuarymonitors="SELECT sum(monitors) FROM opportunity where sales_rep='$sal
 $getjanuarynetworking="SELECT sum(networking) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 $getjanuaryothers="SELECT sum(others) FROM opportunity where sales_rep='$salesrep'  and Status='Closed' and MONTH(DateClosed)='1' and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
 
+$gettotalunits = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep'  and Status='Closed'  and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$resultJX = mysql_query($gettotalunits);
+$jxrow=mysql_fetch_row($resultJX);
+if ($jxrow[0]=="")
+{
+$_SESSION['TotalUnits']=0;
+}
+else
+{
+	$_SESSION['TotalUnits']=$jxrow[0];
+}
+
+$gettotallaptops = "SELECT sum(laptops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed'  and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$resultJY = mysql_query($gettotallaptops);
+$jyrow=mysql_fetch_row($resultJY);
+if ($jyrow[0]=="")
+{
+$_SESSION['TotalLaptops']=0;
+}
+else
+{
+	$_SESSION['TotalLaptops']=$jyrow[0];
+}
+
+
+$gettotaldesktops = "SELECT sum(desktops) FROM opportunity where sales_rep='$salesrep'  and Status='Closed'  and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$resultJZ = mysql_query($gettotaldesktops);
+$jzrow=mysql_fetch_row($resultJZ);
+if ($jzrow[0]=="")
+{
+$_SESSION['TotalDesktops']=0;
+}
+else
+{
+	$_SESSION['TotalDesktops']=$jzrow[0];
+}
+
+$gettotalservers = "SELECT sum(servers) FROM opportunity where sales_rep='$salesrep'  and Status='Closed'  and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$resultJW = mysql_query($gettotalservers);
+$jwrow=mysql_fetch_row($resultJW);
+if ($jwrow[0]=="")
+{
+$_SESSION['TotalServers']=0;
+}
+else
+{
+	$_SESSION['TotalServers']=$jwrow[0];
+}
+
+$gettotalprojectors = "SELECT sum(projectors) FROM opportunity where sales_rep='$salesrep'  and Status='Closed'  and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$resultJV = mysql_query($gettotalprojectors);
+$jvrow=mysql_fetch_row($resultJV);
+if ($jvrow[0]=="")
+{
+$_SESSION['TotalProjectors']=0;
+}
+else
+{
+	$_SESSION['TotalProjectors']=$jvrow[0];
+}
+
+$gettotalnetworking = "SELECT sum(networking) FROM opportunity where sales_rep='$salesrep'  and Status='Closed'  and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$resultJU = mysql_query($gettotalnetworking);
+$jurow=mysql_fetch_row($resultJU);
+if ($jurow[0]=="")
+{
+$_SESSION['TotalNetworking']=0;
+}
+else
+{
+	$_SESSION['TotalNetworking']=$jurow[0];
+}
+
+$gettotalothers = "SELECT sum(others) FROM opportunity where sales_rep='$salesrep'  and Status='Closed'  and YEAR(DateClosed)='$yearlydate'"; //You don't need a ; like you do in SQL
+$resultJT = mysql_query($gettotalothers);
+$jtrow=mysql_fetch_row($resultJT);
+if ($jtrow[0]=="")
+{
+$_SESSION['TotalOthers']=0;
+}
+else
+{
+	$_SESSION['TotalOthers']=$jtrow[0];
+}
 
 
 $resultJ1 = mysql_query($getjanuaryunits);
@@ -1685,9 +1769,37 @@ else
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
 
-						<div class="canvas-wrapper">
+						<div class="col-md-9 canvas-wrapper">
 									
 							<canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
+						</div>
+						<div class="col-md-3">
+						<table class="responsive" cellpading="30px">
+						<h4 align="center">SUMMARY</h4>
+						<thead>
+						<th>Month  </th>
+						<th>Units Sold</th>
+						</thead>
+						<tbody>
+						<tr><td>January  </td><td><?php echo $_SESSION['JanuaryUnits']; ?></td></tr>
+						<tr><td>February  </td><td><?php echo $_SESSION['FebruaryUnits']; ?></td></tr>
+						<tr><td>March  </td><td><?php echo $_SESSION['MarchUnits']; ?></td></tr>
+												<tr><td>April  </td><td><?php echo $_SESSION['AprilUnits']; ?></td></tr>
+												<tr><td>May  </td><td><?php echo $_SESSION['MayUnits']; ?></td></tr>
+												<tr><td>June  </td><td><?php echo $_SESSION['JuneUnits']; ?></td></tr>
+												<tr><td>July  </td><td><?php echo $_SESSION['JulyUnits']; ?></td></tr>
+												<tr><td>August  </td><td><?php echo $_SESSION['AugustUnits']; ?></td></tr>
+												<tr><td>September  </td><td><?php echo $_SESSION['SeptemberUnits']; ?></td></tr>
+												<tr><td>October  </td><td><?php echo $_SESSION['OctoberUnits']; ?></td></tr>
+												<tr><td>November  </td><td><?php echo $_SESSION['NovemberUnits']; ?></td></tr>
+												<tr><td>December  </td><td><?php echo $_SESSION['DecemberUnits']; ?></td></tr>
+						
+						</tbody>
+						<tfoot>
+						<tr><td><strong>Total  </strong></td><td><strong><?php echo $_SESSION['TotalUnits'];?><strong></td></tr>
+						</tfoot>
+						</table>
+						
 						</div>
 					</div>
 				</div>
@@ -1696,17 +1808,46 @@ else
 	
 	<div class="row">
 			<div class="col-md-12">
-				<div class=" col-md-8 panel panel-danger">
+				<div class="panel panel-danger">
 					<div class="panel-heading">
 				Total Units Hired 
 						
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
-					<div class="Units Hired Legend">
-						<p>Desktops <span class="color-blue"><strong><em class="fa fa-square"></em></strong></span> |    Laptops <span style="color:green;"><strong><em class="fa fa-square"></em></strong></span>  | Servers <span style="color:red;"><strong><em class="fa fa-square"></em></strong></span>  |  Projectors <span style="color:orange;"><strong><em class="fa fa-square"></em></strong></span> |  Networking Equipment <span style="color:brown;"><strong><em class="fa fa-square"></em></strong></span>  | Accesories & Other Equipment <span style="color:purple;"><strong><em class="fa fa-square"></em></strong></span> |</p>
-						</div>
+
 						<div class="canvas-wrapper">
 							<canvas class="main-chart" id="line-chart3" height="200" width="600"></canvas>
+						</div>
+						<p></p>
+						<div class="col-md-8">
+						<table align="center" class="responsive" cellpading="10">
+						<h4 align="center">SUMMARY</h4>
+						<thead><th>Month</th>
+						<th> <span class="color-blue"><strong><em class="fa fa-square"></em></strong> </span> Desktops  </th>
+						<th> <span style="color:green;"><strong><em class="fa fa-square"></em></strong> </span> Laptops </th>
+						<th> <span style="color:red;"><strong><em class="fa fa-square"></em></strong> </span> Servers </th>
+						<th> <span style="color:orange;"><strong><em class="fa fa-square"></em></strong></span> Projectors </th>
+						<th> <span style="color:brown;"><strong><em class="fa fa-square"></em></strong></span> Networking </th>
+						<th> <span style="color:purple;"><strong><em class="fa fa-square"></em></strong></span> Accesories</th>
+						<th> Monthly Totals</th>
+						</thead>
+						<tbody>
+						<tr><td>January</td><td><?php echo $_SESSION['JanuaryDesktops']; ?></td><td><?php echo $_SESSION['JanuaryLaptops']; ?></td><td><?php echo $_SESSION['JanuaryServers']; ?></td><td><?php echo $_SESSION['JanuaryProjectors']; ?></td><td><?php echo $_SESSION['JanuaryNetworking']; ?></td><td><?php echo $_SESSION['JanuaryOthers']; ?></td><td><strong><?php echo $_SESSION['JanuaryUnits']; ?></strong></td></tr>
+						<tr><td>February</td><td><?php echo $_SESSION['FebruaryDesktops']; ?></td><td><?php echo $_SESSION['FebruaryLaptops']; ?></td><td><?php echo $_SESSION['FebruaryServers']; ?></td><td><?php echo $_SESSION['FebruaryProjectors']; ?></td><td><?php echo $_SESSION['FebruaryNetworking']; ?></td><td><?php echo $_SESSION['FebruaryOthers']; ?></td><td><strong><?php echo $_SESSION['FebruaryUnits']; ?></strong></td></tr>
+						<tr><td>March</td><td><?php echo $_SESSION['MarchDesktops']; ?></td><td><?php echo $_SESSION['MarchLaptops']; ?></td><td><?php echo $_SESSION['MarchServers']; ?></td><td><?php echo $_SESSION['MarchProjectors']; ?></td><td><?php echo $_SESSION['MarchNetworking']; ?></td><td><?php echo $_SESSION['MarchOthers']; ?></td><td><strong><?php echo $_SESSION['MarchUnits']; ?></strong></td></tr>
+						<tr><td>April</td><td><?php echo $_SESSION['AprilDesktops']; ?></td><td><?php echo $_SESSION['AprilLaptops']; ?></td><td><?php echo $_SESSION['AprilServers']; ?></td><td><?php echo $_SESSION['AprilProjectors']; ?></td><td><?php echo $_SESSION['AprilNetworking']; ?></td><td><?php echo $_SESSION['AprilOthers']; ?></td><td><strong><?php echo $_SESSION['AprilUnits']; ?></strong></td></tr>
+						<tr><td>May</td><td><?php echo $_SESSION['MayDesktops']; ?></td><td><?php echo $_SESSION['MayLaptops']; ?></td><td><?php echo $_SESSION['MayServers']; ?></td><td><?php echo $_SESSION['MayProjectors']; ?></td><td><?php echo $_SESSION['MayNetworking']; ?></td><td><?php echo $_SESSION['MayOthers']; ?></td><td><strong><?php echo $_SESSION['MayUnits']; ?></strong></td></tr>
+						<tr><td>June</td><td><?php echo $_SESSION['JuneDesktops']; ?></td><td><?php echo $_SESSION['JuneLaptops']; ?></td><td><?php echo $_SESSION['JuneServers']; ?></td><td><?php echo $_SESSION['JuneProjectors']; ?></td><td><?php echo $_SESSION['JuneNetworking']; ?></td><td><?php echo $_SESSION['JuneOthers']; ?></td><td><strong><?php echo $_SESSION['JuneUnits']; ?></strong></td></tr>
+						<tr><td>July</td><td><?php echo $_SESSION['JulyDesktops']; ?></td><td><?php echo $_SESSION['JulyLaptops']; ?></td><td><?php echo $_SESSION['JulyServers']; ?></td><td><?php echo $_SESSION['JulyProjectors']; ?></td><td><?php echo $_SESSION['JulyNetworking']; ?></td><td><?php echo $_SESSION['JulyOthers']; ?></td><td><strong><?php echo $_SESSION['JulyUnits']; ?></strong></td></tr>
+						<tr><td>August</td><td><?php echo $_SESSION['AugustDesktops']; ?></td><td><?php echo $_SESSION['AugustLaptops']; ?></td><td><?php echo $_SESSION['AugustServers']; ?></td><td><?php echo $_SESSION['AugustProjectors']; ?></td><td><?php echo $_SESSION['AugustNetworking']; ?></td><td><?php echo $_SESSION['AugustOthers']; ?></td><td><strong><?php echo $_SESSION['AugustUnits']; ?></strong></td></tr>
+						<tr><td>September</td><td><?php echo $_SESSION['SeptemberDesktops']; ?></td><td><?php echo $_SESSION['SeptemberLaptops']; ?></td><td><?php echo $_SESSION['SeptemberServers']; ?></td><td><?php echo $_SESSION['SeptemberProjectors']; ?></td><td><?php echo $_SESSION['SeptemberNetworking']; ?></td><td><?php echo $_SESSION['SeptemberOthers']; ?></td><td><strong><?php echo $_SESSION['SeptemberUnits']; ?></strong></td></tr>
+						<tr><td>October</td><td><?php echo $_SESSION['OctoberDesktops']; ?></td><td><?php echo $_SESSION['OctoberLaptops']; ?></td><td><?php echo $_SESSION['OctoberServers']; ?></td><td><?php echo $_SESSION['OctoberProjectors']; ?></td><td><?php echo $_SESSION['OctoberNetworking']; ?></td><td><?php echo $_SESSION['OctoberOthers']; ?></td><td><strong><?php echo $_SESSION['OctoberUnits']; ?></strong></td></tr>
+						<tr><td>November</td><td><?php echo $_SESSION['NovemberDesktops']; ?></td><td><?php echo $_SESSION['NovemberLaptops']; ?></td><td><?php echo $_SESSION['NovemberServers']; ?></td><td><?php echo $_SESSION['NovemberProjectors']; ?></td><td><?php echo $_SESSION['NovemberNetworking']; ?></td><td><?php echo $_SESSION['NovemberOthers']; ?></td><td><strong><?php echo $_SESSION['NovemberUnits']; ?></strong></td></tr>
+						<tr><td>December</td><td><?php echo $_SESSION['DecemberDesktops']; ?></td><td><?php echo $_SESSION['DecemberLaptops']; ?></td><td><?php echo $_SESSION['DecemberServers']; ?></td><td><?php echo $_SESSION['DecemberProjectors']; ?></td><td><?php echo $_SESSION['DecemberNetworking']; ?></td><td><?php echo $_SESSION['DecemberOthers']; ?></td><td><strong><?php echo $_SESSION['DecemberUnits']; ?></strong></td></tr>
+						<tr><td><strong>Totals</strong></td><td><strong><?php echo $_SESSION['TotalDesktops']; ?></strong></td><td><strong><?php echo $_SESSION['TotalLaptops']; ?></strong></td><td><strong><?php echo $_SESSION['TotalServers']; ?></strong></td><td><strong><?php echo $_SESSION['TotalProjectors']; ?></strong></td><td><strong><?php echo $_SESSION['TotalNetworking']; ?></strong></td><td><strong><?php echo $_SESSION['TotalOthers']; ?></strong></td><td><strong><?php echo $_SESSION['TotalUnits']; ?></strong></td></tr>
+						
+						</tbody>
+						</table>
 						</div>
 					</div>
 				</div>
@@ -1732,23 +1873,50 @@ else
 			<div class="col-md-12">
 				<div class="panel panel-danger">
 					<div class="panel-heading">
-					Revenue Targets
+					My  Targets (Units)
 			<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
 					
-			<div class="col-xs-6 col-md-3">
+					<div class="col-xs-6 col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-body easypiechart-panel">
+						<h4>Weekly Target</h4>
+						<div class="easypiechart" id="easypiechart-teal" data-percent="<?php echo $_SESSION['weeklypercent'];?>" ><span class="percent"><?php echo $_SESSION['weeklypercent'];?>%</span></div>
+					<table class="responsive" align="center">
+					<tr><td>Actual Units</td><td><?php echo $_SESSION['weeklyactual'];?></td></tr>
+						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['weeklytarget'];?></td></tr>
+						<tr><td>Variance</td><td><?php echo $_SESSION['weeklyvariance'];?></td></tr>
+					</table>
+					</div>
+				</div>
+			</div>	
+					
+							<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
 						<h4>Monthly Target</h4>
-						<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">200</span></div>
+						<div class="easypiechart" id="easypiechart-red" data-percent="<?php echo $_SESSION['monthlypercent'];?>" ><span class="percent"><?php echo $_SESSION['monthlypercent'];?>%</span></div>
+					<table class="responsive" align="center">
+					<tr><td>Actual Units</td><td><?php echo $_SESSION['monthlyactual'];?></td></tr>
+						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['monthlytarget'];?></td></tr>
+						<tr><td>Variance</td><td><?php echo $_SESSION['monthlyvariance'];?></td></tr>
+					</table>
 					</div>
 				</div>
-			</div>
+			</div>	
+					
+					
+			
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
 						<h4>Quarterly Target</h4>
 						<div class="easypiechart" id="easypiechart-orange" data-percent="65" ><span class="percent">65%</span></div>
+										<table class="responsive" align="center">
+					<tr><td>Actual Units</td><td><?php echo $_SESSION['quartelyactual'];?></td></tr>
+						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['quarterlytarget'];?></td></tr>
+						<tr><td>Variance</td><td><?php echo $_SESSION['quarterlyvariance'];?></td></tr>
+					</table>
 					</div>
 				</div>
 			</div>
@@ -1756,7 +1924,12 @@ else
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
 						<h4>Yearly Target</h4>
-						<div class="easypiechart" id="easypiechart-teal" data-percent="56" ><span class="percent">56%</span></div>
+						<div class="easypiechart" id="easypiechart-blue" data-percent="56" ><span class="percent">56%</span></div>
+										<table class="responsive" align="center">
+					<tr><td>Actual Units</td><td>90</td></tr>
+						<tr><td>Budgeted Units</td><td>120</td></tr>
+						<tr><td>Variance</td><td>(30)</td></tr>
+					</table>
 					</div>
 				</div>
 			</div>
@@ -1814,9 +1987,190 @@ else
 
 include("footer.php");
 
+function quarter($ts) {
+   return ceil(date('n', $ts)/3);
+}
+
+ $salesrep1=$_SESSION['salesrep'];
+ 
+//GET USER TARGETS WEEKLY
+$dailydater=date("W");
+$getweeklyactual = "SELECT count(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
+$getweeklytarget="Select WeeklyTarget from users where username='$salesrep1'"; 
+$resultt9= mysql_query($getweeklytarget);
+$resultt10= mysql_query($getweeklyactual);
+
+$rowrowrow=mysql_fetch_row($resultt9);
+$rowrowrow1=mysql_fetch_row($resultt10);
+
+
+$_SESSION['weeklytarget']=$rowrowrow[0];
+
+
+$_SESSION['weeklyactual']=$rowrowrow1[0];
+
+if ($_SESSION['weeklyactual']=="")
+{
+
+$_SESSION['weeklyactual']=0;
+}
+
+$_SESSION['weeklyvariance']=$_SESSION['weeklyactual']-$_SESSION['weeklytarget'];
+$connection;
+
+
+//GET USER TARGETS MONTHLY
+$dailydated=date("M");
+$getmonthlactual= "SELECT count(unit_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydated'"; //You don't need a ; like you do in SQL
+$getmonthlytarget="Select MonthlyTarget from users where username='$salesrep1'";
+
+$results9= mysql_query($getmonthlytarget);
+$results10= mysql_query($getmonthlyactual);
+
+$rowrowwow=mysql_fetch_row($results9);
+$rowrowwow1=mysql_fetch_row($results10);
+
+$_SESSION['monthlytarget']=$rowrowwow[0];
+$_SESSION['monthlyactual']=$rowrowwow[0];
+$_SESSION['monthlyvariance']=$_SESSION['monthlyactual']-$_SESSION['monthlytarget'];
+
+$connection;
+
+//GET USER TARGETS YEARLY
+$dailydater=date("Y");
+$getyearlyactual = "SELECT count(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
+$getyearlytarget="Select YearlyTarget from users where username='$salesrep1'";
+
+$resultr9= mysql_query($getyearlytarget);
+$resultr10= mysql_query($getyearlyactual);
+
+$rowro=mysql_fetch_row($resultr9);
+$rowro1=mysql_fetch_row($resultr10);
+
+$_SESSION['yearlytarget']=$rowro[0];
+$_SESSION['yearlyactual']=$rowro1[0];
+$_SESSION['yearlyvariance']=$rowro[0]-$rowro1[0];
+$connection;
+
+//GET USER TARGETS Quarterly
+
+$dater=date("Y/M/d");
+$dailydate=quarter($dater);
+$getquarterlyactual = "SELECT count(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
+$getquarterlytarget="Select QuarterlyTarget from users where username='$salesrep1'";
+
+
+$resultrr9= mysql_query($getquarterlytarget);
+$resultrr10= mysql_query($getquarterlytarget);
+
+$rowrol=mysql_fetch_row($resultrr9);
+
+$rowrol1=mysql_fetch_row($resultrr10);
+
+$_SESSION['quarterlytarget']=$rowrol[0];
+$_SESSION['quarterlyactual']=$rowrol1[0];
+$_SESSION['quarterlyvariance']=$rowrol[0]-=$rowrol1[0];
+$connection;
+
+$weeklypercent=($_SESSION['weeklyactual']/$_SESSION['weeklytarget'])*100;
+$monthlypercent=($_SESSION['monthlyactual']/$_SESSION['monthlytarget'])*100;
+$yearlypercent=($_SESSION['yearlyactual']/$_SESSION['yearlytarget'])*100;
+$quarterlypercent=($_SESSION['quarterlyactual']/$_SESSION['quarterlytarget'])*100;
+
+$_SESSION['weeklypercent']=$weeklypercent;
+$_SESSION['monthlypercent']=$monthlypercent;
+$_SESSION['yearlypercent']=$yearlypercent;
+$_SESSION['quarterlypercent']=$quarterlypercent;
+
+//SET COLOURS OF TARGET PROGRESS CIRCLES
+if ($weeklypercent<50)
+{
+	$chartcolour1="red";
+}
+else if ($weeklypercent>50 && $weeklypercent<60)
+{
+	$chartcolour1="teal";
+}
+else
+{
+	$chartcolour1="blue";
+}
+
+
+if ($monthlypercent<50)
+{
+	$chartcolour2="red1";
+}
+else if ($monthlypercent>50 && $monthlypercent<60)
+{
+	$chartcolour2="teal1";
+}
+else
+{
+	$chartcolour2="blue1";
+}
+
+if ($quarterlypercent<50)
+{
+	$chartcolour3="red2";
+}
+else if ($quarterlypercent>50 && $quarterlypercent<60)
+{
+	$chartcolour3="teal2";
+}
+else
+{
+	$chartcolour3="blue2";
+}
+	
+	
+
+if ($yearlypercent<50)
+{
+	$chartcolour4="red3";
+}
+else if ($yearlypercent>50 && $yearlypercent<60)
+{
+	$chartcolour4="teal3";
+}
+else
+{
+	$chartcolour4="blue3";
+}
+
 ?>
 	
 <script type="text/javascript">
+
+$(function() {
+    $('#easypiechart-<?php echo $chartcolour1; ?>').easyPieChart({
+        scaleColor: false,
+        barColor: '#1ebfae'
+    });
+});
+
+$(function() {
+    $('#easypiechart-<?php echo $chartcolour2; ?>').easyPieChart({
+        scaleColor: false,
+        barColor: '#ffb53e'
+    });
+});
+
+$(function() {
+    $('#easypiechart-<?php echo $chartcolour3; ?>').easyPieChart({
+        scaleColor: false,
+        barColor: '#f9243f'
+    });
+});
+
+$(function() {
+   $('#easypiechart-<?php echo $chartcolour4; ?>').easyPieChart({
+       scaleColor: false,
+       barColor: '#30a5ff'
+   });
+});
+
+
 var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 	
 	var lineChartData = {

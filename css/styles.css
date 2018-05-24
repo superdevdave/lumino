@@ -906,14 +906,44 @@ h1.page-header {
 
 #easypiechart-blue .percent {
   color: #30a5ff; }
+  
+  #easypiechart-blue2 .percent {
+  color: #30a5ff; }
+  
+  #easypiechart-blue3 .percent {
+  color: #30a5ff; }
+  
+  #easypiechart-blue4 .percent {
+  color: #30a5ff; }
+  
 
 #easypiechart-teal .percent {
   color: #1ebfae; }
 
+  #easypiechart-teal1 .percent {
+	 
+  color: #1ebfae; }
+#easypiechart-teal2 .percent {
+  color: #1ebfae; }
+  #easypiechart-teal3 .percent {
+  color: #1ebfae; }
+
+
 #easypiechart-orange .percent {
   color: #ffb53e; }
-
+  
+  #easypiechart-orange1 .percent {
+  color: #ffb53e; }
+#easypiechart-orange2 .percent {
+  color: #ffb53e; }
+  
+  #easypiechart-orange3 .percent {
+  color: #ffb53e; }
+  
 #easypiechart-red .percent {
+  color: #ef4040; }
+
+  #easypiechart-red1 .percent {
   color: #ef4040; }
 
 #calendar, .datepicker-inline {

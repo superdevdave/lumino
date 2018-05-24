@@ -191,7 +191,7 @@ $connection;
 
 
 //Get Daily Meetings Started Today 
- $query19 = "SELECT * FROM meetings where User='$salesrep' and StartDate like '%$startdate%' or EndDate like '%$enddate%'"; //You don't need a ; like you do in SQL
+$query19 = "SELECT * FROM meetings where User='$salesrep' and StartDate like '%$startdate%' or EndDate like '%$enddate%'"; //You don't need a ; like you do in SQL
 $_SESSION['result19'] = mysql_query($query19);
 $meetingsrow = mysql_fetch_array($result19);
 $connection;
