@@ -25,7 +25,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 		<link href="css/select.dataTables.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="css/jquery.dataTables.min.css">
-  ll" rel="stylesheet" type="text/css">
+
 	<link href="css/piechart.css" rel="stylesheet">
 
 

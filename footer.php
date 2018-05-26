@@ -30,6 +30,50 @@
 
 	//Load Datatables
 $(window).load(function() {
+	
+	$('#example').DataTable({
+			    dom: 'Bfrtip',
+          buttons: [
+              'copy', 'excel', 'pdf', 'print'
+          ],
+		  select:true,
+			"search": {
+    "search": "<?php echo $_REQUEST['SearchFilter'];?>"
+  },
+
+	columnDefs: [ {
+            orderable: true,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]]
+
+
+	});
+	
+	$('#example3').DataTable({
+			    dom: 'Bfrtip',
+          buttons: [
+              'copy', 'excel', 'pdf', 'print'
+          ],
+		  select:false,
+	columnDefs: [ {
+            orderable: true,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]]
+
+
+	});
 
 	
 	var chart1 = document.getElementById("line-chart").getContext("2d");
@@ -60,51 +104,13 @@ $(window).load(function() {
 
 	});
 	
-	$('#example3').DataTable({
-			    dom: 'Bfrtip',
-          buttons: [
-              'copy', 'excel', 'pdf', 'print'
-          ],
-		  select:false,
-	columnDefs: [ {
-            orderable: true,
-            className: 'select-checkbox',
-            targets:   0
-        } ],
-        select: {
-            style:    'os',
-            selector: 'td:first-child'
-        },
-        order: [[ 1, 'asc' ]]
+	
+	
+	
 
-
-	});
 } );
 
- $('#example').DataTable({
-			    dom: 'Bfrtip',
-          buttons: [
-              'copy', 'excel', 'pdf', 'print'
-          ],
-		  select:true,
-			"search": {
-    "search": "<?php echo $_REQUEST['SearchFilter'];?>"
-  },
-
-	columnDefs: [ {
-            orderable: true,
-            className: 'select-checkbox',
-            targets:   0
-        } ],
-        select: {
-            style:    'os',
-            selector: 'td:first-child'
-        },
-        order: [[ 1, 'asc' ]]
-
-
-	});
-
+ 
 	
 	
 

@@ -317,7 +317,7 @@ include("footer.php");
 $(window).load(function() {
 
     $('#example').DataTable();
-	$('#example3').DataTable();
+	//$('#example3').DataTable();
 });
 </script>
 
