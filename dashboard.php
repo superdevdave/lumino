@@ -1958,9 +1958,9 @@ else
 	<div id="slidervalue4"><?php echo $_SESSION['yearlypercent'];?>%</div>
 
 			<table class="responsive" align="center">
-					<tr><td>Actual Units</td><td>90</td></tr>
-						<tr><td>Budgeted Units</td><td>120</td></tr>
-						<tr><td>Variance</td><td>(30)</td></tr>
+					<tr><td>Actual Units</td><td><?php echo $_SESSION['yearlyactual'];?></td></tr>
+						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['yearlytarget'];?></td></tr>
+						<tr><td>Variance</td><td><?php echo $_SESSION['yearlyvariance'];?></td></tr>
 					</table>
 					</div>
 				</div>
@@ -2070,7 +2070,7 @@ $connection;
 
 //GET USER TARGETS YEARLY
 $dailydater=date("Y");
-$getyearlyactual = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
+$getyearlyactual = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and YEAR(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
 $getyearlytarget="Select YearlyTarget from users where username='$salesrep1'";
 
 $resultr9= mysql_query($getyearlytarget);
@@ -2413,7 +2413,15 @@ function setProgress(){
 	var circumference = 2 * Math.PI * radius;
 
 	var progress_in_percent = <?php echo $_SESSION['weeklypercent'];?>//yb.id('slider').value;
+	if (progress_in_percent>100)
+	{
+	var progress_in_pixels = circumference * 100;
+	}
+	else
+	{
 	var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+		
+	}
 	yb.id('progress').style.strokeDashoffset = progress_in_pixels+'px';
 
 	if(progress_in_percent  < 25){
@@ -2436,7 +2444,15 @@ function setProgress2(){
 	var circumference = 2 * Math.PI * radius;
 
 	var progress_in_percent = <?php echo $_SESSION['monthlypercent']; ?>//yb.id('slider').value;
+if (progress_in_percent>100)
+	{
+	var progress_in_pixels = circumference * 100;
+	}
+	else
+	{
 	var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+		
+	}
 	yb2.id('progress2').style.strokeDashoffset = progress_in_pixels+'px';
 
 	if(progress_in_percent  < 25){
@@ -2459,7 +2475,16 @@ function setProgress3(){
 	var circumference = 2 * Math.PI * radius;
 
 	var progress_in_percent = <?php echo $_SESSION['quarterlypercent'];?>;//yb.id('slider').value;
+	
+	if (progress_in_percent>100)
+	{
+	var progress_in_pixels = circumference * 100;
+	}
+	else
+	{
 	var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+		
+	}
 	yb3.id('progress3').style.strokeDashoffset = progress_in_pixels+'px';
 
 	if(progress_in_percent  < 25){
@@ -2467,6 +2492,10 @@ function setProgress3(){
 		yb.id('slidervalue3').style.color = 'red';
 	}
 	else if(progress_in_percent  >= 75){
+		yb.id('progress3').style.stroke = '#7df';
+		yb.id('slidervalue3').style.color = '#7df';
+	}
+	else if(progress_in_percent  >= 100){
 		yb.id('progress3').style.stroke = '#7df';
 		yb.id('slidervalue3').style.color = '#7df';
 	}
@@ -2482,7 +2511,15 @@ function setProgress4(){
 	var circumference = 2 * Math.PI * radius;
 
 	var progress_in_percent = <?php echo $_SESSION['yearlypercent'];?>//yb.id('slider').value;
+	if (progress_in_percent>100)
+	{
+	var progress_in_pixels = circumference * 100;
+	}
+	else
+	{
 	var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+		
+	}
 	yb4.id('progress4').style.strokeDashoffset = progress_in_pixels+'px';
 
 	if(progress_in_percent  < 25){
