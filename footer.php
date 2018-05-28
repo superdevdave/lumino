@@ -60,7 +60,7 @@ $(window).load(function() {
           buttons: [
               'copy', 'excel', 'pdf', 'print'
           ],
-		  select:false,
+		  select:true,
 	columnDefs: [ {
             orderable: true,
             className: 'select-checkbox',

@@ -35,6 +35,207 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	
+	
+
+
+<style type="text/css">
+
+#slider{
+	width: 300px;
+}
+
+#slider2{
+	width: 300px;
+}
+
+
+#slider3{
+	width: 300px;
+}
+
+
+#slider4{
+	width: 300px;
+}
+
+
+#slidervalue{
+	width: 60%;
+	text-align: center;
+	position: absolute;
+	top: 125px;
+	left: 20%;
+	font-size: 50px;
+	font-weight: 100;
+	color: #aef;
+	transition: color 1s linear;
+
+	/*transform: rotate(90deg);*/
+}
+
+#slidervalue2{
+	width: 60%;
+	text-align: center;
+	position: absolute;
+	top: 125px;
+	left: 20%;
+	font-size: 50px;
+	font-weight: 100;
+	color: #aef;
+	transition: color 1s linear;
+
+	/*transform: rotate(90deg);*/
+}
+#slidervalue3{
+	width: 60%;
+	text-align: center;
+	position: absolute;
+	top: 125px;
+	left: 20%;
+	font-size: 50px;
+	font-weight: 100;
+	color: #aef;
+	transition: color 1s linear;
+
+	/*transform: rotate(90deg);*/
+}
+#slidervalue4{
+	width: 60%;
+	text-align: center;
+	position: absolute;
+	top: 125px;
+	left: 20%;
+	font-size: 50px;
+	font-weight: 100;
+	color: #aef;
+	transition: color 1s linear;
+
+	/*transform: rotate(90deg);*/
+}
+#svgcontainer{
+	position: relative;
+	display: inline-block;
+	width: 300px;
+	margin-top: 30px;
+}
+
+#svgcontainer2{
+	position: relative;
+	display: inline-block;
+	width: 300px;
+	margin-top: 30px;
+}
+#svgcontainer3{
+	position: relative;
+	display: inline-block;
+	width: 300px;
+	margin-top: 30px;
+}
+#svgcontainer4{
+	position: relative;
+	display: inline-block;
+	width: 300px;
+	margin-top: 30px;
+}
+#svg{
+	position:relative;
+}
+
+#svg2{
+	position:relative;
+}
+
+#svg3{
+	position:relative;
+}
+
+#svg4{
+	position:relative;
+}
+
+#progressbg{
+	z-index:0;
+	position:absolute;
+	top:0px;
+
+	box-shadow: 5px 5px 5px 5px #333;
+	stroke: #fbfbfb;
+}
+
+#progressbg2{
+	z-index:0;
+	position:absolute;
+	top:0px;
+
+	box-shadow: 5px 5px 5px 5px #333;
+	stroke: #fbfbfb;
+}
+#progressbg3{
+	z-index:0;
+	position:absolute;
+	top:0px;
+
+	box-shadow: 5px 5px 5px 5px #333;
+	stroke: #fbfbfb;
+}
+
+#progressbg4{
+	z-index:0;
+	position:absolute;
+	top:0px;
+
+	box-shadow: 5px 5px 5px 5px #333;
+	stroke: #fbfbfb;
+}
+
+#progress{
+	stroke-dashoffset: 125px;
+	stroke: #7df;
+	transition: stroke 1s linear;
+
+	z-index:1;
+	position:absolute;
+	top:0px;
+}
+
+
+#progress2{
+	stroke-dashoffset: 125px;
+	stroke: #7df;
+	transition: stroke 1s linear;
+
+	z-index:1;
+	position:absolute;
+	top:0px;
+}
+#progress3{
+	stroke-dashoffset: 125px;
+	stroke: #7df;
+	transition: stroke 1s linear;
+
+	z-index:1;
+	position:absolute;
+	top:0px;
+}
+#progress4{
+	stroke-dashoffset: 125px;
+	stroke: #7df;
+	transition: stroke 1s linear;
+
+	z-index:1;
+	position:absolute;
+	top:0px;
+}
+.cssprogresscontainer{
+text-align:center;
+padding: 80px 0px 160px;
+}
+
+</style>
+
+
+
 </head>
 <body>
 	<nav class="navbar navbar-danger navbar-fixed-top" role="navigation" style="color-red">

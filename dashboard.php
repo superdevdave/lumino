@@ -1,6 +1,7 @@
 <?php
 
 include("head.php");
+
 include("dbconn.php");
 include("dbconn3.php");
 
@@ -1719,12 +1720,14 @@ else
 								
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"></span></div>
 						</ul>
+							<div class="panel-body articles-container">
+					
 						<?php
 						while($rowt = mysql_fetch_array($_SESSION['result29'])){
 							$date1 = strtr($rowt['StartDate'], '/', '-');
 							
 						echo"
-					<div class=\"panel-body articles-container\">
+				
 						<div class=\"article border-bottom\">
 							<div class=\"col-xs-12\">
 								<div class=\"row\">
@@ -1878,54 +1881,83 @@ else
 					<div class="panel-body">
 					
 					<div class="col-xs-6 col-md-3">
-				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<h4>Weekly Target</h4>
-						<div class="easypiechart" id="easypiechart-teal" data-percent="<?php echo $_SESSION['weeklypercent'];?>" ><span class="percent"><?php echo $_SESSION['weeklypercent'];?>%</span></div>
+				<div class="panel panel-default">																	
+
+<div id="svgcontainer">
+<h4 align=center><strong>Weekly Target</strong></h4>
+	<svg height="300" width="300" id="svg">
+		<circle id="progressbg" cx="150" cy="150" r="120" stroke-width="29" fill="transparent" stroke-dasharray="753.9822368615503" />
+		<circle id="progress" cx="150" cy="150" r="120" stroke-width="30" fill="transparent" stroke-dasharray="753.9822368615503" />
+	</svg>
+	<div id="slidervalue"><?php echo $_SESSION['weeklypercent'];?>%</div>
+</div>
+
+
 					<table class="responsive" align="center">
-					<tr><td>Actual Units</td><td><?php echo $_SESSION['weeklyactual'];?></td></tr>
-						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['weeklytarget'];?></td></tr>
-						<tr><td>Variance</td><td><?php echo $_SESSION['weeklyvariance'];?></td></tr>
+				<strong>	<tr><td>Actual Units</td><td><?php echo $_SESSION['weeklyactual'];?></td></tr></strong>
+						<strong><tr><td>Budgeted Units</td><td><?php echo $_SESSION['weeklytarget'];?></td></tr></strong>
+					<strong>	<tr><td>Variance</td><td><?php echo $_SESSION['weeklyvariance'];?></td></tr></strong>
 					</table>
 					</div>
 				</div>
-			</div>	
+			
 					
 							<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<h4>Monthly Target</h4>
-						<div class="easypiechart" id="easypiechart-red" data-percent="<?php echo $_SESSION['monthlypercent'];?>" ><span class="percent"><?php echo $_SESSION['monthlypercent'];?>%</span></div>
+				<div id="svgcontainer2">
+<h4 align=center><strong>Monthly Target</strong></h4>
+	<svg height="300" width="300" id="svg2">
+		<circle id="progressbg2" cx="150" cy="150" r="120" stroke-width="29" fill="transparent" stroke-dasharray="753.9822368615503" />
+		<circle id="progress2" cx="150" cy="150" r="120" stroke-width="30" fill="transparent" stroke-dasharray="753.9822368615503" />
+	</svg>
+	<div id="slidervalue2"><?php echo $_SESSION['monthlypercent'];?>%</div>
+
+
 					<table class="responsive" align="center">
 					<tr><td>Actual Units</td><td><?php echo $_SESSION['monthlyactual'];?></td></tr>
 						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['monthlytarget'];?></td></tr>
 						<tr><td>Variance</td><td><?php echo $_SESSION['monthlyvariance'];?></td></tr>
 					</table>
-					</div>
+					
 				</div>
 			</div>	
-					
+				</div>	
+
+
+
+
 					
 			
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<h4>Quarterly Target</h4>
-						<div class="easypiechart" id="easypiechart-orange" data-percent="65" ><span class="percent">65%</span></div>
-										<table class="responsive" align="center">
-					<tr><td>Actual Units</td><td><?php echo $_SESSION['quartelyactual'];?></td></tr>
+									<div id="svgcontainer3">
+<h4 align=center><strong>Quarterly Target</strong></h4>
+	<svg height="300" width="300" id="svg3">
+		<circle id="progressbg3" cx="150" cy="150" r="120" stroke-width="29" fill="transparent" stroke-dasharray="753.9822368615503" />
+		<circle id="progress3" cx="150" cy="150" r="120" stroke-width="30" fill="transparent" stroke-dasharray="753.9822368615503" />
+	</svg>
+	<div id="slidervalue3"><?php echo $_SESSION['quarterlypercent'];?>%</div>
+
+				<table class="responsive" align="center">
+					<tr><td>Actual Units</td><td><?php echo $_SESSION['quarterlyactual'];?></td></tr>
 						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['quarterlytarget'];?></td></tr>
 						<tr><td>Variance</td><td><?php echo $_SESSION['quarterlyvariance'];?></td></tr>
 					</table>
 					</div>
 				</div>
 			</div>
+			
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<h4>Yearly Target</h4>
-						<div class="easypiechart" id="easypiechart-blue" data-percent="56" ><span class="percent">56%</span></div>
-										<table class="responsive" align="center">
+									<div id="svgcontainer2">
+<h4 align=center><strong>Yearly Target</strong></h4>
+	<svg height="300" width="300" id="svg4">
+		<circle id="progressbg4" cx="150" cy="150" r="120" stroke-width="29" fill="transparent" stroke-dasharray="753.9822368615503" />
+		<circle id="progress4" cx="150" cy="150" r="120" stroke-width="30" fill="transparent" stroke-dasharray="753.9822368615503" />
+	</svg>
+	<div id="slidervalue4"><?php echo $_SESSION['yearlypercent'];?>%</div>
+
+			<table class="responsive" align="center">
 					<tr><td>Actual Units</td><td>90</td></tr>
 						<tr><td>Budgeted Units</td><td>120</td></tr>
 						<tr><td>Variance</td><td>(30)</td></tr>
@@ -1995,7 +2027,7 @@ function quarter($ts) {
  
 //GET USER TARGETS WEEKLY
 $dailydater=date("W");
-$getweeklyactual = "SELECT count(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
+$getweeklyactual = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
 $getweeklytarget="Select WeeklyTarget from users where username='$salesrep1'"; 
 $resultt9= mysql_query($getweeklytarget);
 $resultt10= mysql_query($getweeklyactual);
@@ -2017,11 +2049,11 @@ $_SESSION['weeklyactual']=0;
 
 $_SESSION['weeklyvariance']=$_SESSION['weeklyactual']-$_SESSION['weeklytarget'];
 $connection;
-
+echo mysql_error($connection);
 
 //GET USER TARGETS MONTHLY
 $dailydated=date("M");
-$getmonthlactual= "SELECT count(unit_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydated'"; //You don't need a ; like you do in SQL
+$getmonthlyactual="SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and MONTH(DateClosed)='$dailydated'"; //You don't need a ; like you do in SQL
 $getmonthlytarget="Select MonthlyTarget from users where username='$salesrep1'";
 
 $results9= mysql_query($getmonthlytarget);
@@ -2031,14 +2063,14 @@ $rowrowwow=mysql_fetch_row($results9);
 $rowrowwow1=mysql_fetch_row($results10);
 
 $_SESSION['monthlytarget']=$rowrowwow[0];
-$_SESSION['monthlyactual']=$rowrowwow[0];
+$_SESSION['monthlyactual']=$rowrowwow1[0];
 $_SESSION['monthlyvariance']=$_SESSION['monthlyactual']-$_SESSION['monthlytarget'];
 
 $connection;
 
 //GET USER TARGETS YEARLY
 $dailydater=date("Y");
-$getyearlyactual = "SELECT count(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
+$getyearlyactual = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
 $getyearlytarget="Select YearlyTarget from users where username='$salesrep1'";
 
 $resultr9= mysql_query($getyearlytarget);
@@ -2051,17 +2083,31 @@ $_SESSION['yearlytarget']=$rowro[0];
 $_SESSION['yearlyactual']=$rowro1[0];
 $_SESSION['yearlyvariance']=$rowro[0]-$rowro1[0];
 $connection;
-
+echo mysql_error($connection);
 //GET USER TARGETS Quarterly
 
-$dater=date("Y/M/d");
-$dailydate=quarter($dater);
-$getquarterlyactual = "SELECT count(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and WEEK(DateClosed)='$dailydater'"; //You don't need a ; like you do in SQL
+
+
+function CurrentQuarter(){
+     $n = date('n');
+     if($n < 4){
+          return "1";
+     } elseif($n > 3 && $n <7){
+          return "2";
+     } elseif($n >6 && $n < 10){
+          return "3";
+     } elseif($n >9){
+          return "4";
+     }
+}
+
+$dailydateq=CurrentQuarter();
+$getquarterlyactual = "SELECT sum(units_sold) FROM opportunity where sales_rep='$salesrep1' and Status='Closed' and QUARTER(DateClosed)='$dailydateq'"; //You don't need a ; like you do in SQL
 $getquarterlytarget="Select QuarterlyTarget from users where username='$salesrep1'";
 
 
 $resultrr9= mysql_query($getquarterlytarget);
-$resultrr10= mysql_query($getquarterlytarget);
+$resultrr10= mysql_query($getquarterlyactual);
 
 $rowrol=mysql_fetch_row($resultrr9);
 
@@ -2069,18 +2115,19 @@ $rowrol1=mysql_fetch_row($resultrr10);
 
 $_SESSION['quarterlytarget']=$rowrol[0];
 $_SESSION['quarterlyactual']=$rowrol1[0];
-$_SESSION['quarterlyvariance']=$rowrol[0]-=$rowrol1[0];
+$_SESSION['quarterlyvariance']=$rowrol1[0]-$rowrol[0];
 $connection;
+echo mysql_error($connection);
 
 $weeklypercent=($_SESSION['weeklyactual']/$_SESSION['weeklytarget'])*100;
 $monthlypercent=($_SESSION['monthlyactual']/$_SESSION['monthlytarget'])*100;
 $yearlypercent=($_SESSION['yearlyactual']/$_SESSION['yearlytarget'])*100;
 $quarterlypercent=($_SESSION['quarterlyactual']/$_SESSION['quarterlytarget'])*100;
 
-$_SESSION['weeklypercent']=$weeklypercent;
-$_SESSION['monthlypercent']=$monthlypercent;
-$_SESSION['yearlypercent']=$yearlypercent;
-$_SESSION['quarterlypercent']=$quarterlypercent;
+$_SESSION['weeklypercent']=round($weeklypercent);
+$_SESSION['monthlypercent']=round($monthlypercent);
+$_SESSION['yearlypercent']=round($yearlypercent);
+$_SESSION['quarterlypercent']=round($quarterlypercent);
 
 //SET COLOURS OF TARGET PROGRESS CIRCLES
 if ($weeklypercent<50)
@@ -2141,35 +2188,6 @@ else
 ?>
 	
 <script type="text/javascript">
-
-$(function() {
-    $('#easypiechart-<?php echo $chartcolour1; ?>').easyPieChart({
-        scaleColor: false,
-        barColor: '#1ebfae'
-    });
-});
-
-$(function() {
-    $('#easypiechart-<?php echo $chartcolour2; ?>').easyPieChart({
-        scaleColor: false,
-        barColor: '#ffb53e'
-    });
-});
-
-$(function() {
-    $('#easypiechart-<?php echo $chartcolour3; ?>').easyPieChart({
-        scaleColor: false,
-        barColor: '#f9243f'
-    });
-});
-
-$(function() {
-   $('#easypiechart-<?php echo $chartcolour4; ?>').easyPieChart({
-       scaleColor: false,
-       barColor: '#30a5ff'
-   });
-});
-
 
 var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 	
@@ -2350,4 +2368,137 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 
 	
 	}
+
+	///SET PARAMETERS FOR PROGRESS CIRCLE PERCENTAGE TAERGETS
+
+var yb = { id : function(str){return document.getElementById(str)} };
+var yb2 = { id : function(str){return document.getElementById(str)} };
+var yb3 = { id : function(str){return document.getElementById(str)} };
+var yb4 = { id : function(str){return document.getElementById(str)} };
+
+
+
+
+function showSliderValue(){
+yb.id('slidervalue').innerHTML = <?php echo $_SESSION['weeklypercent'];?>+'%';
+yb2.id('slidervalue2').innerHTML =<?php echo $_SESSION['monthlypercent'];?>+'%';
+yb3.id('slidervalue3').innerHTML =<?php echo $_SESSION['quarterlypercent'];?>+'%';
+yb4.id('slidervalue4').innerHTML =<?php echo $_SESSION['yearlypercent'];?>+'%';
+
+
+}
+
+
+showSliderValue();
+setProgress();
+setProgress2();
+setProgress3();
+setProgress4();
+
+yb.id('slider').oninput = function(){setProgress()};
+yb.id('slider').onchange = function(){setProgress()};
+
+yb2.id('slider2').oninput = function(){setProgress2()};
+yb2.id('slider2').onchange = function(){setProgress2()};
+
+yb3.id('slider3').oninput = function(){setProgress3()};
+yb3.id('slider3').onchange = function(){setProgress3()};
+
+yb4.id('slider4').oninput = function(){setProgress4()};
+yb4.id('slider4').onchange = function(){setProgress4()};
+
+
+function setProgress(){
+	var radius = yb.id('progress').getAttribute('r');
+	var circumference = 2 * Math.PI * radius;
+
+	var progress_in_percent = <?php echo $_SESSION['weeklypercent'];?>//yb.id('slider').value;
+	var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+	yb.id('progress').style.strokeDashoffset = progress_in_pixels+'px';
+
+	if(progress_in_percent  < 25){
+		yb.id('progress').style.stroke = 'red';
+		yb.id('slidervalue').style.color = 'red';
+	}
+	else if(progress_in_percent  >= 75){
+		yb.id('progress').style.stroke = '#7df';
+		yb.id('slidervalue').style.color = '#7df';
+	}
+	else{
+		yb.id('progress').style.stroke = 'gold';
+		yb.id('slidervalue').style.color = 'gold';
+	}
+}
+
+
+function setProgress2(){
+	var radius = yb2.id('progress2').getAttribute('r');
+	var circumference = 2 * Math.PI * radius;
+
+	var progress_in_percent = <?php echo $_SESSION['monthlypercent']; ?>//yb.id('slider').value;
+	var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+	yb2.id('progress2').style.strokeDashoffset = progress_in_pixels+'px';
+
+	if(progress_in_percent  < 25){
+		yb2.id('progress2').style.stroke = 'red';
+		yb2.id('slidervalue2').style.color = 'red';
+	}
+	else if(progress_in_percent  >= 75){
+		yb2.id('progress2').style.stroke = '#7df';
+		yb2.id('slidervalue2').style.color = '#7df';
+	}
+	else{
+		yb2.id('progress2').style.stroke = 'gold';
+		yb2.id('slidervalue2').style.color = 'gold';
+	}
+}
+
+
+function setProgress3(){
+	var radius = yb3.id('progress3').getAttribute('r');
+	var circumference = 2 * Math.PI * radius;
+
+	var progress_in_percent = <?php echo $_SESSION['quarterlypercent'];?>;//yb.id('slider').value;
+	var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+	yb3.id('progress3').style.strokeDashoffset = progress_in_pixels+'px';
+
+	if(progress_in_percent  < 25){
+		yb.id('progress3').style.stroke = 'red';
+		yb.id('slidervalue3').style.color = 'red';
+	}
+	else if(progress_in_percent  >= 75){
+		yb.id('progress3').style.stroke = '#7df';
+		yb.id('slidervalue3').style.color = '#7df';
+	}
+	else{
+		yb.id('progress3').style.stroke = 'gold';
+		yb.id('slidervalue3').style.color = 'gold';
+	}
+}
+
+
+function setProgress4(){
+	var radius = yb4.id('progress4').getAttribute('r');
+	var circumference = 2 * Math.PI * radius;
+
+	var progress_in_percent = <?php echo $_SESSION['yearlypercent'];?>//yb.id('slider').value;
+	var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+	yb4.id('progress4').style.strokeDashoffset = progress_in_pixels+'px';
+
+	if(progress_in_percent  < 25){
+		yb4.id('progress4').style.stroke = 'red';
+		yb4.id('slidervalue4').style.color = 'red';
+	}
+	else if(progress_in_percent  >= 75){
+		yb4.id('progress4').style.stroke = '#7df';
+		yb4.id('slidervalue4').style.color = '#7df';
+	}
+	else{
+		yb4.id('progress4').style.stroke = 'gold';
+		yb4.id('slidervalue4').style.color = 'gold';
+	}
+}
+
+
+
 </script>
