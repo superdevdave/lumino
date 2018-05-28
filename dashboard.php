@@ -9,6 +9,43 @@ include("dbconn3.php");
  $salesrep=$_SESSION['salesrep'];
  
   $dailydate2=date("n");
+
+  //MY SalesPipeline
+  
+$getTotalOpenDeals="Select count(id) from opportunities where Status='Open' and sales_rep='$salesrep'";
+$resulta8=mysql_query($getTotalOpenDeals);
+$OpenDealsrow=mysql_fetch_row($resulta8);
+$_SESSION['TotalOpenDeals']=$OpenDealsrow[0];
+
+$getInitiatedDeals="Select count(id) from opportunities where PipelineStage='Initiaion' and sales_rep='$salesrep'";
+$resulta9= mysql_query($getInitiatedDeals);
+$Initrow=mysql_fetch_row($resulta9);
+$_SESSION['InitiatedDeals']=$InitRow[0];
+$_SESSION['InitiatedDealsPercentage']=($_SESSION['InitiatedDeals']/$_SESSION['TotalOpenDeals'])*100;
+$connection;
+
+$getQuotedDeals="Select count(id) from opportunities where PipelineStage='Proposal' and sales_rep='$salesrep'";
+$resulta10= mysql_query($getQuotedDeals);
+$Quotedrow=mysql_fetch_row($resulta10);
+$_SESSION['QuotedDeals']=$Quotedrow[0];
+$_SESSION['QuotedDealsPercentage']=($_SESSION['QuotedDeals']/$_SESSION['TotalOpenDeals'])*100;
+$connection;
+
+$getNegotiatedDeals="Select count(id) from opportunities where PipelineStage='Negotiation' and sales_rep='$salesrep'";
+$resulta11= mysql_query($getNegotiatedDeals);
+$Negotiatedrow=mysql_fetch_row($resulta11);
+$_SESSION['NegotiatedDeals']=$Quotedrow[0];
+$_SESSION['NegotiatedDealsPercentage']=($_SESSION['NegotiatedDeals']/$_SESSION['TotalOpenDeals'])*100;
+$connection;
+  
+  
+$getSignedDeals="Select count(id) from opportunities where PipelineStage='Signed' and sales_rep='$salesrep'";
+$resulta11= mysql_query($getSignedDeals);
+$Signedrow=mysql_fetch_row($resulta12);
+$_SESSION['SignedDeals']=$Signedrow[0];
+$_SESSION['SignedDealsPercentage']=($_SESSION['SignedDeals']/$_SESSION['TotalOpenDeals'])*100;
+$connection;
+  
   
 $getdealsclosed = "SELECT count(id) FROM opportunity where sales_rep='$salesrep' and Status='Closed' and MONTH(DateClosed)='$dailydate2'"; //You don't need a ; like you do in SQL
 
@@ -1894,9 +1931,9 @@ else
 
 
 					<table class="responsive" align="center">
-				<strong>	<tr><td>Actual Units</td><td><?php echo $_SESSION['weeklyactual'];?></td></tr></strong>
-						<strong><tr><td>Budgeted Units</td><td><?php echo $_SESSION['weeklytarget'];?></td></tr></strong>
-					<strong>	<tr><td>Variance</td><td><?php echo $_SESSION['weeklyvariance'];?></td></tr></strong>
+					<tr><td><strong>Actual Units</td><td><?php echo $_SESSION['weeklyactual'];?></strong></td></tr>
+						<tr><td><strong>Budgeted Units</td><td><?php echo $_SESSION['weeklytarget'];?></strong></td></tr>
+						<tr><td><strong>Variance</td><td><?php echo $_SESSION['weeklyvariance'];?></td></strong></tr></strong>
 					</table>
 					</div>
 				</div>
@@ -1914,9 +1951,9 @@ else
 
 
 					<table class="responsive" align="center">
-					<tr><td>Actual Units</td><td><?php echo $_SESSION['monthlyactual'];?></td></tr>
-						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['monthlytarget'];?></td></tr>
-						<tr><td>Variance</td><td><?php echo $_SESSION['monthlyvariance'];?></td></tr>
+					<tr><td><strong>Actual Units</td><td><?php echo $_SESSION['monthlyactual'];?></strong></td></tr>
+						<tr><td><strong>Budgeted Units</td><td><?php echo $_SESSION['monthlytarget'];?></strong></td></tr>
+						<tr><td><strong>Variance</td><td><?php echo $_SESSION['monthlyvariance'];?></strong></td></tr>
 					</table>
 					
 				</div>
@@ -1939,9 +1976,9 @@ else
 	<div id="slidervalue3"><?php echo $_SESSION['quarterlypercent'];?>%</div>
 
 				<table class="responsive" align="center">
-					<tr><td>Actual Units</td><td><?php echo $_SESSION['quarterlyactual'];?></td></tr>
-						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['quarterlytarget'];?></td></tr>
-						<tr><td>Variance</td><td><?php echo $_SESSION['quarterlyvariance'];?></td></tr>
+					<tr><td><strong>Actual Units</td><td><?php echo $_SESSION['quarterlyactual'];?></strong></td></tr>
+						<tr><td><strong>Budgeted Units</td><td><?php echo $_SESSION['quarterlytarget'];?></strong></td></tr>
+						<tr><td><strong>Variance</td><td><?php echo $_SESSION['quarterlyvariance'];?></strong></td></tr>
 					</table>
 					</div>
 				</div>
@@ -1958,9 +1995,9 @@ else
 	<div id="slidervalue4"><?php echo $_SESSION['yearlypercent'];?>%</div>
 
 			<table class="responsive" align="center">
-					<tr><td>Actual Units</td><td><?php echo $_SESSION['yearlyactual'];?></td></tr>
-						<tr><td>Budgeted Units</td><td><?php echo $_SESSION['yearlytarget'];?></td></tr>
-						<tr><td>Variance</td><td><?php echo $_SESSION['yearlyvariance'];?></td></tr>
+					<tr><td><strong>Actual Units</td><td><?php echo $_SESSION['yearlyactual'];?></strong></td></tr>
+						<tr><td><strong>Budgeted Units</td><td><?php echo $_SESSION['yearlytarget'];?></strong></td></tr>
+						<tr><td><strong>Variance</td><td><?php echo $_SESSION['yearlyvariance'];?></strong></td></tr>
 					</table>
 					</div>
 				</div>
@@ -1970,7 +2007,72 @@ else
 			</div>
 			</div>
 			
-			
+				<div class="row">
+						<div class="col-md-12">
+				<div class="panel panel-danger ">
+					<div class="panel-heading">
+					
+						My SalesPipeline (Probability Matrix)
+						<ul class="pull-right panel-settings panel-button-tab-right">
+								<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
+					
+							</a>
+								
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"></span></div>
+					<div class="panel-body">
+					<div class="col-md-12 no-padding">
+							<div class="row progress-labels">
+								<div class="col-sm-6">MRA Signed</div>
+								<div class="col-sm-6" style="text-align: right;">80%</div>
+							</div>
+							<div class="progress">
+								<div data-percentage="0%" style="width: 80%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="row progress-labels">
+								<div class="col-sm-6">Negotiations Ongoing</div>
+								<div class="col-sm-6" style="text-align: right;">60%</div>
+							</div>
+							<div class="progress">
+								<div data-percentage="0%" style="width: 60%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="row progress-labels">
+								<div class="col-sm-6">Quotation/Proposal Stage</div>
+								<div class="col-sm-6" style="text-align: right;">40%</div>
+							</div>
+							<div class="progress">
+								<div data-percentage="0%" style="width: 40%;" class="progress-bar progress-bar-teal" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="row progress-labels">
+								<div class="col-sm-6">Initiation/Solicitation/Planning</div>
+								<div class="col-sm-6" style="text-align: right;">20%</div>
+							</div>
+							<div class="progress">
+								<div data-percentage="0%" style="width: 20%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</div>
+						<?php
+						while($rowf = mysql_fetch_array($_SESSION['result49'])){
+						echo "
+						<li>
+				
+								<div class=\"timeline-badge\"><em class=\"glyphicon glyphicon-pushpin\"></em></div>
+								<div class=\"timeline-panel\">
+									<div class=\"timeline-heading\">
+										<h4 class=\"timeline-title\">".$rowf['Date']."</h4>
+									</div>
+									<div class=\"timeline-body\">
+										<p>".$rowf['Description']."</p>
+									</div>
+								</div>
+							</li>";
+						}
+						?>
+						</ul>
+					</div>
+				</div>
+			</div><!--/.col-->
+			</div>
 		
 		<div class="row">
 						<div class="col-md-12">
