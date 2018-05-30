@@ -20,7 +20,7 @@ include("dbconn3.php");
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Opportunities</h1> <button class="btn btn-default" data-toggle="modal"  data-target="#addOppModal"><span class="fa fa-add"></span><em class="fa fa-plus color-red"> </em> Add New Opportunity</button> <button class="btn btn-default" data-toggle="modal" data-target="#editOppModal"><em class="fa fa-edit color-red"> </em> Edit Opportunity</button> <button class="btn btn-default" data-toggle="modal" data-target="#closeOppModal"><em class="fa fa-check color-red"> </em> Close Opportunity</button> <button class="btn btn-default" data-toggle="modal" data-target="#cancelOppModal"><em class="fa fa-ban color-red"> </em> Cancel Opportunity</button>
+				<h1 class="page-header">Opportunities</h1> <button class="btn btn-default" data-toggle="modal"  data-target="#addOppModal"><span class="fa fa-add"></span><em class="fa fa-plus color-red"> </em> Add New Opportunity</button> <button class="btn btn-default" data-toggle="modal" data-target="#updateOppModal"><em class="fa fa-arrow-up color-red"> </em> Update Opportunity Status</button>  <button class="btn btn-default" data-toggle="modal" data-target="#editOppModal"><em class="fa fa-edit color-red"> </em> Edit Opportunity Details</button> <button class="btn btn-default" data-toggle="modal" data-target="#closeOppModal"><em class="fa fa-check color-red"> </em> Close Opportunity</button> <button class="btn btn-default" data-toggle="modal" data-target="#cancelOppModal"><em class="fa fa-ban color-red"> </em> Cancel Opportunity</button>
 				
 			</div>
 		</div><!--/.row-->
@@ -414,7 +414,8 @@ echo "</tbody></table>"; //Close the table in HTML
 	   <form id="CloseOppForm" method="post" action="process.php?action=CloseOpp">
 	   <input type="hidden" name="CloseOppID" id="CloseOppID">
 	   	   <div class="form-group">
-	   <label for="contractsigned">MRA Contract signed</label>
+		   
+	   <label for="contractsigned">Initial Payment Received</label>
 	   <input class="form-control" required type="checkbox" id="contractsigned" value="Yes" name="contractsigned">
 	   
 	      </div>
@@ -433,6 +434,73 @@ echo "</tbody></table>"; //Close the table in HTML
 	   </form>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- Update Opportunity Modal -->
+<div id="updateOppModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Update Opportunity Status</h4>
+      </div>
+      <div class="modal-body">
+       <form id="UpdateOppForm"  method="post" action="process.php?action=UpdateOpp1">
+	   
+	   <div class="form-group">
+
+	 <input type="hidden" name="UpdateOppID" id="UpdateOppID">
+	 </div>
+	   	   <div class="form-group">
+		   
+	   <label for="contractsigned">Opportunity Status</label>
+	
+	  <select required="required" class="form-control" id="NewOpportunityStatus">
+	  <option disabled selected value> -- select an option -- </option>
+      <option  value="Initiation">Initiation Stage</option>
+      <option value="Proposal">Proposal-Quotation Stage</option>
+     	<option value="Negotiation">Negotiation Stage</option>
+		<option value="Signed">MRA Signed</option>
+             	
+        </select>
+	      </div>
+		  	   <div class="form-group">
+	   	   <label for="goodsdelivered">Progress</label>
+	<textarea required="required" class="form-control" rows="3" name="Progress" id="Progress">
+ </textarea>
+		</div>
+	
+	    
+		 
+		   <div class="form-group">
+	   	   <label for="goodsdelivered">Next Steps</label>
+		 <textarea required="required" class="form-control" required rows="3" name="NextSteps" id="NextSteps">
+ </textarea>
+			</div>
+	   
+	 
+		  	   <div class="form-group">
+
+		
+		  </div>
+	
+	   </div>
+	   	   
+	   </div>
+	  
+      </div>
+      <div class="modal-footer">
+	   </form>
+	   <button class="btn btn-default" id="UpdateOpportuneSave">Save</button> 
+	   	 
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

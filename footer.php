@@ -194,6 +194,7 @@ $('#example tbody').on('click', '.select-checkbox', function(e){
 	 $("#edOpportunityID").val(data[0]);
 	 $("#CloseOppID").val(data[0]);
 	 $("#CancelOppID").val(data[0]);
+	 $("#UpdateOppID").val(data[0]);
 
 	 $("#edOpportunityName").val(data[1]);
 	 $("#edOrganisation").val(data[4]);
@@ -662,7 +663,25 @@ $("#granddeposit").html("");
 
 
 });
+//Update Opportunity Save Button
+$("#UpdateOpportuneSave" ).on( "click", function(event) {
+	
 
+	if($("#Progress").val().trim().length < 1)
+{
+    alert("Progress Field cannot be blank");
+    return; 
+}
+	
+	else if($("#NextSteps").val().trim().length < 1)
+	{
+		alert ("NextSteps Field cannot be left blank");
+	}
+	else
+	{
+	$("#UpdateOppForm").submit();
+	}
+	});
 
 //Add Meeting Scripts
 $("#btnEditMeeting" ).on( "click", function(event) {

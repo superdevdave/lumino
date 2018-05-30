@@ -12,26 +12,26 @@ include("dbconn3.php");
 
   //MY SalesPipeline
   
-$getTotalOpenDeals="Select count(id) from opportunities where Status='Open' and sales_rep='$salesrep'";
+$getTotalOpenDeals="Select count(id) from opportunity where Status='Open' and sales_rep='$salesrep'";
 $resulta8=mysql_query($getTotalOpenDeals);
 $OpenDealsrow=mysql_fetch_row($resulta8);
 $_SESSION['TotalOpenDeals']=$OpenDealsrow[0];
 
-$getInitiatedDeals="Select count(id) from opportunities where PipelineStage='Initiaion' and sales_rep='$salesrep'";
+$getInitiatedDeals="Select count(id) from opportunity where PipelineStage='Initiaion' and sales_rep='$salesrep'";
 $resulta9= mysql_query($getInitiatedDeals);
 $Initrow=mysql_fetch_row($resulta9);
 $_SESSION['InitiatedDeals']=$InitRow[0];
 $_SESSION['InitiatedDealsPercentage']=($_SESSION['InitiatedDeals']/$_SESSION['TotalOpenDeals'])*100;
 $connection;
 
-$getQuotedDeals="Select count(id) from opportunities where PipelineStage='Proposal' and sales_rep='$salesrep'";
+$getQuotedDeals="Select count(id) from opportunity where PipelineStage='Proposal' and sales_rep='$salesrep'";
 $resulta10= mysql_query($getQuotedDeals);
 $Quotedrow=mysql_fetch_row($resulta10);
 $_SESSION['QuotedDeals']=$Quotedrow[0];
 $_SESSION['QuotedDealsPercentage']=($_SESSION['QuotedDeals']/$_SESSION['TotalOpenDeals'])*100;
 $connection;
 
-$getNegotiatedDeals="Select count(id) from opportunities where PipelineStage='Negotiation' and sales_rep='$salesrep'";
+$getNegotiatedDeals="Select count(id) from opportunity where PipelineStage='Negotiation' and sales_rep='$salesrep'";
 $resulta11= mysql_query($getNegotiatedDeals);
 $Negotiatedrow=mysql_fetch_row($resulta11);
 $_SESSION['NegotiatedDeals']=$Quotedrow[0];
@@ -39,7 +39,7 @@ $_SESSION['NegotiatedDealsPercentage']=($_SESSION['NegotiatedDeals']/$_SESSION['
 $connection;
   
   
-$getSignedDeals="Select count(id) from opportunities where PipelineStage='Signed' and sales_rep='$salesrep'";
+$getSignedDeals="Select count(id) from opportunity where PipelineStage='Signed' and sales_rep='$salesrep'";
 $resulta11= mysql_query($getSignedDeals);
 $Signedrow=mysql_fetch_row($resulta12);
 $_SESSION['SignedDeals']=$Signedrow[0];
@@ -2012,7 +2012,7 @@ else
 				<div class="panel panel-danger ">
 					<div class="panel-heading">
 					
-						My SalesPipeline (Probability Matrix)
+						My SalesPipeline (By Stage)
 						<ul class="pull-right panel-settings panel-button-tab-right">
 								<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
 					
@@ -2023,31 +2023,31 @@ else
 					<div class="col-md-12 no-padding">
 							<div class="row progress-labels">
 								<div class="col-sm-6">MRA Signed</div>
-								<div class="col-sm-6" style="text-align: right;">80%</div>
+								<div class="col-sm-6" style="text-align: right;">(<?php echo $_SESSION['SignedDeals'];?>)<?php echo $_SESSION['SignedDealsPercentage'];?>%</div>
 							</div>
 							<div class="progress">
-								<div data-percentage="0%" style="width: 80%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								<div data-percentage="0%" style="width:<?php echo $_SESSION['SignedDealsPercentage'];?> %;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
 							<div class="row progress-labels">
 								<div class="col-sm-6">Negotiations Ongoing</div>
-								<div class="col-sm-6" style="text-align: right;">60%</div>
+								<div class="col-sm-6" style="text-align: right;">(<?php echo $_SESSION['NegotiatedDeals'];?>)<?php echo $_SESSION['NegotiatedDealsPercentage'];?>%</div>
 							</div>
 							<div class="progress">
-								<div data-percentage="0%" style="width: 60%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								<div data-percentage="0%" style="width: <?php echo $_SESSION['NegotiatedDealsPercentage'];?>%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
 							<div class="row progress-labels">
 								<div class="col-sm-6">Quotation/Proposal Stage</div>
-								<div class="col-sm-6" style="text-align: right;">40%</div>
+								<div class="col-sm-6" style="text-align: right;">(<?php echo $_SESSION['QuotedDeals'];?>)<?php echo $_SESSION['QuotedDealsPercentage'];?>%</div>
 							</div>
 							<div class="progress">
-								<div data-percentage="0%" style="width: 40%;" class="progress-bar progress-bar-teal" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								<div data-percentage="0%" style="width: <?php echo $_SESSION['QuotedDealsPercentage'];?>%;" class="progress-bar progress-bar-teal" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
 							<div class="row progress-labels">
 								<div class="col-sm-6">Initiation/Solicitation/Planning</div>
-								<div class="col-sm-6" style="text-align: right;">20%</div>
+								<div class="col-sm-6" style="text-align: right;">(<?php echo $_SESSION['InitiatedDeals'];?>)<?php echo $_SESSION['InitiatedDealsPercentage'];?>%</div>
 							</div>
 							<div class="progress">
-								<div data-percentage="0%" style="width: 20%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								<div data-percentage="<?php echo $_SESSION['InitiatedDealsPercentage'];?>%" style="width: <?php echo $_SESSION['InitiatedDealsPercentage'];?>%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
 						</div>
 					</div>

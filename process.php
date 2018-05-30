@@ -7,8 +7,8 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   header("location: login.php");
   exit;
 }
-
- $action = $_REQUEST['action'];
+echo "Hi";
+ echo $action = $_REQUEST['action'];
 //echo $_REQUEST['itemdesc'];
 //echo $_REQUEST['qty'];
 //echo $_REQUEST['total'];
@@ -17,20 +17,21 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 
 
 
-$action;
+
 
 
 
 switch($action) {
 	case 'addOpp':
-	
-
-	
 	addOpportunities();
 	break;
 	
 	case 'editOpp':
 	EditOpportunityData();
+	break;
+	
+	case 'UpdateOpp1':
+	UpdateOpportune();
 	break;
 	
 	case 'CancelOpp':
@@ -40,9 +41,10 @@ switch($action) {
 	case 'CloseOpp':
 		CloseOpportunity();
 	break;
-    	case 'addProformaItem':
+    case 'addProformaItem':
 	 AddProformaItem();
 	break;
+	
 	case 'getProformaNo':
 		GetProformaNo();
 	break;
@@ -79,6 +81,29 @@ switch($action) {
 
 }//switch
 
+function UpdateOpportune()
+{
+
+	
+	include("dbconn.php");
+	include("dbconn3.php");
+	
+	echo $OpportuneID=$_REQUEST['UpdateOppID'];
+	echo $Progress=$_REQUEST['Progress'];
+	echo $NextSteps=$_REQUEST['NextSteps'];
+	echo $OpportunityStatus=$_REQUEST['NewOpportunityStatus'];
+	
+	echo $sql304="update opportunity set Progress='$Progress',NextStep='$NextSteps',PipelineStage='$OpportunityStatus' where ID='$OpportuneID'";
+	
+	mysql_query($sql304);
+
+ echo $connection;
+echo mysql_error($connection);
+
+//Header('Location: opportunities.php');
+
+	
+}
 
 function addNewMeeting()
 
@@ -156,7 +181,7 @@ echo $Reason=$_REQUEST['canDescription'];
 
 
 $sql35="update meetings set Reason='$Reason',Status='Cancelled' where ID='$MeetingID'";
-
+	
 
 mysql_query($sql35);
 
@@ -218,8 +243,6 @@ echo $updatestate=$_REQUEST['updatestate'];
 echo $tax=$_REQUEST['tax'];
 echo $total=$_REQUEST['total'];
 
-
-
 echo $subtotal=$_REQUEST['subtotal'];
 echo $salesrep=$_REQUEST['salesrep'];
 echo $username=$_REQUEST['username'];
@@ -242,6 +265,28 @@ echo $rentaldesc=$_REQUEST['rentaldesc'];
 echo $terms=$_REQUEST['terms'];
 echo $monthlyrental=$_REQUEST['monthlyrental'];
 $dateinitiated=date("Y/m/d");
+
+$getdesktopcount="select sum(qty) from invserialslines and StoreCode='001' where docno='$docno'";
+$dcount= mysql_query($getdesktopcount);
+$dssrow=mysql_fetch_row($dcount);
+$desktopcount= $dssrow[0];
+
+$getlaptopcount="select sum(qty) from invserialslines and StoreCode='003' where docno='$docno'";
+$lcount= mysql_query($getlaptopcount);
+$lssrow=mysql_fetch_row($lcount);
+$laptopcount=$lssrow[0];
+
+$getprojectorcount="select sum(qty) from invserialslines and StoreCode='007' where docno='$docno'";
+$pcount= mysql_query($getprojectorcount);
+$pssrow=mysql_fetch_row($pcount);
+$projectorcount=$pssrow;
+
+$totalunits1=$projectorcount+desktopcount+laptopcount;
+
+$titlestring=$customer." ".$totalunits1." "."units";
+
+$sqlop = "INSERT INTO opportunity(opportunity_name,sales_rep,username,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,telephone,address,address2,province,city,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate,DateInitiated,PipelineStage)
+VALUES ('$titlestring', '$salesrep','$username', '$customer','$terms','Open','$rentalamount','$totalunits1','$description','$contactemail','$mobile','$telephone','$address','$address2','$province','$city','$laptopscount','$projectorscount','$desktopscount','$printers','$monitorscount','$serverscount','$networkingcount','$leadsource','$cashname','$maturitydate','$dateinitiated','Proposal')";
 
 
 
@@ -349,8 +394,8 @@ $dateinitiated=date("Y/m/d");
 $ActivityStreamDescription=$usernameFirstname." has just created a new opportunity called ".$title;
 $AcivityType="AddOpportunity";
 
-$sql = "INSERT INTO opportunity(opportunity_name,sales_rep,username,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,telephone,address,address2,province,city,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate,DateInitiated)
-VALUES ('$title', '$salesrep','$username', '$organisation','$salestype','Open','$rentalamount','$totalunits','$description','$contactemail','$mobile','$telephone','$address','$address2','$province','$city','$laptops','$projectors','$desktops','$printers','$monitors','$servers','$networking','$leadsource','$contactperson','$maturitydate','$dateinitiated')";
+$sql = "INSERT INTO opportunity(opportunity_name,sales_rep,username,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,telephone,address,address2,province,city,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate,DateInitiated,PipelineStage)
+VALUES ('$title', '$salesrep','$username', '$organisation','$salestype','Open','$rentalamount','$totalunits','$description','$contactemail','$mobile','$telephone','$address','$address2','$province','$city','$laptops','$projectors','$desktops','$printers','$monitors','$servers','$networking','$leadsource','$contactperson','$maturitydate','$dateinitiated','Initiation')";
 
 $sql2="insert into activties (Description,Username,salesrep,activitytype) values('$ActivityStreamDescription','$username',$salesrep,$activitytype)";
 
@@ -438,11 +483,14 @@ $id=$_REQUEST['CloseOppID'];
 $dateclosed=date("Y/m/d");
 $ActivityStreamDescription=$usernameFirstname." has just successfully closed an opportunity called ".$title;
 
-$sql = "update opportunity  set status='Closed',DateClosed='$dateclosed' where status='Open' and id='".$id."'";
+$sql = "update opportunity  set status='Closed',DateClosed='$dateclosed',PipelineStage='Closed' where status='Open' and id='".$id."'";
 mysql_query($sql);
 
  $sql2="insert into activties (Description,Username) values('$ActivityStreamDescription','$usernameFirstname')";
-mysql_query($sql2);
+
+ mysql_query($sql2);
+ //mysql_query($sql304a);
+
  echo $connection;
 echo mysql_error($connection);
 
@@ -458,15 +506,15 @@ function CancelOpportunity()
 
 	//PROCESS Opportunities PROCESSES
 
+$salesrep=$_SESSION['salesrep'];
 
-
-$usernameFirstname="Joy Napata";
+$usernameFirstname="$salesrep";
 echo $id =$_REQUEST['CancelOppID'];
 echo $reason=$_REQUEST['Reason'];
 echo $datecancelled;
 $ActivityStreamDescription=$usernameFirstname." has just  cancelled an opportunity called ".$title;
 
-$sql = "update opportunity  set status='Cancelled',Reason='$reason' where id='".$id."'";
+$sql = "update opportunity  set status='Cancelled',Reason='$reason',PipelineStage='Closed' where id='".$id."'";
 
 $sql2="insert into activties (Description,Username) values('$ActivityStreamDescription','$usernameFirstname')";
 mysql_query($sql2);
