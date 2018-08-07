@@ -392,7 +392,7 @@ $.ajax({
 		//var ctxt = '' + data;
 
 	
-		//	  alert(theData);
+	  //alert(theData);
 			 
            }
 
@@ -454,7 +454,7 @@ if (chektable=='update')
 			  	currentProformaDoc=theData1;
 				plaindocno=theData;
 				grandProformadocno=currentProformaDoc;
-//alert (currentProformaDoc);
+alert (currentProformaDoc);
 }
 else
 {
@@ -463,11 +463,11 @@ else
 			  	currentProformaDoc=theData2;
 					plaindocno=theData;
 						grandProformadocno=currentProformaDoc;
-//alert (currentProformaDoc);
+alert (currentProformaDoc);
 	
 }
 	
-//alert(chektable);
+alert(chektable);
 
 
    
@@ -493,7 +493,7 @@ $.ajax({
 			 // var datafill=Number(data)+1;
 			//  var theData=pad(datafill,4);
 			
-	//	alert(response);
+		//alert(response);
 		
            },
 		   async:false
@@ -603,7 +603,8 @@ var grandTot2=Number(total)-Number(granddiscount);
    
    
    
-		 	var actionstring="process.php?action=submitProforma&tax="+tax+"&total="+grandTotal+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val()+"&telephone="+$("#Telephone").val()+"&salesrep="+$("#salesrep").val()+"&terms="+$("#Terms").val()+"&monthlyrental="+monthlyrental;
+		 	var actionstring="process.php?action=submitProforma&tax="+tax+"&total="+grandTotal+"&subtotal="+grandexcl+"&docno="+grandProformadocno+"&description="+$("#Details").val()+"&cashname="+$("#ContactName").val()+"&customer="+$("#Customer").val()+"&phone="+$("#PhoneNumber").val()+"&address="+$("#Address1").val()+"&address2="+$("#Address2").val()+"&province="+$("#province").val()+"&city="+$("#City").val()+"&email="+$("#email").val()+"&depositcash="+$("#DepositAmount").val()+"&depositperiod="+$("#DepositPeriod").val()+"&discount="+$("#DiscountAmount").val()+"&remarks="+$("#Remarks").val()+"&rentalterm="+$("#RentalTerm").val()+"&rentaldesc="+$("#RentalDescription").val()+"&telephone="+$("#Telephone").val()+"&salesrep="+$("#salesrep").val()+"&terms="+$("#Terms").val()+"&monthlyrental="+monthlyrental+"&leadsource="+$("#LeadSorce").val();
+
 			var viewresultstring="viewpfinvoice.php?docno=PF"+grandProformadocno;
   event.preventDefault();
   
@@ -613,7 +614,7 @@ var grandTot2=Number(total)-Number(granddiscount);
            data: $("#proformaBodyForm").serialize(), // serializes the form's elements.
            success: function(data,response)
            { 
-              //alert(data); // show response from the php script.
+              alert(data); // show response from the php script.
 		
 			 // var datafill=Number(data)+1;
 			//  var theData=pad(datafill,4);

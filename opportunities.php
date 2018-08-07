@@ -126,7 +126,8 @@ echo "</tbody></table>"; //Close the table in HTML
     <label for="LeadSource">Lead Source</label>
  <select required class="form-control" name="LeadSource" id="LeadSource">
       <option value="Website">Website</option>
-      <option value="Newspaper Ads">Newspaper Ads</option>
+	   <option value="Telephone Enquiry">Telephone Enquiry</option>
+      <option value="Newspaper Ads">Newspaper & Magazine Ads</option>
 	   <option value="Online Ads">Online Ads</option>
 	   <option value="Television Ads">Television Ads</option>
 	   <option value="Social Media">Social Media</option>
@@ -137,7 +138,8 @@ echo "</tbody></table>"; //Close the table in HTML
 	    <option value="SMS Marketing">SMS Marketing</option>
 		<option value="Tender Invitation">Tender Invitation</option>
       <option value="Cold Calling">Cold Calling</option>
-	   <option value="">Other specify below</option>
+	   <option value="Flyers">Flyers</option>
+	   <option value="Other">Other Enquiries</option>
     </select> </div>
 	
 	<div class="form-group">

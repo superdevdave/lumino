@@ -21,21 +21,21 @@ $getInitiatedDeals="Select count(id) from opportunity where PipelineStage='Initi
 $resulta9= mysql_query($getInitiatedDeals);
 $Initrow=mysql_fetch_row($resulta9);
 $_SESSION['InitiatedDeals']=$InitRow[0];
-$_SESSION['InitiatedDealsPercentage']=($_SESSION['InitiatedDeals']/$_SESSION['TotalOpenDeals'])*100;
+$_SESSION['InitiatedDealsPercentage']=round(($_SESSION['InitiatedDeals']/$_SESSION['TotalOpenDeals'])*100);
 $connection;
 
 $getQuotedDeals="Select count(id) from opportunity where PipelineStage='Proposal' and sales_rep='$salesrep'";
 $resulta10= mysql_query($getQuotedDeals);
 $Quotedrow=mysql_fetch_row($resulta10);
 $_SESSION['QuotedDeals']=$Quotedrow[0];
-$_SESSION['QuotedDealsPercentage']=($_SESSION['QuotedDeals']/$_SESSION['TotalOpenDeals'])*100;
+$_SESSION['QuotedDealsPercentage']=round(($_SESSION['QuotedDeals']/$_SESSION['TotalOpenDeals'])*100);
 $connection;
 
 $getNegotiatedDeals="Select count(id) from opportunity where PipelineStage='Negotiation' and sales_rep='$salesrep'";
 $resulta11= mysql_query($getNegotiatedDeals);
 $Negotiatedrow=mysql_fetch_row($resulta11);
 $_SESSION['NegotiatedDeals']=$Quotedrow[0];
-$_SESSION['NegotiatedDealsPercentage']=($_SESSION['NegotiatedDeals']/$_SESSION['TotalOpenDeals'])*100;
+$_SESSION['NegotiatedDealsPercentage']=round(($_SESSION['NegotiatedDeals']/$_SESSION['TotalOpenDeals'])*100);
 $connection;
   
   

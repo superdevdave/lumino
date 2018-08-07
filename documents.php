@@ -149,12 +149,35 @@ echo odbc_error($connection);
   </div>
     
   <div class="form-group">
-    <label for="SalesType">Sales Type</label>
+    <label for="SalesType">Sales Sector</label>
  <select required class="form-control" id="SalesType">
       <option>Schools</option>
+	  <option>Tertiary</option>
       <option>Corporates</option>
 	   <option>Government</option>
+	     <option>Non Profit</option>
 	   <option>Other</option>
+    </select> </div>
+	
+	
+		 <div class="form-group">
+    <label for="LeadSource">Lead Source</label>
+ <select required class="form-control" name="LeadSource" id="LeadSource">
+      <option value="Website">Website</option>
+	   <option value="Telephone Enquiry">Telephone Enquiry</option>
+      <option value="Newspaper Ads">Newspaper & Magazine Ads</option>
+	   <option value="Online Ads">Online Ads</option>
+	   <option value="Television Ads">Television Ads</option>
+	   <option value="Social Media">Social Media</option>
+	   <option value="Online Classifieds">Online Classifieds</option>
+	      <option value="Conferences">Conferences e.g Naph Nash ICT Africa</option>
+      <option value="Refferal">Refferal</option>
+      <option value="Email Marketing">Email Marketing</option>
+	    <option value="SMS Marketing">SMS Marketing</option>
+		<option value="Tender Invitation">Tender Invitation</option>
+      <option value="Cold Calling">Cold Calling</option>
+	   <option value="Flyers">Flyers</option>
+	   <option value="Other">Other Enquiries</option>
     </select> </div>
 
      <div class="form-group">
@@ -245,14 +268,36 @@ echo odbc_error($connection);
 
   <div class="form-group">
    
-    <label  for="SalesType">Sales Type</label>
- <select  required class="form-control" id="SalesType">
+    <label for="SalesType">Sales Sector</label>
+ <select required class="form-control" id="SalesType">
       <option>Schools</option>
+	  <option>Tertiary</option>
       <option>Corporates</option>
+	   <option>Government</option>
+	     <option>Non Profit</option>
 	   <option>Other</option>
-    </select> 
-  </div>
-
+    </select> </div>
+	
+	
+		 <div class="form-group">
+    <label for="LeadSource">Lead Source</label>
+ <select required class="form-control" name="LeadSource" id="LeadSource">
+      <option value="Website">Website</option>
+	   <option value="Telephone Enquiry">Telephone Enquiry</option>
+      <option value="Newspaper Ads">Newspaper & Magazine Ads</option>
+	   <option value="Online Ads">Online Ads</option>
+	   <option value="Television Ads">Television Ads</option>
+	   <option value="Social Media">Social Media</option>
+	   <option value="Online Classifieds">Online Classifieds</option>
+	      <option value="Conferences">Conferences e.g Naph Nash ICT Africa</option>
+      <option value="Refferal">Refferal</option>
+      <option value="Email Marketing">Email Marketing</option>
+	    <option value="SMS Marketing">SMS Marketing</option>
+		<option value="Tender Invitation">Tender Invitation</option>
+      <option value="Cold Calling">Cold Calling</option>
+	   <option value="Flyers">Flyers</option>
+	   <option value="Other">Other Enquiries</option>
+    </select> </div>
     <div class="form-group">
      
    <label class="" for="Rental">Rental Term</label>
@@ -355,7 +400,7 @@ echo odbc_error($connection);
   <option value="000" selected>Please Select Store</option>
       <option value="001">Desktops</option>
       <option value="002">LCDs</option>
-     	<option value="003 Laptops">Laptops</option>
+     	<option value="003">Laptops</option>
              	<option value="004">Servers</option>
             	<option value="005">Multi Function Devices</option>
             	<option value="006">Printers</option>
@@ -432,8 +477,8 @@ echo odbc_error($connection);
 
  
     
-    <button id="SubmitProforma" class="btn btn-default" id="closeProfAdd"><em class="fa fa-plus color-red"></em> Create Proforma Only</button>
-	<button id="SubmitProforma" class="btn btn-default" id="closeProfAdd"><em class="fa fa-plus color-red"></em> Create As Proforma + Opportunity</button>
+    <button id="SubmitProformaOnly" class="btn btn-default" id="closeProfAdd"><em class="fa fa-plus color-red"></em> Create Proforma Only</button>
+	<button id="SubmitProforma" class="btn btn-default" id="closeProfAdd2"><em class="fa fa-plus color-red"></em> Create As  Opportunity + Proforma</button>
 	<button id="closeBtn" data-toggle="modal" data-target="processProfModal" class="btn btn-default"><em class="fa fa-close color-red"></em>Close</button>
   </div>
 

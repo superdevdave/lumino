@@ -118,6 +118,8 @@ $result = odbc_exec($connection, $query);
 	   <option>Other</option>
     </select> 
   </div>
+  
+  
 
     <div class="form-group">
      

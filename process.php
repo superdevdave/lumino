@@ -7,8 +7,8 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   header("location: login.php");
   exit;
 }
-echo "Hi";
- echo $action = $_REQUEST['action'];
+
+$action = $_REQUEST['action'];
 //echo $_REQUEST['itemdesc'];
 //echo $_REQUEST['qty'];
 //echo $_REQUEST['total'];
@@ -51,6 +51,9 @@ switch($action) {
 	
 	case 'change-pass':
 		changePass();
+	break;
+	case'submitProformaOnly':
+	SubmitProformaOnly();
 	break;
 	case'submitProforma':
 	SubmitProforma();
@@ -242,7 +245,7 @@ echo $updatestate=$_REQUEST['updatestate'];
 
 echo $tax=$_REQUEST['tax'];
 echo $total=$_REQUEST['total'];
-
+echo $leadsource=$_REQUEST['leadsource'];
 echo $subtotal=$_REQUEST['subtotal'];
 echo $salesrep=$_REQUEST['salesrep'];
 echo $username=$_REQUEST['username'];
@@ -266,27 +269,60 @@ echo $terms=$_REQUEST['terms'];
 echo $monthlyrental=$_REQUEST['monthlyrental'];
 $dateinitiated=date("Y/m/d");
 
-$getdesktopcount="select sum(qty) from invserialslines and StoreCode='001' where docno='$docno'";
+$getdesktopcount="select sum(qty) from invserialslines and StoreCode='001' and docno='$docno'";
 $dcount= mysql_query($getdesktopcount);
 $dssrow=mysql_fetch_row($dcount);
-$desktopcount= $dssrow[0];
+if ($dssrow[0]=="")
+{
+echo $desktopcount= 0;
+}
+else
+{
+	echo $desktopcount= $dssrow[0];
+}
 
-$getlaptopcount="select sum(qty) from invserialslines and StoreCode='003' where docno='$docno'";
+$getlaptopcount="SELECT sum(qty) FROM `invserialslines` WHERE StoreCode='003' and docno='$docno'";
 $lcount= mysql_query($getlaptopcount);
 $lssrow=mysql_fetch_row($lcount);
-$laptopcount=$lssrow[0];
+if ($lssrow[0]=="")
+{
+echo $laptopcount=0;
+}
+else{
+	echo $laptopcount=$lssrow[0];
+}
 
-$getprojectorcount="select sum(qty) from invserialslines and StoreCode='007' where docno='$docno'";
+$getprojectorcount="select sum(qty) from invserialslines and StoreCode='007' and docno='$docno'";
 $pcount= mysql_query($getprojectorcount);
 $pssrow=mysql_fetch_row($pcount);
-$projectorcount=$pssrow;
+if ($pssrow[0]=="")
+{
+echo $projectorcount=0;
+}
+else{
+	echo $projectorcount=$pssrow[0];
+}
 
-$totalunits1=$projectorcount+desktopcount+laptopcount;
+$getservercount="select sum(qty) from invserialslines and StoreCode='007' and docno='$docno'";
+echo $sscount= mysql_query($getservercount);
+$sssrow=mysql_fetch_row($sscount);
+
+if ($sssrow[0]=="")
+{
+	echo $serverscount=0;
+}
+else
+{
+	echo $serverscount=$sssrow[0];
+}
+
+$connection;
+echo $totalunits1=($projectorcount+desktopcount+laptopcount+serverscount);
 
 $titlestring=$customer." ".$totalunits1." "."units";
 
 $sqlop = "INSERT INTO opportunity(opportunity_name,sales_rep,username,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,telephone,address,address2,province,city,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate,DateInitiated,PipelineStage)
-VALUES ('$titlestring', '$salesrep','$username', '$customer','$terms','Open','$rentalamount','$totalunits1','$description','$contactemail','$mobile','$telephone','$address','$address2','$province','$city','$laptopscount','$projectorscount','$desktopscount','$printers','$monitorscount','$serverscount','$networkingcount','$leadsource','$cashname','$maturitydate','$dateinitiated','Proposal')";
+VALUES ('$titlestring', '$salesrep','$username', '$customer','$terms','Open','$rentalamount','$totalunits1','$description','$email','$phone','$telephone','$address','$address2','$province','$city','$laptopscount','$projectorscount','$desktopscount','$printers','$monitorscount','$serverscount','$networkingcount','$leadsource','$cashname','$maturitydate','$dateinitiated','Proposal')";
 
 
 
@@ -298,7 +334,7 @@ VALUES ('$cashname','$dateinitiated', '$email','$phone','$telephone','$customer'
 
 //$sql = "INSERT INTO invserialsheader(docno) VALUES ('$docno')";
 mysql_query($sql);
-
+mysql_query($sqlop);
   $connection;
 echo mysql_error($connection);
 
@@ -308,6 +344,123 @@ mysql_query($sql2);
 echo mysql_error($connection);
 
 }
+
+
+function SubmitProformaOnly(){
+ 	include("dbconn.php");
+		include("dbconn3.php");
+	
+echo $docno="PF".$_REQUEST['docno'];
+echo $plaindocno=$_REQUEST['plaindocno'];
+
+echo $description=$_REQUEST['description'];
+echo $updatestate=$_REQUEST['updatestate'];
+
+
+echo $tax=$_REQUEST['tax'];
+echo $total=$_REQUEST['total'];
+echo $leadsource=$_REQUEST['leadsource'];
+echo $subtotal=$_REQUEST['subtotal'];
+echo $salesrep=$_REQUEST['salesrep'];
+echo $username=$_REQUEST['username'];
+echo $custid=$_REQUEST['custid'];
+echo $cashname=$_REQUEST['cashname'];
+echo $customer=$_REQUEST['customer'];
+echo $phone=$_REQUEST['phone'];
+echo $telephone=$_REQUEST['telephone'];
+echo $address=$_REQUEST['address'];
+echo $address2=$_REQUEST['address2'];
+echo $province=$_REQUEST['province'];
+echo $city=$_REQUEST['city'];
+echo $email=$_REQUEST['email'];
+echo $depositcash=$_REQUEST['depositcash'];
+echo $depositperiod=$_REQUEST['depositperiod'];
+echo $discountamount=$_REQUEST['discount'];
+echo $remarks=$_REQUEST['remarks'];
+echo $rentalterm=$_REQUEST['rentalterm'];
+echo $rentaldesc=$_REQUEST['rentaldesc'];
+echo $terms=$_REQUEST['terms'];
+echo $monthlyrental=$_REQUEST['monthlyrental'];
+$dateinitiated=date("Y/m/d");
+
+$getdesktopcount="select sum(qty) from invserialslines and StoreCode='001' and docno='$docno'";
+$dcount= mysql_query($getdesktopcount);
+$dssrow=mysql_fetch_row($dcount);
+if ($dssrow[0]=="")
+{
+echo $desktopcount= 0;
+}
+else
+{
+	echo $desktopcount= $dssrow[0];
+}
+
+$getlaptopcount="SELECT sum(qty) FROM `invserialslines` WHERE StoreCode='003' and docno='$docno'";
+$lcount= mysql_query($getlaptopcount);
+$lssrow=mysql_fetch_row($lcount);
+if ($lssrow[0]=="")
+{
+echo $laptopcount=0;
+}
+else{
+	echo $laptopcount=$lssrow[0];
+}
+
+$getprojectorcount="select sum(qty) from invserialslines and StoreCode='007' and docno='$docno'";
+$pcount= mysql_query($getprojectorcount);
+$pssrow=mysql_fetch_row($pcount);
+if ($pssrow[0]=="")
+{
+echo $projectorcount=0;
+}
+else{
+	echo $projectorcount=$pssrow[0];
+}
+
+$getservercount="select sum(qty) from invserialslines and StoreCode='007' and docno='$docno'";
+echo $sscount= mysql_query($getservercount);
+$sssrow=mysql_fetch_row($sscount);
+
+if ($sssrow[0]=="")
+{
+	echo $serverscount=0;
+}
+else
+{
+	echo $serverscount=$sssrow[0];
+}
+
+$connection;
+echo $totalunits1=($projectorcount+desktopcount+laptopcount+serverscount);
+
+$titlestring=$customer." ".$totalunits1." "."units";
+
+//$sqlop = "INSERT INTO opportunity(opportunity_name,sales_rep,username,customer,sales_type,status,rental_amount,units_sold,description,email,mobile,telephone,address,address2,province,city,laptops,projectors,desktops,printers,monitors,servers,networking,leads_source,contact_name,MaturityDate,DateInitiated,PipelineStage)
+//VALUES ('$titlestring', '$salesrep','$username', '$customer','$terms','Open','$rentalamount','$totalunits1','$description','$email','$phone','$telephone','$address','$address2','$province','$city','$laptopscount','$projectorscount','$desktopscount','$printers','$monitorscount','$serverscount','$networkingcount','$leadsource','$cashname','$maturitydate','$dateinitiated','Proposal')";
+
+
+
+$sql = "INSERT INTO invserialsheader(docno,ddate,description,tax,total,subtotal,custid,cashname,customer,phone,telephone,address,address2,province,city,email,depositcash,depositperiod,discount,remarks,rentalterm,rentaldesc,sales_rep,username,Terms,MonthlyRental)
+VALUES ('$docno','$dateinitiated', '$description','$tax','$total','$subtotal','$custid','$cashname','$customer','$phone','$telephone','$address','$address2','$province','$city','$email','$depositcash','$depositperiod','$discountamount','$remarks','$rentalterm','$rentaldesc','$salesrep','$username','$terms','$monthlyrental')";
+
+$sql2="INSERT INTO customer(name,datecreated,email,mobile,telephone,organisationname,address,address2,city,province,sales_rep,username)
+VALUES ('$cashname','$dateinitiated', '$email','$phone','$telephone','$customer','$address','$address2','$city','$province','$salesrep','$username')";
+
+//$sql = "INSERT INTO invserialsheader(docno) VALUES ('$docno')";
+mysql_query($sql);
+//mysql_query($sqlop);
+  $connection;
+echo mysql_error($connection);
+
+mysql_query($sql2);
+
+  $connection;
+echo mysql_error($connection);
+
+}
+
+
+
 
 function AddProformaItem(){
  	include("dbconn.php");
